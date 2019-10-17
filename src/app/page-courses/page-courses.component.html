@@ -1,0 +1,13 @@
+<div style="border: 1px solid #000">
+	<p>page-courses works!</p>
+
+	<ul *ngFor="let course of listCourses">
+		<li>
+			Id: <span [textContent]="course.Id"></span><br>
+			Title: <span [textContent]="course.Title"></span><br>
+			CreationDate: <span [textContent]="course.CreationDate"></span><br>
+			Duration: <span [textContent]="course.Duration"></span><br>
+			Description: <span [textContent]="course.Description"></span><br>
+		</li>
+	</ul>
+</div>
