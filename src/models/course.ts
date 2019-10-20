@@ -1,25 +1,25 @@
 import {ICourse} from "../interfaces/course";
 
 export type CourseProps = {
-  Id: number;
-  Title: string;
-  CreationDate: string;
-  Duration: number;
-  Description: string;
+	id: number;
+	title: string;
+	creationDate: string;
+	duration: number;
+	description: string;
 };
 
 export class Course implements ICourse {
-  CreationDate: string = '';
-  Description: string = '';
-  Duration: number = 30;
-  Id: number = 0;
-  Title: string = '';
+	creationDate: string = '';
+	description: string = '';
+	duration: number = 30;
+	id: number = 0;
+	title: string = '';
 
-  constructor(props: CourseProps) {
-    this.Id = props.Id;
-    this.Title = props.Title;
-    this.CreationDate = props.CreationDate;
-    this.Duration = props.Duration;
-    this.Description = props.Description;
-  }
+	constructor(props: CourseProps) {
+		this.id = props.id;
+		this.title = props.title;
+		this.creationDate = props.creationDate;
+		this.duration = props.duration;
+		this.description = props.description;
+	}
 }

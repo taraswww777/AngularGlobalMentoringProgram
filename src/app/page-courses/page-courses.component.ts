@@ -11,19 +11,19 @@ export class PageCoursesComponent implements OnInit {
 
 	constructor() {
 		this.listCourses.push(new Course({
-			Id: 1,
-			Title: 'demo Title',
-			CreationDate: 'demo CreationDate',
-			Duration: 15,
-			Description: 'demo Description',
+			id: 1,
+			title: 'demo Title',
+			creationDate: 'demo CreationDate',
+			duration: 15,
+			description: 'demo Description',
 		}));
 
 		this.listCourses.push(new Course({
-			Id: 2,
-			Title: 'demo Title 2',
-			CreationDate: 'demo CreationDate 2',
-			Duration: 15,
-			Description: 'demo Description 2',
+			id: 2,
+			title: 'demo Title 2',
+			creationDate: 'demo CreationDate 2',
+			duration: 15,
+			description: 'demo Description 2',
 		}));
 	}
 

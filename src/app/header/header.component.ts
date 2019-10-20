@@ -11,9 +11,9 @@ export class HeaderComponent implements OnInit {
 
 	constructor() {
 		this.user = new User({
-			Id: 1,
-			FirstName: 'demo FirstName',
-			LastName: 'demo LastName',
+			id: 1,
+			firstName: 'demo FirstName',
+			lastName: 'demo LastName',
 		})
 	}
 

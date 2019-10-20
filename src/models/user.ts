@@ -1,19 +1,19 @@
 import {IUser} from "src/interfaces/user";
 
 export type UserProps = {
-	Id: number;
-	FirstName: string;
-	LastName: string;
+	id: number;
+	firstName: string;
+	lastName: string;
 };
 
 export class User implements IUser {
-	public Id: number;
-	public FirstName: string;
-	public LastName: string;
+	public id: number;
+	public firstName: string;
+	public lastName: string;
 
 	constructor(props: UserProps) {
-		this.Id = props.Id;
-		this.FirstName = props.FirstName;
-		this.LastName = props.LastName;
+		this.id = props.id;
+		this.firstName = props.firstName;
+		this.lastName = props.lastName;
 	}
 }
