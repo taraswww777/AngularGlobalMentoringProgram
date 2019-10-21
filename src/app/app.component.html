@@ -1,3 +1,16 @@
-<app-header></app-header>
-<app-page-courses></app-page-courses>
-<app-footer></app-footer>
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<app-header [title]="title"></app-header>
+		</div>
+		<div class="col-12">
+			<app-breadcrumbs [items]="breadcrumbs.items"></app-breadcrumbs>
+		</div>
+		<div class="col-12">
+			<app-page-courses></app-page-courses>
+		</div>
+		<div class="col-12">
+			<app-footer></app-footer>
+		</div>
+	</div>
+</div>
