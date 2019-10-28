@@ -1,3 +1,9 @@
-<app-courses-item
-	*ngFor="let course of listCourses"
-	[course]="course"></app-courses-item>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12">
+			<app-courses-item
+				*ngFor="let course of listCourses"
+				[course]="course"></app-courses-item>
+		</div>
+	</div>
+</div>

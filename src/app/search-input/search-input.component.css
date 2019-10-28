@@ -1,0 +1,21 @@
+.search-input {
+	width: 100%;
+	display: block;
+}
+
+.search-input__group {
+	width: 100%;
+	display: flex;
+	flex-wrap: nowrap;
+}
+
+.search-input__label {
+	position: relative;
+}
+
+.search-input__input {
+	width: calc(100% - 2.5rem);
+	position: absolute;
+	top: 0;
+	right: 0;
+}
