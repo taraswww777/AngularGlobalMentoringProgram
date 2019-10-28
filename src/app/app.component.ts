@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import {BreadcrumbsComponentProps} from './breadcrumbs/breadcrumbs.component';
 import {LinkTypes} from './breadcrumbs/breadcrumbs-item/breadcrumbs-item.component';
 
@@ -7,8 +7,10 @@ import {LinkTypes} from './breadcrumbs/breadcrumbs-item/breadcrumbs-item.compone
 	templateUrl: './app.component.html',
 	styleUrls: [
 		'./app.component.css',
-		'../../node_modules/bootstrap/dist/css/bootstrap.min.css'
+		'../../node_modules/bootstrap/dist/css/bootstrap.min.css',
+		'../../node_modules/font-awesome5/css/fontawesome-all.min.css'
 	],
+	encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent {
 	public title: string = 'mentoring';

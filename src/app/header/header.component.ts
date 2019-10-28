@@ -6,7 +6,6 @@ import {User} from 'src/models/user';
 	templateUrl: './header.component.html',
 	styleUrls: [
 		'./header.component.css',
-		'../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 	]
 })
 export class HeaderComponent implements OnInit {

@@ -5,7 +5,6 @@ import {Component, OnInit} from '@angular/core';
 	templateUrl: './logout-link.component.html',
 	styleUrls: [
 		'./logout-link.component.css',
-		'../../../../node_modules/font-awesome5/css/fontawesome-all.min.css'
 	]
 })
 export class LogoutLinkComponent implements OnInit {

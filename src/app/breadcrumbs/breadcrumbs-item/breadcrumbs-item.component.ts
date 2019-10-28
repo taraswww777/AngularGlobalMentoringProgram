@@ -18,7 +18,6 @@ export type BreadcrumbsItemComponentProps = {
 	templateUrl: './breadcrumbs-item.component.html',
 	styleUrls: [
 		'./breadcrumbs-item.component.css',
-		'../../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 	]
 })
 export class BreadcrumbsItemComponent implements OnInit {

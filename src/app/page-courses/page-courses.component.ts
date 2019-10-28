@@ -7,7 +7,6 @@ import {getLocaleDateFormat} from "@angular/common";
 	templateUrl: './page-courses.component.html',
 	styleUrls: [
 		'./page-courses.component.css',
-		'../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 	]
 })
 export class PageCoursesComponent implements OnInit {
