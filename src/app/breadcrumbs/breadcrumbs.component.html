@@ -1,0 +1,14 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12">
+			<div class="breadcrumb" *ngFor="let item of items">
+				<app-breadcrumbs-item
+					class="breadcrumb-item"
+					[title]="item.title"
+					[link]="item.link"
+					[typeOpen]="item.typeOpen"
+				></app-breadcrumbs-item>
+			</div>
+		</div>
+	</div>
+</div>
