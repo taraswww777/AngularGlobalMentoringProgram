@@ -12,6 +12,10 @@ export class LoginLinkComponent implements OnInit {
 	constructor() {
 	}
 
+	public onClickLogin() {
+		console.log('onClickLogin:');
+	}
+
 	ngOnInit() {
 	}
 

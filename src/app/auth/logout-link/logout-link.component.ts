@@ -12,6 +12,10 @@ export class LogoutLinkComponent implements OnInit {
 	constructor() {
 	}
 
+	public onClickLogout() {
+		console.log('onClickLogout:');
+	}
+
 	ngOnInit() {
 	}
 
