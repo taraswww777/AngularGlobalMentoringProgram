@@ -17,6 +17,8 @@ import { CoursesAddComponent } from './courses-add/courses-add.component';
 import { CoursesEditComponent } from './courses-edit/courses-edit.component';
 import { CoursesDeleteComponent } from './courses-delete/courses-delete.component';
 import { CoursesLoadMoreComponent } from './courses-load-more/courses-load-more.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
 	declarations: [
@@ -37,9 +39,12 @@ import { CoursesLoadMoreComponent } from './courses-load-more/courses-load-more.
 		CoursesEditComponent,
 		CoursesDeleteComponent,
 		CoursesLoadMoreComponent,
+		LoaderComponent,
 	],
 	imports: [
-		BrowserModule
+		BrowserModule,
+		FormsModule,
+		ReactiveFormsModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

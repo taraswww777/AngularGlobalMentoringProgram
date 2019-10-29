@@ -22,9 +22,7 @@ export class HeaderComponent implements OnInit {
 		})
 	}
 
-	ngOnInit(...title: any) {
-		console.log('arguments:', arguments);
-		console.log('title:', title);
+	ngOnInit() {
 	}
 
 }

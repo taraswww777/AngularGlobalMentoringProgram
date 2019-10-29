@@ -6,9 +6,9 @@ import {LinkTypes} from './breadcrumbs/breadcrumbs-item/breadcrumbs-item.compone
 	selector: 'app-root',
 	templateUrl: './app.component.html',
 	styleUrls: [
-		'./app.component.css',
 		'../../node_modules/bootstrap/dist/css/bootstrap.min.css',
-		'../../node_modules/font-awesome5/css/fontawesome-all.min.css'
+		'../../node_modules/font-awesome5/css/fontawesome-all.min.css',
+		'./app.component.css',
 	],
 	encapsulation: ViewEncapsulation.None,
 })

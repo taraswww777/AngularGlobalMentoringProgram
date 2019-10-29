@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
 	selector: 'app-courses-delete',
@@ -16,4 +16,7 @@ export class CoursesDeleteComponent implements OnInit {
 	ngOnInit() {
 	}
 
+	onDelete() {
+		console.log('this.onDelete.id', this.id);
+	}
 }
