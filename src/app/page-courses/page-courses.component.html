@@ -1,3 +1,11 @@
-<div class="container-fluid">
-	<app-courses-list [listCourses]="listCourses"></app-courses-list>
+<div class="row no-gutters">
+	<div class="col-12">
+		<app-courses-add></app-courses-add>
+	</div>
+	<div class="col-12">
+		<app-courses-list [listCourses]="listCourses"></app-courses-list>
+	</div>
+	<div class="col-12 text-center">
+		<app-courses-load-more [listCourses]="listCourses"></app-courses-load-more>
+	</div>
 </div>

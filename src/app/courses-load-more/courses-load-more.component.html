@@ -1,0 +1,6 @@
+<div class="btn btn-group">
+	<button (click)="onLoadMore()" class="btn btn-link">LOAD MORE</button>
+	<div class="btn" *ngIf="showLoader">
+		<app-loader *ngIf="showLoader"></app-loader>
+	</div>
+</div>

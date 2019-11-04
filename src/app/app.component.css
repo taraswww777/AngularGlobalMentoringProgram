@@ -1,0 +1,25 @@
+.app {
+	/*height: 100vh;*/
+	/*max-height: 100vh;*/
+	/*flex-direction: row;*/
+	/*display: flex;*/
+}
+
+.app__row {
+	/*display: flex;*/
+	/*flex-wrap: wrap;*/
+	/*flex-direction: column;*/
+	/*min-height: 100vh;*/
+}
+
+
+.app__content {
+}
+
+.app__footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	text-align: center;
+}
