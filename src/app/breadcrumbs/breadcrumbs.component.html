@@ -3,9 +3,7 @@
 		<div class="breadcrumb" *ngFor="let item of items">
 			<app-breadcrumbs-item
 				class="breadcrumb-item"
-				[title]="item.title"
-				[link]="item.link"
-				[typeOpen]="item.typeOpen"
+				[breadcrumb]="item"
 			></app-breadcrumbs-item>
 		</div>
 	</div>

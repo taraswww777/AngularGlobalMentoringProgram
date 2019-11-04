@@ -7,7 +7,7 @@ export enum LinkTypes {
 	'self' = '_self',
 }
 
-export type BreadcrumbsItemComponentProps = {
+export type BreadcrumbsItem = {
 	title: string,
 	link: string,
 	typeOpen: LinkTypes
@@ -22,11 +22,7 @@ export type BreadcrumbsItemComponentProps = {
 })
 export class BreadcrumbsItemComponent implements OnInit {
 	@Input()
-	public title: string;
-	@Input()
-	public link: string;
-	@Input()
-	public typeOpen: LinkTypes;
+	public breadcrumb: BreadcrumbsItem;
 
 	constructor() {
 	}

@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {BreadcrumbsItemComponentProps} from './breadcrumbs-item/breadcrumbs-item.component';
+import {BreadcrumbsItem} from './breadcrumbs-item/breadcrumbs-item.component';
 
 export type BreadcrumbsComponentProps = {
-	items: BreadcrumbsItemComponentProps[],
+	items: BreadcrumbsItem[],
 }
 
 @Component({
@@ -14,7 +14,7 @@ export type BreadcrumbsComponentProps = {
 })
 export class BreadcrumbsComponent implements OnInit {
 	@Input()
-	public items: BreadcrumbsItemComponentProps[];
+	public items: BreadcrumbsItem[];
 
 	constructor() {
 	}
