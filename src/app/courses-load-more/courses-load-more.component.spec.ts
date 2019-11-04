@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CoursesLoadMoreComponent } from './courses-load-more.component';
+import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
 
 describe('CoursesLoadMoreComponent', () => {
   let component: CoursesLoadMoreComponent;
@@ -8,7 +9,8 @@ describe('CoursesLoadMoreComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CoursesLoadMoreComponent ]
+      declarations: [ CoursesLoadMoreComponent ],
+			schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   }));
