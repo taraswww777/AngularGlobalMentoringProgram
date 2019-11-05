@@ -18,9 +18,7 @@ export class CoursesLoadMoreComponent implements OnInit {
 	}
 
 	onLoadMore() {
-		console.log('onLoadMore:');
 		this.showLoader = true;
-		setTimeout(() => {
 			const id: number = this.listCourses.length + 1;
 			this.listCourses.push(new Course({
 				id: id,
@@ -30,6 +28,5 @@ export class CoursesLoadMoreComponent implements OnInit {
 				description: 'demo Description ' + id,
 			}));
 			this.showLoader = false
-		}, 1000);
 	}
 }
