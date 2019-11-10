@@ -46,9 +46,6 @@ import {LoaderComponent} from './loader/loader.component';
 		FormsModule,
 		ReactiveFormsModule
 	],
-	schemas: [
-		CUSTOM_ELEMENTS_SCHEMA
-	],
 	providers: [],
 	bootstrap: [AppComponent]
 })

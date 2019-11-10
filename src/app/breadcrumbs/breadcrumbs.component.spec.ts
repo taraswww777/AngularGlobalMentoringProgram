@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {BreadcrumbsComponent} from './breadcrumbs.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
@@ -8,7 +8,7 @@ describe('BreadcrumbsComponent', () => {
 	let component: BreadcrumbsComponent;
 	let fixture: ComponentFixture<BreadcrumbsComponent>;
 
-	beforeEach(async(() => {
+	beforeEach((() => {
 		TestBed.configureTestingModule({
 			declarations: [
 				BreadcrumbsComponent,
@@ -17,13 +17,11 @@ describe('BreadcrumbsComponent', () => {
 			schemas: [CUSTOM_ELEMENTS_SCHEMA]
 		})
 			.compileComponents();
-	}));
 
-	beforeEach(() => {
 		fixture = TestBed.createComponent(BreadcrumbsComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
-	});
+	}));
 
 	it('should create', () => {
 		expect(component).toBeTruthy();
