@@ -9,7 +9,7 @@ export type CourseProps = {
 };
 
 export class Course implements ICourse {
-	creationDate: string = '';
+	creationDate: Date;
 	description: string = '';
 	duration: number = 30;
 	id: number = 0;
@@ -18,7 +18,7 @@ export class Course implements ICourse {
 	constructor(props: CourseProps) {
 		this.id = props.id;
 		this.title = props.title;
-		this.creationDate = props.creationDate;
+		this.creationDate = new Date(props.creationDate);
 		this.duration = props.duration;
 		this.description = props.description;
 	}

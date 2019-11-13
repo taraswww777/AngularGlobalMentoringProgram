@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
@@ -19,6 +19,8 @@ import {CoursesDeleteComponent} from './courses-delete/courses-delete.component'
 import {CoursesLoadMoreComponent} from './courses-load-more/courses-load-more.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {LoaderComponent} from './loader/loader.component';
+import {CoursesService} from 'src/services/CoursesService';
+import {FreshCourseDirective} from 'src/directives/fresh-course';
 
 @NgModule({
 	declarations: [
@@ -40,13 +42,16 @@ import {LoaderComponent} from './loader/loader.component';
 		CoursesDeleteComponent,
 		CoursesLoadMoreComponent,
 		LoaderComponent,
+		FreshCourseDirective
 	],
 	imports: [
 		BrowserModule,
 		FormsModule,
 		ReactiveFormsModule
 	],
-	providers: [],
+	providers: [
+		CoursesService
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule {

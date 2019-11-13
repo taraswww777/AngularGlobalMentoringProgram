@@ -1,6 +1,8 @@
+import {map} from 'lodash';
 import {Component, OnInit} from '@angular/core';
-import {Course} from 'src/models/course';
-import {getLocaleDateFormat} from "@angular/common";
+import {Course, CourseProps} from 'src/models/course';
+import {CoursesService} from '../../services/CoursesService';
+import {ICourse} from '../../interfaces/course';
 
 @Component({
 	selector: 'app-page-courses',
@@ -12,22 +14,12 @@ import {getLocaleDateFormat} from "@angular/common";
 export class PageCoursesComponent implements OnInit {
 	listCourses: Course[] = [];
 
-	constructor() {
-		this.listCourses.push(new Course({
-			id: 1,
-			title: 'demo Title',
-			creationDate: '10-10-2019',
-			duration: 15,
-			description: 'demo Description',
-		}));
-
-		this.listCourses.push(new Course({
-			id: 2,
-			title: 'demo Title 2',
-			creationDate: '10-10-2019',
-			duration: 15,
-			description: 'demo Description 2',
-		}));
+	constructor(coursesService: CoursesService) {
+		setTimeout(() => {
+			coursesService.getList().then((items: ICourse[]) => {
+				map(items, (item: CourseProps) => this.listCourses.push(new Course(item)));
+			});
+		}, 5000);
 	}
 
 	ngOnInit() {
