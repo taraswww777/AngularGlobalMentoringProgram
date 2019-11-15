@@ -21,7 +21,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {LoaderComponent} from './loader/loader.component';
 import {CoursesService} from 'src/services/CoursesService';
 import {FreshCourseDirective} from 'src/directives/fresh-course';
-import { DateComponent } from './date/date.component';
+import {DurationDirective} from '../directives/duration';
 
 @NgModule({
 	declarations: [
@@ -44,12 +44,12 @@ import { DateComponent } from './date/date.component';
 		CoursesLoadMoreComponent,
 		LoaderComponent,
 		FreshCourseDirective,
-		DateComponent
+		DurationDirective,
 	],
 	imports: [
 		BrowserModule,
 		FormsModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
 	],
 	providers: [
 		CoursesService

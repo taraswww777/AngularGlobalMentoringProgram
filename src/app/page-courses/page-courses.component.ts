@@ -19,7 +19,7 @@ export class PageCoursesComponent implements OnInit {
 			coursesService.getList().then((items: ICourse[]) => {
 				map(items, (item: CourseProps) => this.listCourses.push(new Course(item)));
 			});
-		}, 5000);
+		}, 1);
 	}
 
 	ngOnInit() {
