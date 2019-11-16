@@ -1,0 +1,12 @@
+<div class="app-rating">
+	<div *ngIf="isShowNumber" class="app-rating__title">{{rating}}/{{maxRating}}</div>
+	<div class="app-rating__stars">
+		<span class="app-rating__stars-item"
+					*ngFor="let star of stars"
+					[ngClass]="{'app-rating__stars-item--active':star}"
+		>
+			<i *ngIf="star" class="fas fa-star"></i>
+			<i *ngIf="!star" class="far fa-star"></i>
+		</span>
+	</div>
+</div>

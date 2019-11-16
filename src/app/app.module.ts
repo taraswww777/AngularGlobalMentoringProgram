@@ -22,6 +22,8 @@ import {LoaderComponent} from './loader/loader.component';
 import {CoursesService} from 'src/services/CoursesService';
 import {FreshCourseDirective} from 'src/directives/fresh-course';
 import {DurationDirective} from '../directives/duration';
+import { RatingComponent } from './rating/rating.component';
+import { StarComponent } from './star/star.component';
 
 @NgModule({
 	declarations: [
@@ -45,6 +47,8 @@ import {DurationDirective} from '../directives/duration';
 		LoaderComponent,
 		FreshCourseDirective,
 		DurationDirective,
+		RatingComponent,
+		StarComponent,
 	],
 	imports: [
 		BrowserModule,

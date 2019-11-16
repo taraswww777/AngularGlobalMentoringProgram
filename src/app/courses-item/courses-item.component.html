@@ -1,10 +1,15 @@
-<div class="row no-gutters" *ngIf="course">
+<div class="row no-gutters app-course-item" *ngIf="course">
 	<div class="col-auto flex-grow-1">
 		<div class="card" [freshCourseBind]="course">
 			<div class="card-body">
 				<div class="row">
 					<div class="col-6">
-						<div class="card-title h3">{{course.title | uppercase}}</div>
+						<div class="card-title h3">{{course.title | uppercase}}
+							<app-star
+								class="app-course-item__favorite"
+								(click)="onClickToggleFavorite()" [active]="course.favorite"></app-star>
+							<app-rating [rating]="course.rating"></app-rating>
+						</div>
 					</div>
 					<div class="col-6">
 						<span class="p-1">
