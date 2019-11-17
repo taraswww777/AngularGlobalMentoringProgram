@@ -14,15 +14,24 @@ import {ICourse} from '../../interfaces/course';
 export class PageCoursesComponent implements OnInit {
 	listCourses: Course[] = [];
 
+	private _coursesService: CoursesService;
+
 	constructor(coursesService: CoursesService) {
+		this._coursesService = coursesService;
 		setTimeout(() => {
-			coursesService.getList().then((items: ICourse[]) => {
-				map(items, (item: CourseProps) => this.listCourses.push(new Course(item)));
-			});
+			this._coursesService.getList().then(this._mapCourses.bind(this));
 		}, 1);
 	}
 
 	ngOnInit() {
 	}
 
+	public onSubmitSearch(search: string) {
+		this._coursesService.getList({search}).then(this._mapCourses.bind(this));
+	}
+
+	private _mapCourses(items: ICourse[]) {
+		this.listCourses = [];
+		map(items, (item: CourseProps) => this.listCourses.push(new Course(item)))
+	}
 }
