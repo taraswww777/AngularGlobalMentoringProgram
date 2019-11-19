@@ -1,14 +1,14 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {CoursesItemComponent} from './courses-item.component';
+import {CourseItemComponent} from './item.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
-import {Course} from "../../models/course";
+import {Course} from "../../../models/course";
 import {By} from "@angular/platform-browser";
 
 
-describe('CoursesItemComponent', () => {
-	let component: CoursesItemComponent;
-	let fixture: ComponentFixture<CoursesItemComponent>;
+describe('CourseItemComponent', () => {
+	let component: CourseItemComponent;
+	let fixture: ComponentFixture<CourseItemComponent>;
 	const id = 1;
 	const course: Course = new Course({
 		id: id,
@@ -16,18 +16,20 @@ describe('CoursesItemComponent', () => {
 		creationDate: '10-10-2019',
 		duration: 15,
 		description: 'demo Description ' + id,
+		favorite: true,
+		rating: 2
 	});
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			declarations: [CoursesItemComponent],
+			declarations: [CourseItemComponent],
 			schemas: [CUSTOM_ELEMENTS_SCHEMA]
 		})
 			.compileComponents();
 	}));
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(CoursesItemComponent);
+		fixture = TestBed.createComponent(CourseItemComponent);
 		component = fixture.componentInstance;
 		component.course = course;
 		fixture.detectChanges();

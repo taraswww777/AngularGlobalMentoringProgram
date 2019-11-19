@@ -1,13 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
-	selector: 'app-courses-edit',
-	templateUrl: './courses-edit.component.html',
+	selector: 'course-btn-edit',
+	templateUrl: './btn-edit.component.html',
 	styleUrls: [
-		'./courses-edit.component.css',
+		'./btn-edit.component.css',
 	]
 })
-export class CoursesEditComponent implements OnInit {
+export class CourseBtnEditComponent implements OnInit {
 	@Input() id: number;
 	constructor() {
 	}

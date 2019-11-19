@@ -1,14 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Course} from "../../models/course";
+import {Course} from "../../../models/course";
 
 @Component({
-	selector: 'app-courses-item',
-	templateUrl: './courses-item.component.html',
+	selector: 'courses-item',
+	templateUrl: './item.component.html',
 	styleUrls: [
-		'./courses-item.component.scss',
+		'./item.component.scss',
 	]
 })
-export class CoursesItemComponent implements OnInit {
+export class CourseItemComponent implements OnInit {
 	@Input()
 	course: Course;
 

@@ -1,4 +1,4 @@
-<div class="row no-gutters app-course-item" *ngIf="course">
+<div class="row no-gutters course-item" *ngIf="course">
 	<div class="col-auto flex-grow-1">
 		<div class="card" [freshCourseBind]="course">
 			<div class="card-body">
@@ -6,7 +6,7 @@
 					<div class="col-6">
 						<div class="card-title h3">{{course.title | uppercase}}
 							<app-star
-								class="app-course-item__favorite"
+								class="course-item__favorite"
 								(click)="onClickToggleFavorite()" [active]="course.favorite"></app-star>
 							<app-rating [rating]="course.rating"></app-rating>
 						</div>
@@ -27,7 +27,7 @@
 		</div>
 	</div>
 	<div class="col-3">
-		<app-courses-delete [id]="course.id"></app-courses-delete>
-		<app-courses-edit [id]="course.id"></app-courses-edit>
+		<course-btn-delete [id]="course.id"></course-btn-delete>
+		<course-btn-edit [id]="course.id"></course-btn-edit>
 	</div>
 </div>

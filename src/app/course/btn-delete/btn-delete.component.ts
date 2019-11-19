@@ -1,13 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
-	selector: 'app-courses-delete',
-	templateUrl: './courses-delete.component.html',
+	selector: 'course-btn-delete',
+	templateUrl: './btn-delete.component.html',
 	styleUrls: [
-		'./courses-delete.component.css',
+		'./btn-delete.component.css',
 	]
 })
-export class CoursesDeleteComponent implements OnInit {
+export class CourseDeleteComponent implements OnInit {
 	@Input() id: number;
 
 	constructor() {

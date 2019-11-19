@@ -4,8 +4,8 @@
 	</div>
 
 	<div class="col-12" *ngIf="listCourses.length >0">
-		<app-courses-item
+		<courses-item
 			*ngFor="let course of listCourses"
-			[course]="course"></app-courses-item>
+			[course]="course"></courses-item>
 	</div>
 </div>

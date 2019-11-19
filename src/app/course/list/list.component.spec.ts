@@ -1,19 +1,19 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {CoursesListComponent} from './courses-list.component';
+import {CourseListComponent} from './list.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
 
-describe('CoursesListComponent', () => {
-	let component: CoursesListComponent;
-	let fixture: ComponentFixture<CoursesListComponent>;
+describe('CourseListComponent', () => {
+	let component: CourseListComponent;
+	let fixture: ComponentFixture<CourseListComponent>;
 
 	beforeEach((() => {
 		TestBed.configureTestingModule({
-			declarations: [CoursesListComponent],
+			declarations: [CourseListComponent],
 			schemas: [CUSTOM_ELEMENTS_SCHEMA]
 		}).compileComponents();
 
-		fixture = TestBed.createComponent(CoursesListComponent);
+		fixture = TestBed.createComponent(CourseListComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	}));
