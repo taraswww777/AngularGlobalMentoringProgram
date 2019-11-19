@@ -11,6 +11,8 @@ import {CourseItemComponent} from './item/item.component';
 import {CommonModule} from '../common/common.module';
 import {FreshCourseDirective} from './directives/fresh-course';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {CourseLoadMoreComponent} from './btn-load-more/btn-load-more.component';
+import {CoursePageListComponent} from './page-list/page-list.component';
 
 @NgModule({
 	declarations: [
@@ -21,6 +23,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 		CourseListComponent,
 		CourseItemComponent,
 		FreshCourseDirective,
+		CourseLoadMoreComponent,
+		CoursePageListComponent
 	],
 	imports: [
 		CommonModule,
@@ -29,6 +33,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 		ReactiveFormsModule,
 	],
 	exports: [
+		CoursePageListComponent,
 		CourseEditorComponent,
 		CourseAddComponent,
 		CourseListComponent,

@@ -1,26 +1,22 @@
 import {map} from 'lodash';
 import {Component, OnInit} from '@angular/core';
 import {Course, CourseProps} from 'src/models/course';
-import {CoursesService} from '../../services/CoursesService';
-import {ICourse} from '../../interfaces/course';
+import {CoursesService} from '../../../services/CoursesService';
+import {ICourse} from '../../../interfaces/course';
 
 @Component({
 	selector: 'app-page-courses',
-	templateUrl: './page-courses.component.html',
-	styleUrls: [
-		'./page-courses.component.css',
-	]
+	templateUrl: './page-list.component.html',
+	styleUrls: ['./page-list.component.css',]
 })
-export class PageCoursesComponent implements OnInit {
+export class CoursePageListComponent implements OnInit {
 	listCourses: Course[] = [];
 
 	private _coursesService: CoursesService;
 
 	constructor(coursesService: CoursesService) {
 		this._coursesService = coursesService;
-		setTimeout(() => {
-			this._coursesService.getList().then(this._mapCourses.bind(this));
-		}, 1);
+		this._coursesService.getList().then(this._mapCourses.bind(this));
 	}
 
 	ngOnInit() {

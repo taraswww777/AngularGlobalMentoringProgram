@@ -9,14 +9,10 @@ import {BreadcrumbsComponent} from './breadcrumbs/breadcrumbs.component';
 import {BreadcrumbsItemComponent} from './breadcrumbs/breadcrumbs-item/breadcrumbs-item.component';
 import {LogoutLinkComponent} from './auth/logout-link/logout-link.component';
 import {LoginLinkComponent} from './auth/login-link/login-link.component';
-import {SearchInputComponent} from './search-input/search-input.component';
-import {CoursesLoadMoreComponent} from './courses-load-more/courses-load-more.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {LoaderComponent} from './loader/loader.component';
 import {CoursesService} from 'src/services/CoursesService';
 
 import {CourseModule} from './course/course.module';
-import {PageCoursesComponent} from "./page-courses/page-courses.component";
 import {CommonModule} from './common/common.module';
 
 @NgModule({
@@ -25,14 +21,10 @@ import {CommonModule} from './common/common.module';
 		HeaderComponent,
 		FooterComponent,
 		LogoComponent,
-		PageCoursesComponent,
 		BreadcrumbsComponent,
 		BreadcrumbsItemComponent,
 		LogoutLinkComponent,
 		LoginLinkComponent,
-		SearchInputComponent,
-		CoursesLoadMoreComponent,
-		LoaderComponent,
 	],
 	imports: [
 		CommonModule,

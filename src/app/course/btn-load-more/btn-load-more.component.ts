@@ -1,15 +1,15 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Course, CourseProps} from "../../models/course";
+import {Course, CourseProps} from "../../../models/course";
 import {CoursesService} from 'src/services/CoursesService';
-import {ICourse} from "../../interfaces/course";
+import {ICourse} from "../../../interfaces/course";
 import {map} from 'lodash';
 
 @Component({
-	selector: 'app-courses-load-more',
-	templateUrl: './courses-load-more.component.html',
-	styleUrls: ['./courses-load-more.component.css']
+	selector: 'courses-load-more',
+	templateUrl: './btn-load-more.component.html',
+	styleUrls: ['./btn-load-more.component.css']
 })
-export class CoursesLoadMoreComponent implements OnInit {
+export class CourseLoadMoreComponent implements OnInit {
 	public showLoader: boolean = false;
 	@Input()
 	public listCourses: Course[] = [];

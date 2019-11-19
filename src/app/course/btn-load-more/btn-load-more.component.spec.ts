@@ -1,21 +1,21 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
-import {CoursesLoadMoreComponent} from './courses-load-more.component';
+import {CourseLoadMoreComponent} from './btn-load-more.component';
 
-describe('CoursesLoadMoreComponent', () => {
-	let component: CoursesLoadMoreComponent;
-	let fixture: ComponentFixture<CoursesLoadMoreComponent>;
+describe('CourseLoadMoreComponent', () => {
+	let component: CourseLoadMoreComponent;
+	let fixture: ComponentFixture<CourseLoadMoreComponent>;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			declarations: [CoursesLoadMoreComponent],
+			declarations: [CourseLoadMoreComponent],
 			schemas: [CUSTOM_ELEMENTS_SCHEMA]
 		})
 			.compileComponents();
 	}));
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(CoursesLoadMoreComponent);
+		fixture = TestBed.createComponent(CourseLoadMoreComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});
