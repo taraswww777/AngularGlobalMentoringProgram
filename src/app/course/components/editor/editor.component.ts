@@ -30,14 +30,27 @@ export class CourseEditorComponent implements OnInit {
 	ngOnInit() {
 		this.titleSubmit = this._isEditMode() ? 'Сохранить' : 'Создать';
 		this.titleEditor = this._isEditMode() ? 'Редактирование' : 'Создание';
+
+		if (this._isEditMode()) {
+			this._courseService.getById(this.courseId).then((course: TCourse) => {
+				this.course = new CourseFormControl(course);
+			});
+		}
 	}
 
 
 	public async onSubmit() {
-		this._courseService.add(this.course.toJsonObject())
-			.then((course: TCourse) => {
-				console.log('CourseEditorComponent.onSubmit.course:', course);
-			});
+		if (this._isEditMode()) {
+			this._courseService.update(this.courseId, this.course.toJsonObject())
+				.then((course: TCourse) => {
+					console.log('CourseEditorComponent.onSubmit.course:', course);
+				});
+		} else {
+			this._courseService.add(this.course.toJsonObject())
+				.then((course: TCourse) => {
+					console.log('CourseEditorComponent.onSubmit.course:', course);
+				});
+		}
 	}
 
 	private _isEditMode(): boolean {

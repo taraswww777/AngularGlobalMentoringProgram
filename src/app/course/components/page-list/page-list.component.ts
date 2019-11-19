@@ -25,6 +25,7 @@ export class CoursePageListComponent implements OnInit {
 		this._coursesService.getList({search}).then(this._mapCourses.bind(this));
 	}
 
+
 	private _mapCourses(items: ICourse[]) {
 		this.listCourses = [];
 		map(items, (item: TCourse) => this.listCourses.push(new Course(item)))

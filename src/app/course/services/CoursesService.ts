@@ -19,12 +19,17 @@ export class CoursesService {
 		return arr;
 	}
 
-	public async getById(id: number): Promise<ICourse> {
-		return CoursesList.find((item: ICourse) => item.id === id)
+	public async getById(id: number): Promise<TCourse> {
+		return CoursesList.find((item: TCourse) => item.id === id)
 	}
 
 	public async add(course: TCourse): Promise<TCourse> {
 		console.log('CoursesService.add.course:', course);
+		return course;
+	}
+
+	public async update(courseId: number, course: TCourse): Promise<TCourse> {
+		console.log('CoursesService.update.course:', course, 'courseId:', courseId);
 		return course;
 	}
 }
