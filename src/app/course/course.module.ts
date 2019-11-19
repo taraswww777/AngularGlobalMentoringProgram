@@ -10,6 +10,7 @@ import {CourseListComponent} from './list/list.component';
 import {CourseItemComponent} from './item/item.component';
 import {CommonModule} from '../common/common.module';
 import {FreshCourseDirective} from './directives/fresh-course';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
 	declarations: [
@@ -24,6 +25,8 @@ import {FreshCourseDirective} from './directives/fresh-course';
 	imports: [
 		CommonModule,
 		BrowserModule,
+		FormsModule,
+		ReactiveFormsModule,
 	],
 	exports: [
 		CourseEditorComponent,

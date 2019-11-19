@@ -9,6 +9,8 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class CourseBtnEditComponent implements OnInit {
 	@Input() id: number;
+	public isShowEditor: boolean = false;
+
 	constructor() {
 	}
 
@@ -16,6 +18,10 @@ export class CourseBtnEditComponent implements OnInit {
 	}
 
 	onEdit() {
-		console.log('this.onEdit.id', this.id);
+		this._showEditor();
+	}
+
+	private _showEditor() {
+		this.isShowEditor = true;
 	}
 }

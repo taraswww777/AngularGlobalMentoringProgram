@@ -8,13 +8,19 @@ import {Component, OnInit} from '@angular/core';
 	]
 })
 export class CourseAddComponent implements OnInit {
+	public isShowEditor: boolean = false;
+
 	constructor() {
 	}
 
 	ngOnInit() {
 	}
 
-	onAdd(){
-		console.log('onAdd:');
+	onAdd() {
+		this._showEditor();
+	}
+
+	private _showEditor() {
+		this.isShowEditor = true;
 	}
 }
