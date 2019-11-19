@@ -40,6 +40,7 @@ export class CourseEditorComponent implements OnInit {
 
 
 	public async onSubmit() {
+		// TODO: update list/item course (maybe good for this use events)
 		if (this._isEditMode()) {
 			this._courseService.update(this.courseId, this.course.toJsonObject())
 				.then((course: TCourse) => {

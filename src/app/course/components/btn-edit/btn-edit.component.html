@@ -1,5 +1,5 @@
 <button (click)="onEdit()" class="btn btn-info text-white"><i class="fas fa-edit "></i> Edit</button>
 <course-editor
 	*ngIf="isShowEditor"
-	[courseId]="id"
+	[courseId]="courseId"
 	[mode]="'EDIT'"></course-editor>

@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {CoursesService} from "../../services/CoursesService";
 
 @Component({
 	selector: 'course-btn-delete',
@@ -8,15 +9,23 @@ import {Component, Input, OnInit} from '@angular/core';
 	]
 })
 export class CourseDeleteComponent implements OnInit {
-	@Input() id: number;
+	@Input() courseId: number;
+	private _courseService: CoursesService;
 
-	constructor() {
+	constructor(
+		courseService: CoursesService
+	) {
+		this._courseService = courseService;
 	}
 
 	ngOnInit() {
 	}
 
-	onDelete() {
-		console.log('this.onDelete.id', this.id);
+	public async onDelete() {
+		const course = await this._courseService.getById(this.courseId);
+		if (window.confirm(`You are sure delete course "${course.title}" ?`)) {
+			await this._courseService.delete(this.courseId)
+		}
 	}
+
 }

@@ -32,4 +32,8 @@ export class CoursesService {
 		console.log('CoursesService.update.course:', course, 'courseId:', courseId);
 		return course;
 	}
+
+	public async delete(courseId: number): Promise<void> {
+		console.log('CoursesService.delete.courseId:', courseId);
+	}
 }
