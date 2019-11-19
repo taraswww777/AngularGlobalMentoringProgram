@@ -10,7 +10,6 @@ import {BreadcrumbsItemComponent} from './breadcrumbs/breadcrumbs-item/breadcrum
 import {LogoutLinkComponent} from './auth/logout-link/logout-link.component';
 import {LoginLinkComponent} from './auth/login-link/login-link.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {CoursesService} from 'src/services/CoursesService';
 
 import {CourseModule} from './course/course.module';
 import {CommonModule} from './common/common.module';
@@ -32,9 +31,6 @@ import {CommonModule} from './common/common.module';
 		BrowserModule,
 		FormsModule,
 		ReactiveFormsModule,
-	],
-	providers: [
-		CoursesService
 	],
 	bootstrap: [AppComponent],
 })

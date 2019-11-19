@@ -1,5 +1,5 @@
 import {Directive, ElementRef, Input, Renderer2} from "@angular/core";
-import {Course} from "../../../models/course";
+import {Course} from "../../models/course";
 
 @Directive({
 	selector: '[freshCourseBind]'

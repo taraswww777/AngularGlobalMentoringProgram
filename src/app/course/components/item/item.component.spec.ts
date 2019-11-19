@@ -2,8 +2,8 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {CourseItemComponent} from './item.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
-import {Course} from "../../../models/course";
 import {By} from "@angular/platform-browser";
+import {Course} from "../../models/course";
 
 
 describe('CourseItemComponent', () => {

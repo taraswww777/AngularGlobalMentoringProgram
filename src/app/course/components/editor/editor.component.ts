@@ -1,12 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CoursesService} from "../../../services/CoursesService";
-import {CourseFormControl} from "../../../models/course";
+import {CourseFormControl, TCourse} from "../../models/course";
+import {CoursesService} from "../../services/CoursesService";
 
 export enum CourseEditorMode {
 	ADD = 'ADD',
 	EDIT = 'EDIT',
 }
-
 
 @Component({
 	selector: 'course-editor',
@@ -33,8 +32,12 @@ export class CourseEditorComponent implements OnInit {
 		this.titleEditor = this._isEditMode() ? 'Редактирование' : 'Создание';
 	}
 
+
 	public async onSubmit() {
-		console.log('onSubmit:this.course:', this.course);
+		this._courseService.add(this.course.toJsonObject())
+			.then((course: TCourse) => {
+				console.log('CourseEditorComponent.onSubmit.course:', course);
+			});
 	}
 
 	private _isEditMode(): boolean {

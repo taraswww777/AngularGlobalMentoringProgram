@@ -1,6 +1,6 @@
-import {ICourse} from 'src/interfaces/course';
 // @ts-ignore
 import CoursesList from './cources.json';
+import {ICourse, TCourse} from "../models/course";
 
 export class CoursesService {
 
@@ -21,5 +21,10 @@ export class CoursesService {
 
 	public async getById(id: number): Promise<ICourse> {
 		return CoursesList.find((item: ICourse) => item.id === id)
+	}
+
+	public async add(course: TCourse): Promise<TCourse> {
+		console.log('CoursesService.add.course:', course);
+		return course;
 	}
 }

@@ -1,18 +1,18 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
-import {CoursesService} from 'src/services/CoursesService';
-import {CourseEditorComponent} from './editor/editor.component';
-import {CourseBtnEditComponent} from './btn-edit/btn-edit.component';
-import {CourseAddComponent} from './btn-add/btn-add.component';
-import {CourseDeleteComponent} from "./btn-delete/btn-delete.component";
-import {CourseListComponent} from './list/list.component';
-import {CourseItemComponent} from './item/item.component';
-import {CommonModule} from '../common/common.module';
-import {FreshCourseDirective} from './directives/fresh-course';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {CourseLoadMoreComponent} from './btn-load-more/btn-load-more.component';
-import {CoursePageListComponent} from './page-list/page-list.component';
+
+import {CommonModule} from '../common/common.module';
+import {CoursesService} from './services/CoursesService';
+import {CourseEditorComponent} from './components/editor/editor.component';
+import {CourseBtnEditComponent} from './components/btn-edit/btn-edit.component';
+import {CourseAddComponent} from './components/btn-add/btn-add.component';
+import {CourseDeleteComponent} from "./components/btn-delete/btn-delete.component";
+import {CourseListComponent} from './components/list/list.component';
+import {CourseItemComponent} from './components/item/item.component';
+import {FreshCourseDirective} from './components/directives/fresh-course';
+import {CourseLoadMoreComponent} from './components/btn-load-more/btn-load-more.component';
+import {CoursePageListComponent} from './components/page-list/page-list.component';
 
 @NgModule({
 	declarations: [

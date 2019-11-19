@@ -1,5 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {Course} from "../../../models/course";
+import {Course} from "../../models/course";
 
 @Component({
 	selector: 'courses-list',
