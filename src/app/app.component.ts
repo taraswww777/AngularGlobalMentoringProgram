@@ -13,6 +13,7 @@ import {LinkTypes} from './breadcrumbs/breadcrumbs-item/breadcrumbs-item.compone
 	encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent {
+	public isAuth: boolean = false;
 	public title: string = 'mentoring';
 
 	public breadcrumbs: BreadcrumbsComponentProps = {

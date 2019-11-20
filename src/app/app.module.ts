@@ -7,12 +7,11 @@ import {FooterComponent} from './footer/footer.component';
 import {LogoComponent} from './logo/logo.component';
 import {BreadcrumbsComponent} from './breadcrumbs/breadcrumbs.component';
 import {BreadcrumbsItemComponent} from './breadcrumbs/breadcrumbs-item/breadcrumbs-item.component';
-import {LogoutLinkComponent} from './auth/logout-link/logout-link.component';
-import {LoginLinkComponent} from './auth/login-link/login-link.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import {CourseModule} from './course/course.module';
 import {CommonModule} from './common/common.module';
+import {AuthModule} from "./auth/auth.module";
 
 @NgModule({
 	declarations: [
@@ -22,12 +21,11 @@ import {CommonModule} from './common/common.module';
 		LogoComponent,
 		BreadcrumbsComponent,
 		BreadcrumbsItemComponent,
-		LogoutLinkComponent,
-		LoginLinkComponent,
 	],
 	imports: [
 		CommonModule,
 		CourseModule,
+		AuthModule,
 		BrowserModule,
 		FormsModule,
 		ReactiveFormsModule,

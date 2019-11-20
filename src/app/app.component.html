@@ -8,7 +8,8 @@
 				<app-breadcrumbs [items]="breadcrumbs.items"></app-breadcrumbs>
 			</div>
 			<div class="col-12 app__content">
-				<app-page-courses></app-page-courses>
+				<login-form [isAuth]="isAuth" *ngIf="!isAuth"></login-form>
+				<app-page-courses *ngIf="isAuth"></app-page-courses>
 			</div>
 		</div>
 	</div>
