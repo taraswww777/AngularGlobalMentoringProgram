@@ -11,9 +11,6 @@ export class CourseBtnEditComponent implements OnInit {
 	@Input() courseId: number;
 	public isShowEditor: boolean = false;
 
-	constructor() {
-	}
-
 	ngOnInit() {
 	}
 

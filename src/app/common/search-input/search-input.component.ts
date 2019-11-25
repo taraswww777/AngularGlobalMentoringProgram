@@ -14,9 +14,6 @@ export class SearchInputComponent implements OnInit {
 	@Input() public onChangeSearch: (string) => void = _.noop;
 	@Input() public onSubmitSearch: (string) => void = _.noop;
 
-	constructor() {
-	}
-
 	public onSubmit() {
 		this.onSubmitSearch(this.inputValue.value);
 	}

@@ -11,9 +11,6 @@ import * as _ from "lodash";
 export class LogoutLinkComponent implements OnInit {
 	@Input() public setAuthStatus: (boolean) => void = _.noop;
 
-	constructor() {
-	}
-
 	public onClickLogout() {
 		console.log('onClickLogout:');
 		this.setAuthStatus(false);

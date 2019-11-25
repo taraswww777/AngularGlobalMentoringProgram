@@ -15,9 +15,6 @@ export class RatingComponent implements OnInit {
 	public stars: boolean[] = [];
 	public avgRate: number = 0;
 
-	constructor() {
-	}
-
 	ngOnInit() {
 		this.stars = [];
 		this.avgRate = _.floor(this.rating);

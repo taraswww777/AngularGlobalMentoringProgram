@@ -12,9 +12,6 @@ export class LoginFormComponent implements OnInit {
 	public login: FormControl = new FormControl('admin');
 	public password: FormControl = new FormControl('admin');
 
-	constructor() {
-	}
-
 	ngOnInit() {
 	}
 

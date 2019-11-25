@@ -11,9 +11,6 @@ export class CourseListComponent implements OnInit {
 	@Input()
 	public listCourses: Course[] = [];
 
-	constructor() {
-	}
-
 	ngOnInit() {
 	}
 

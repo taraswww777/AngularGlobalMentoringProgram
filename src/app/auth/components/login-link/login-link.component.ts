@@ -9,11 +9,8 @@ import {Component, OnInit} from '@angular/core';
 })
 export class LoginLinkComponent implements OnInit {
 
-	constructor() {
-	}
-
 	public onClickLogin() {
-		// todo:
+		// todo: redirect to login page
 		console.log('onClickLogin:');
 	}
 

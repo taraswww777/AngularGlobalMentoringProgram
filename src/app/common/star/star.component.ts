@@ -9,9 +9,6 @@ export class StarComponent implements OnInit {
 
 	@Input() public active: boolean;
 
-	constructor() {
-	}
-
 	ngOnInit() {
 	}
 

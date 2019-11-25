@@ -10,9 +10,6 @@ import {Component, OnInit} from '@angular/core';
 export class CourseAddComponent implements OnInit {
 	public isShowEditor: boolean = false;
 
-	constructor() {
-	}
-
 	ngOnInit() {
 	}
 
