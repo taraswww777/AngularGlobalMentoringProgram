@@ -1,11 +1,11 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
-import {PageCoursesComponent} from './page-list.component';
+import {CoursePageListComponent} from './page-list.component';
 import {Course} from "../../models/course";
 
-describe('PageCoursesComponent', () => {
-	let component: PageCoursesComponent;
-	let fixture: ComponentFixture<PageCoursesComponent>;
+describe('CoursePageListComponent', () => {
+	let component: CoursePageListComponent;
+	let fixture: ComponentFixture<CoursePageListComponent>;
 
 	const arr = [new Course({
 		id: 1,
@@ -25,14 +25,14 @@ describe('PageCoursesComponent', () => {
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			declarations: [PageCoursesComponent],
+			declarations: [CoursePageListComponent],
 			schemas: [CUSTOM_ELEMENTS_SCHEMA]
 		})
 			.compileComponents();
 	}));
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(PageCoursesComponent);
+		fixture = TestBed.createComponent(CoursePageListComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

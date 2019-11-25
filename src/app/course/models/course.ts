@@ -1,13 +1,13 @@
 import {FormControl} from "@angular/forms";
 
-export type TCourse = {} & {
-	id?: number;
-	title?: string;
-	creationDate?: string;
-	duration?: number;
-	rating?: number;
-	favorite?: boolean;
-	description?: string;
+export type TCourse = {
+	id: number;
+	title: string;
+	creationDate: string;
+	duration: number;
+	rating: number;
+	favorite: boolean;
+	description: string;
 };
 
 export interface ICourse {
@@ -30,7 +30,7 @@ export class Course implements ICourse {
 	rating: number = 0;
 	favorite: boolean = false;
 
-	constructor(props: TCourse = {}) {
+	constructor(props: Partial<TCourse> = {}) {
 		this.id = props.id || 0;
 		this.title = props.title || '';
 		this.creationDate = new Date(props.creationDate || '');
@@ -51,7 +51,7 @@ export class CourseFormControl {
 	public favorite: FormControl;
 	public description: FormControl;
 
-	constructor(props: TCourse = {}) {
+	constructor(props: Partial<TCourse> = {}) {
 		this.id = new FormControl(props.id || 0);
 		this.title = new FormControl(props.title || '');
 		this.creationDate = new FormControl(new Date(props.creationDate || '2019-01-01T00:00:00'));
