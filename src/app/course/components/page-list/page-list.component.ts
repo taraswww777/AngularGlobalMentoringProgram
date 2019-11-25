@@ -1,6 +1,6 @@
-import {map} from 'lodash';
+import * as _ from 'lodash';
 import {Component, OnInit} from '@angular/core';
-import {Course, ICourse, TCourse} from "../../models/course";
+import {Course, TCourse} from "../../models/course";
 import {CoursesService} from '../../services/CoursesService';
 
 @Component({
@@ -26,8 +26,7 @@ export class CoursePageListComponent implements OnInit {
 	}
 
 
-	private _mapCourses(items: ICourse[]) {
-		this.listCourses = [];
-		map(items, (item: TCourse) => this.listCourses.push(new Course(item)))
+	private _mapCourses(items: Partial<TCourse>[]) {
+		this.listCourses = _.map(items, (item: TCourse) => new Course(item));
 	}
 }
