@@ -19,12 +19,7 @@ export class CourseEditorComponent implements OnInit {
 	public titleEditor: string = 'Создание';
 	public course: CourseFormControl = new CourseFormControl();
 
-	private _courseService: CoursesService;
-
-	constructor(
-		courseService: CoursesService
-	) {
-		this._courseService = courseService;
+	constructor(private _courseService: CoursesService) {
 	}
 
 	ngOnInit() {

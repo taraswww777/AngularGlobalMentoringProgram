@@ -12,12 +12,8 @@ import _ from 'lodash';
 export class CourseDeleteComponent implements OnInit {
 	@Input() courseId: number;
 	@Input() afterDelete: () => void = _.noop;
-	private _courseService: CoursesService;
 
-	constructor(
-		courseService: CoursesService
-	) {
-		this._courseService = courseService;
+	constructor(private _courseService: CoursesService) {
 	}
 
 	ngOnInit() {
