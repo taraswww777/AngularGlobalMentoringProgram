@@ -1,11 +1,10 @@
-// @ts-ignore
-import CoursesList from './cources.json';
 import {TCourse} from "../models/course";
+import CoursesList from './cources.json';
 
 export class CoursesService {
 
 	public async getList(params?: { search: string }): Promise<TCourse[]> {
-		const arr: [] = CoursesList;
+		const arr: TCourse[] = CoursesList;
 		if (params && params.search) {
 			const {search} = params;
 			return arr.filter((course: TCourse) => {
