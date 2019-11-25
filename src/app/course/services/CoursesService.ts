@@ -1,14 +1,14 @@
 // @ts-ignore
 import CoursesList from './cources.json';
-import {ICourse, TCourse} from "../models/course";
+import {TCourse} from "../models/course";
 
 export class CoursesService {
 
-	public async getList(params?: { search: string }): Promise<ICourse[]> {
+	public async getList(params?: { search: string }): Promise<TCourse[]> {
 		const arr: [] = CoursesList;
 		if (params && params.search) {
 			const {search} = params;
-			return arr.filter((course: ICourse) => {
+			return arr.filter((course: TCourse) => {
 				const regexp = new RegExp(search.toLowerCase());
 				let has = null;
 				has = has ? true : course.title.toLowerCase().match(regexp);

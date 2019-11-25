@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {map} from 'lodash';
-import {Course, ICourse, TCourse} from '../../models/course';
+import {Course, TCourse} from '../../models/course';
 import {CoursesService} from "../../services/CoursesService";
 
 @Component({
@@ -24,8 +23,8 @@ export class CourseLoadMoreComponent implements OnInit {
 
 	onLoadMore() {
 		this.showLoader = true;
-		this.coursesService.getList().then((items: ICourse[]) => {
-			map(items, (item: TCourse) => this.listCourses.push(new Course(item)));
+		this.coursesService.getList().then((items: TCourse[]) => {
+			items.forEach((item: TCourse) => this.listCourses.push(new Course(item)));
 		});
 		this.showLoader = false
 	}
