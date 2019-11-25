@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Course} from "../../models/course";
+import _ from "lodash";
 
 @Component({
 	selector: 'courses-item',
@@ -9,8 +10,8 @@ import {Course} from "../../models/course";
 	]
 })
 export class CourseItemComponent implements OnInit {
-	@Input()
-	course: Course;
+	@Input() public course: Course;
+	@Input() public refreshListCourses: () => void = _.noop;
 
 	ngOnInit() {
 	}
@@ -19,4 +20,8 @@ export class CourseItemComponent implements OnInit {
 		this.course.favorite = !this.course.favorite;
 		// TODO: send request to server
 	}
+
+	afterDelete() {
+		this.refreshListCourses();
+	};
 }

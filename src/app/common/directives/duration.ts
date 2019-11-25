@@ -1,5 +1,5 @@
 import {Directive, ElementRef, Input, Renderer2} from "@angular/core";
-import * as _ from 'lodash';
+import _ from 'lodash';
 
 @Directive({
 	selector: '[duration]',

@@ -6,7 +6,9 @@
 		<course-btn-add></course-btn-add>
 	</div>
 	<div class="col-12">
-		<courses-list [listCourses]="listCourses"></courses-list>
+		<courses-list
+			[listCourses]="listCourses"
+			[refreshListCourses]="refreshListCourses.bind(this)"></courses-list>
 	</div>
 	<div class="col-12 text-center">
 		<courses-load-more [listCourses]="listCourses"></courses-load-more>

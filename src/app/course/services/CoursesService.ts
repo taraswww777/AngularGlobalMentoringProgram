@@ -2,9 +2,10 @@ import {TCourse} from "../models/course";
 import CoursesList from './cources.json';
 
 export class CoursesService {
+	private _listCourses: TCourse[] = CoursesList;
 
 	public async getList(params?: { search: string }): Promise<TCourse[]> {
-		const arr: TCourse[] = CoursesList;
+		const arr: TCourse[] = this._listCourses;
 		if (params && params.search) {
 			const {search} = params;
 			return arr.filter((course: TCourse) => {
@@ -18,8 +19,8 @@ export class CoursesService {
 		return arr;
 	}
 
-	public async getById(id: number): Promise<TCourse> {
-		return CoursesList.find((item: TCourse) => item.id === id)
+	public async getById(courseId: number): Promise<TCourse> {
+		return this._listCourses.find((item: TCourse) => item.id === courseId)
 	}
 
 	public async add(course: TCourse): Promise<TCourse> {
@@ -33,6 +34,12 @@ export class CoursesService {
 	}
 
 	public async delete(courseId: number): Promise<void> {
-		console.log('CoursesService.delete.courseId:', courseId);
+		const listCourses = [];
+		this._listCourses.forEach((item: TCourse) => {
+			if (item.id !== courseId) {
+				listCourses.push(item);
+			}
+		});
+		this._listCourses = listCourses;
 	}
 }

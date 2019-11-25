@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl} from "@angular/forms";
-import * as _ from 'lodash';
+import _ from 'lodash';
 
 @Component({
 	selector: 'app-search-input',
