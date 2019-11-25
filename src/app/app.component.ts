@@ -29,4 +29,8 @@ export class AppComponent {
 	constructor() {
 		this.title = 'mentoring';
 	}
+
+	public setAuthStatus(isAuth: boolean) {
+		this.isAuth = isAuth;
+	}
 }

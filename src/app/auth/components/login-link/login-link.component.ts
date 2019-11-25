@@ -13,6 +13,7 @@ export class LoginLinkComponent implements OnInit {
 	}
 
 	public onClickLogin() {
+		// todo:
 		console.log('onClickLogin:');
 	}
 
