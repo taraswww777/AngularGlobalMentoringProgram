@@ -1,4 +1,4 @@
-import {FormControl} from "@angular/forms";
+import { FormControl } from '@angular/forms';
 
 export type TCourse = {
 	id: number;
@@ -18,6 +18,8 @@ export interface ICourse {
 	description: string;
 	rating: number;
 	favorite: boolean;
+
+	toString(): string
 }
 
 
@@ -38,6 +40,18 @@ export class Course implements ICourse {
 		this.description = props.description || '';
 		this.rating = props.rating || 0;
 		this.favorite = props.favorite || false;
+	}
+
+	toString(): string {
+		return JSON.stringify({
+			id: this.id,
+			title: this.title,
+			creationDate: this.creationDate,
+			duration: this.duration,
+			description: this.description,
+			rating: this.rating,
+			favorite: this.favorite,
+		});
 	}
 }
 
@@ -70,6 +84,6 @@ export class CourseFormControl {
 			rating: this.rating.value,
 			favorite: this.favorite.value,
 			description: this.description.value,
-		}
+		};
 	}
 }

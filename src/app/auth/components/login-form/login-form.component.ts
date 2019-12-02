@@ -1,6 +1,5 @@
-import _ from 'lodash';
-import {Component, Input, OnInit} from '@angular/core';
-import {FormControl} from "@angular/forms";
+import { Component, Input, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
 	selector: 'login-form',
@@ -8,14 +7,14 @@ import {FormControl} from "@angular/forms";
 	styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent implements OnInit {
-	@Input() public setAuthStatus: (boolean) => void = _.noop;
+	@Input() public tryLogin: (login: string, password: string) => Promise<void> = Promise.resolve;
 	public login: FormControl = new FormControl('admin');
 	public password: FormControl = new FormControl('admin');
 
 	ngOnInit() {
 	}
 
-	public async onSubmitLogin() {
+	public async onSubmitLogin(): Promise<void> {
 
 		const login = this.login.value;
 		const password = this.password.value;
@@ -24,8 +23,7 @@ export class LoginFormComponent implements OnInit {
 			console.error('onSubmitLogin:error:no data');
 			return;
 		}
-		if (login === 'admin' && password === 'admin') {
-			this.setAuthStatus(true);
-		}
+
+		await this.tryLogin(login, password);
 	}
 }
