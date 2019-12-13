@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
@@ -19,11 +19,6 @@ import {CoursesDeleteComponent} from './courses-delete/courses-delete.component'
 import {CoursesLoadMoreComponent} from './courses-load-more/courses-load-more.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {LoaderComponent} from './loader/loader.component';
-import {CoursesService} from 'src/services/CoursesService';
-import {FreshCourseDirective} from 'src/directives/fresh-course';
-import {DurationDirective} from '../directives/duration';
-import { RatingComponent } from './rating/rating.component';
-import { StarComponent } from './star/star.component';
 
 @NgModule({
 	declarations: [
@@ -45,19 +40,13 @@ import { StarComponent } from './star/star.component';
 		CoursesDeleteComponent,
 		CoursesLoadMoreComponent,
 		LoaderComponent,
-		FreshCourseDirective,
-		DurationDirective,
-		RatingComponent,
-		StarComponent,
 	],
 	imports: [
 		BrowserModule,
 		FormsModule,
-		ReactiveFormsModule,
+		ReactiveFormsModule
 	],
-	providers: [
-		CoursesService
-	],
+	providers: [],
 	bootstrap: [AppComponent]
 })
 export class AppModule {

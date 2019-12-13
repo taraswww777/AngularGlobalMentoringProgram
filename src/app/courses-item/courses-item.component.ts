@@ -5,7 +5,7 @@ import {Course} from "../../models/course";
 	selector: 'app-courses-item',
 	templateUrl: './courses-item.component.html',
 	styleUrls: [
-		'./courses-item.component.scss',
+		'./courses-item.component.css',
 	]
 })
 export class CoursesItemComponent implements OnInit {
@@ -18,8 +18,4 @@ export class CoursesItemComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	onClickToggleFavorite() {
-		this.course.favorite = !this.course.favorite;
-		// TODO: send request to server
-	}
 }
