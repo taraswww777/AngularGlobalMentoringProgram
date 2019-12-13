@@ -1,0 +1,48 @@
+<div class="course-editor row">
+	<div class="col-12">{{titleEditor}}</div>
+	<form class="col-12" (submit)="onSubmit()">
+		<div class="row">
+
+
+			<div class="col-xs-12 col-sm-6">
+				<div class="form-group">
+					<label class="" for="title">title</label>
+					<input class="form-control" [formControl]="course.title" type="text" id="title" name="title">
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6">
+				<div class="form-group">
+					<label class="" for="creationDate">creationDate</label>
+					<input class="form-control" [formControl]="course.creationDate" type="text" id="creationDate" name="creationDate">
+				</div>
+			</div>
+			<div class="col-12 col-sm-6">
+				<div class="form-group">
+					<label class="" for="duration">duration</label>
+					<input class="form-control" [formControl]="course.duration" type="text" id="duration" name="duration">
+				</div>
+			</div>
+			<div class="col-12 col-sm-6">
+				<div class="form-group">
+					<label class="" for="rating">rating</label>
+					<input class="form-control"  [formControl]="course.rating" type="text" id="rating" name="rating">
+				</div>
+			</div>
+			<div class="col-12 col-sm-6">
+				<div class="form-group">
+					<label class="" for="favorite">favorite</label>
+					<input class="form-check"  [formControl]="course.favorite" type="checkbox" id="favorite" name="favorite">
+				</div>
+			</div>
+			<div class="col-12">
+				<div class="form-group">
+					<label class="" for="description">description</label>
+					<textarea class="form-control form-text" [formControl]="course.description" type="text" id="description" name="description"></textarea>
+				</div>
+			</div>
+			<div class="col-12">
+				<button class="btn btn-primary" type="submit">{{titleSubmit}}</button>
+			</div>
+		</div>
+	</form>
+</div>

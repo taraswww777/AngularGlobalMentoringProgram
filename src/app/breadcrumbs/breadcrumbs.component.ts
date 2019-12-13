@@ -16,10 +16,6 @@ export class BreadcrumbsComponent implements OnInit {
 	@Input()
 	public items: BreadcrumbsItem[];
 
-	constructor() {
-	}
-
-
 	ngOnInit() {
 	}
 

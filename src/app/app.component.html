@@ -2,23 +2,26 @@
 	<div class="container">
 		<div class="row app__row">
 			<header class="col-12 app__header">
-				<app-header [title]="title"></app-header>
+				<app-header [isAuth]="isAuth" [setAuthStatus]="setAuthStatus.bind(this)" [title]="title"></app-header>
 			</header>
 			<div class="col-12">
 				<app-breadcrumbs [items]="breadcrumbs.items"></app-breadcrumbs>
 			</div>
 			<div class="col-12 app__content">
-				<app-page-courses></app-page-courses>
+				<login-form [setAuthStatus]="setAuthStatus.bind(this)" *ngIf="!isAuth"></login-form>
+				<app-page-courses *ngIf="isAuth"></app-page-courses>
 			</div>
 		</div>
 	</div>
-	<footer class="app__footer">
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<app-footer></app-footer>
+	<!--
+		<footer class="app__footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<app-footer></app-footer>
+					</div>
 				</div>
 			</div>
-		</div>
-	</footer>
+		</footer>
+	-->
 </div>

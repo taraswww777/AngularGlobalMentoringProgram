@@ -1,0 +1,35 @@
+<div class="row no-gutters course-item" *ngIf="course">
+	<div class="col-auto flex-grow-1">
+		<div class="card" [freshCourseBind]="course">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-6">
+						<div class="card-title h3">{{course.title | uppercase}}
+							<app-star
+								class="course-item__favorite"
+								(click)="onClickToggleFavorite()" [active]="course.favorite"></app-star>
+							<app-rating [rating]="course.rating"></app-rating>
+						</div>
+					</div>
+					<div class="col-6">
+						<span class="p-1">
+							<i class="far fa-clock"></i> <span [duration]="course.duration"> </span>
+						</span>
+						<span class="p-1">
+						<i class="fas fa-calendar-alt"></i> {{course.creationDate | date:'d MMM, y'}}
+						</span>
+					</div>
+				</div>
+				<div class="description">{{course.description}}</div>
+				<div class="other">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-3">
+		<course-btn-delete
+			[courseId]="course.id"
+			[afterDelete]="afterDelete.bind(this)"></course-btn-delete>
+		<course-btn-edit [courseId]="course.id"></course-btn-edit>
+	</div>
+</div>

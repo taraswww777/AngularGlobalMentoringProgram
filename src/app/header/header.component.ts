@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {User} from 'src/models/user';
+import * as _ from "lodash";
 
 @Component({
 	selector: 'app-header',
@@ -9,9 +10,9 @@ import {User} from 'src/models/user';
 	]
 })
 export class HeaderComponent implements OnInit {
-	@Input()
-	public title: string;
-
+	@Input() public title: string;
+	@Input() public setAuthStatus: (boolean) => void = _.noop;
+	@Input() public isAuth: boolean = false;
 	public user: User;
 
 	constructor() {
