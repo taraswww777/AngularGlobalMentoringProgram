@@ -1,0 +1,110 @@
+[
+	{
+		"id": 1,
+		"title": "Lorem ipsum dolor",
+		"creationDate": "2019 1 10",
+		"duration": 180,
+		"rating": 0,
+		"favorite": true,
+		"description": "Lorem ipsum dolor sit amet. Temporibus autem vel illum, qui in ea commodi autem vel illum. Quae ab illo inventore veritatis et harum quidem rerum facilis. Impedit, quo minus id, quod maxime placeat, facere possimus, omnis iste. Ducimus, qui dolorem eum iure reprehenderit, qui in culpa. Architecto beatae vitae dicta sunt, explicabo illo inventore veritatis et. Quibusdam et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum."
+	},
+	{
+		"id": 2,
+		"title": "Saepe eveniet",
+		"creationDate": "2019 2 11",
+		"duration": 190,
+		"rating": 0.5,
+		"favorite": true,
+		"description": "Saepe eveniet, ut enim ipsam voluptatem. Delectus, ut aliquid ex ea commodi autem. Possimus, omnis iste natus error. Voluptate velit esse, quam nihil impedit. Expedita distinctio vero eos. Eveniet, ut aut fugit, sed quia voluptas nulla vero eos. Perspiciatis, unde omnis dolor sit, aspernatur. Tempora incidunt, ut labore et voluptates repudiandae sint. Illo inventore veritatis et dolore magnam."
+	},
+	{
+		"id": 3,
+		"title": "Nam libero tempore",
+		"creationDate": "2020 3 15",
+		"duration": 290,
+		"rating": 5,
+		"favorite": false,
+		"description": "Nam libero tempore, cum soluta nobis est eligendi optio, cumque nihil. Temporibus autem vel illum, qui ratione voluptatem sequi nesciunt, neque porro. Laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis. Similique sunt in ea commodi autem vel. Blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores eos, qui blanditiis. Nam libero tempore, cum soluta nobis"
+	},
+	{
+		"id": 4,
+		"title": "Nam libero tempore",
+		"creationDate": "2020 4 15",
+		"duration": 290,
+		"rating": 1.5,
+		"favorite": true,
+		"description": "Nam libero tempore, cum soluta nobis est eligendi optio, cumque nihil. Temporibus autem vel illum, qui ratione voluptatem sequi nesciunt, neque porro. Laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis. Similique sunt in ea commodi autem vel. Blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores eos, qui blanditiis. Nam libero tempore, cum soluta nobis"
+	},
+	{
+		"id": 5,
+		"title": "Nam libero tempore",
+		"creationDate": "2020 5 15",
+		"duration": 290,
+		"rating": 2,
+		"favorite": false,
+		"description": "Nam libero tempore, cum soluta nobis est eligendi optio, cumque nihil. Temporibus autem vel illum, qui ratione voluptatem sequi nesciunt, neque porro. Laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis. Similique sunt in ea commodi autem vel. Blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores eos, qui blanditiis. Nam libero tempore, cum soluta nobis"
+	},
+	{
+		"id": 6,
+		"title": "Nam libero tempore",
+		"creationDate": "2020 6 15",
+		"duration": 290,
+		"rating": 2.5,
+		"favorite": false,
+		"description": "Nam libero tempore, cum soluta nobis est eligendi optio, cumque nihil. Temporibus autem vel illum, qui ratione voluptatem sequi nesciunt, neque porro. Laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis. Similique sunt in ea commodi autem vel. Blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores eos, qui blanditiis. Nam libero tempore, cum soluta nobis"
+	},
+	{
+		"id": 7,
+		"title": "Nam libero tempore",
+		"creationDate": "2020 7 15",
+		"duration": 290,
+		"rating": 3,
+		"favorite": false,
+		"description": "Nam libero tempore, cum soluta nobis est eligendi optio, cumque nihil. Temporibus autem vel illum, qui ratione voluptatem sequi nesciunt, neque porro. Laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis. Similique sunt in ea commodi autem vel. Blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores eos, qui blanditiis. Nam libero tempore, cum soluta nobis"
+	},
+	{
+		"id": 8,
+		"title": "Nam libero tempore",
+		"creationDate": "2020 8 15",
+		"duration": 290,
+		"rating": 4,
+		"favorite": false,
+		"description": "Nam libero tempore, cum soluta nobis est eligendi optio, cumque nihil. Temporibus autem vel illum, qui ratione voluptatem sequi nesciunt, neque porro. Laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis. Similique sunt in ea commodi autem vel. Blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores eos, qui blanditiis. Nam libero tempore, cum soluta nobis"
+	},
+	{
+		"id": 9,
+		"title": "Nesciunt",
+		"creationDate": "2019 9 11",
+		"duration": 180,
+		"rating": 4,
+		"favorite": false,
+		"description": "Nesciunt, neque porro quisquam est, qui ratione voluptatem. Expedita distinctio alias consequatur aut rerum hic tenetur a sapiente. Ipsam voluptatem, quia voluptas assumenda est, omnis dolor sit aspernatur. Aperiam eaque ipsa, quae ab illo inventore veritatis et quasi. Velit, sed quia non provident. Vel eum fugiat, quo minus id, quod maxime. Non recusandae reiciendis voluptatibus maiores alias consequatur. A sapiente delectus, ut enim ipsam voluptatem, quia voluptas. "
+	},
+	{
+		"id": 10,
+		"title": "Nesciunt",
+		"creationDate": "2019 10 11",
+		"duration": 180,
+		"rating": 4,
+		"favorite": false,
+		"description": "Nesciunt, neque porro quisquam est, qui ratione voluptatem. Expedita distinctio alias consequatur aut rerum hic tenetur a sapiente. Ipsam voluptatem, quia voluptas assumenda est, omnis dolor sit aspernatur. Aperiam eaque ipsa, quae ab illo inventore veritatis et quasi. Velit, sed quia non provident. Vel eum fugiat, quo minus id, quod maxime. Non recusandae reiciendis voluptatibus maiores alias consequatur. A sapiente delectus, ut enim ipsam voluptatem, quia voluptas. "
+	},
+	{
+		"id": 11,
+		"title": "Nesciunt",
+		"creationDate": "2019 11 11",
+		"duration": 180,
+		"rating": 5,
+		"favorite": true,
+		"description": "Nesciunt, neque porro quisquam est, qui ratione voluptatem. Expedita distinctio alias consequatur aut rerum hic tenetur a sapiente. Ipsam voluptatem, quia voluptas assumenda est, omnis dolor sit aspernatur. Aperiam eaque ipsa, quae ab illo inventore veritatis et quasi. Velit, sed quia non provident. Vel eum fugiat, quo minus id, quod maxime. Non recusandae reiciendis voluptatibus maiores alias consequatur. A sapiente delectus, ut enim ipsam voluptatem, quia voluptas. "
+	},
+	{
+		"id": 12,
+		"title": "Nesciunt",
+		"creationDate": "2019 12 11",
+		"duration": 180,
+		"rating": 4.5,
+		"favorite": false,
+		"description": "Nesciunt, neque porro quisquam est, qui ratione voluptatem. Expedita distinctio alias consequatur aut rerum hic tenetur a sapiente. Ipsam voluptatem, quia voluptas assumenda est, omnis dolor sit aspernatur. Aperiam eaque ipsa, quae ab illo inventore veritatis et quasi. Velit, sed quia non provident. Vel eum fugiat, quo minus id, quod maxime. Non recusandae reiciendis voluptatibus maiores alias consequatur. A sapiente delectus, ut enim ipsam voluptatem, quia voluptas. "
+	}
+]

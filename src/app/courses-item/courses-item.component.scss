@@ -1,0 +1,17 @@
+.app-course-item {
+	&__favorite {
+		cursor: pointer;
+		display: inline-block;
+		transition: 0.5s;
+
+		&:hover {
+			opacity: 0.3;
+			transition: 0.5s;
+		}
+
+		&:active {
+			transform: scale(0.5);
+			transition: 0.5s;
+		}
+	}
+}

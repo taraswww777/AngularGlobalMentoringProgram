@@ -1,5 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Course} from "../../models/course";
+import { Component, Input, OnInit } from '@angular/core';
+import { map } from 'lodash';
+import { CoursesService } from 'src/services/CoursesService';
+import { ICourse } from '../../interfaces/course';
+import { Course, CourseProps } from '../../models/course';
 
 @Component({
 	selector: 'app-courses-load-more',
@@ -11,7 +14,10 @@ export class CoursesLoadMoreComponent implements OnInit {
 	@Input()
 	public listCourses: Course[] = [];
 
-	constructor() {
+	private coursesService: CoursesService;
+
+	constructor(coursesService: CoursesService) {
+		this.coursesService = coursesService;
 	}
 
 	ngOnInit() {
@@ -19,14 +25,10 @@ export class CoursesLoadMoreComponent implements OnInit {
 
 	onLoadMore() {
 		this.showLoader = true;
-			const id: number = this.listCourses.length + 1;
-			this.listCourses.push(new Course({
-				id: id,
-				title: 'demo Title ' + id,
-				creationDate: '10-10-2019',
-				duration: 15,
-				description: 'demo Description ' + id,
-			}));
-			this.showLoader = false
+		this.coursesService.getList().then((items: ICourse[]) => {
+			map(items, (item: CourseProps) => this.listCourses.push(new Course(item)));
+		}).then(() => {
+			this.showLoader = false;
+		});
 	}
 }

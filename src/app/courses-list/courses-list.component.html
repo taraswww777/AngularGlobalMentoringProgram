@@ -1,5 +1,9 @@
 <div class="row no-gutters">
-	<div class="col-12">
+	<div class="col-12" *ngIf="listCourses.length === 0">
+		No Data, please wait...
+	</div>
+
+	<div class="col-12" *ngIf="listCourses.length >0">
 		<app-courses-item
 			*ngFor="let course of listCourses"
 			[course]="course"></app-courses-item>
