@@ -1,9 +1,9 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { Course } from '../../models/course';
 
-import {CoursesItemComponent} from './courses-item.component';
-import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
-import {Course} from "../../models/course";
-import {By} from "@angular/platform-browser";
+import { CoursesItemComponent } from './courses-item.component';
 
 
 describe('CoursesItemComponent', () => {
@@ -14,6 +14,8 @@ describe('CoursesItemComponent', () => {
 		id: id,
 		title: 'demo Title ' + id,
 		creationDate: '10-10-2019',
+		favorite: false,
+		rating: 5,
 		duration: 15,
 		description: 'demo Description ' + id,
 	});
