@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LinkTypes } from './breadcrumbs/breadcrumbs-item/breadcrumbs-item.component';
@@ -15,6 +15,7 @@ import { UserService } from './common/services/user.service';
 		'./app.component.css',
 	],
 	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
 	public isLogin: boolean = false;
