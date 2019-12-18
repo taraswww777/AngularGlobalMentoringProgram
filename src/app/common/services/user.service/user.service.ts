@@ -18,7 +18,7 @@ const tempUser: TUser = {
 })
 export class UserService {
 	public user: TUser;
-
+	public isLogin: boolean = false;
 
 	constructor(
 		private cookieService: CookieService,
@@ -27,13 +27,13 @@ export class UserService {
 	}
 
 	public async requiredLogin(): Promise<boolean> {
-		const isAuth = await this.isAuth();
+		this.isLogin = await this.isAuth();
 		// TODO: add check about current page === login page
-		if (!isAuth) {
+		if (!this.isLogin) {
 			await this.router.navigate(['/login']);
-			return isAuth;
+			return this.isLogin;
 		}
-		return isAuth;
+		return this.isLogin;
 	}
 
 	public async isAuth(): Promise<boolean> {
@@ -45,19 +45,27 @@ export class UserService {
 	}
 
 	public async login(login: string, password: string): Promise<boolean> {
+		console.log('login:user', login);
 		// TODO: unMock
 		if (login === tempUser.login && password === 'admin') {
 			this.user = tempUser;
 			this._setLoginCookie(this.user);
-			return true;
+			this.isLogin = true;
+		} else {
+			this.isLogin = false;
 		}
-		return false;
+		return this.isLogin;
+	}
+
+	public logout() {
+		this._deleteLoginCookie();
+		this.isLogin = false;
 	}
 
 	private async _loadCurrentUser(): Promise<TUser | boolean> {
 		const session: string = this._getSessionCookie();
 		const login: string = this._getLoginCookie();
-		console.log('session', session, 'login:', login);
+		console.log('_loadCurrentUser.session:', session, 'login:', login);
 		// TODO: get from BE
 		return login === tempUser.login;
 	}
@@ -69,6 +77,10 @@ export class UserService {
 
 	private _getLoginCookie(): string {
 		return this.cookieService.get(USER_COOKIE_LOGIN);
+	}
+
+	private _deleteLoginCookie() {
+		this.cookieService.delete(USER_COOKIE_LOGIN);
 	}
 
 	private _setSessionCookie(session: string) {

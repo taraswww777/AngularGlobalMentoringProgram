@@ -17,7 +17,7 @@ import { UserService } from './common/services/user.service';
 	encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent {
-	public isAuth: boolean = false;
+	public isLogin: boolean = false;
 	public title: string = 'mentoring';
 	// TODO: правильно продросить breadcrumbs
 	public breadcrumbs: BreadcrumbsComponentProps = {
@@ -35,14 +35,26 @@ export class AppComponent {
 		private router: Router,
 	) {
 		this.title = 'mentoring';
+		this.isLogin = this.userService.isLogin;
 		this.userService.isAuth().then((isAuth: boolean) => {
-			this.isAuth = isAuth;
 			if (!isAuth) {
 				this.router.navigate(['/login']).catch((e: Error) => {
 					console.log('e:', e);
 				});
+			} else {
+				window.location.href = window.location.href;
 			}
 		});
 	}
 
+	public async login(login: string, password: string): Promise<boolean> {
+		return await this.userService.login(login, password);
+	}
+
+	public logout() {
+		this.userService.logout();
+		// TODO: I Know about this is bad practise,
+		//  but it's fast resolve issue
+		window.location.href = '/';
+	}
 }

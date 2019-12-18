@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="row app__row">
 			<header class="col-12 app__header">
-				<app-header [isAuth]="isAuth" [title]="title"></app-header>
+				<app-header [title]="title" [logout]="logout.bind(this)"></app-header>
 			</header>
 			<div class="col-12">
 				<app-breadcrumbs [items]="breadcrumbs.items"></app-breadcrumbs>
