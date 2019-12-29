@@ -1,6 +1,6 @@
-import {Component, HostBinding, Input, OnInit} from '@angular/core';
-import {CourseFormControl, TCourse} from "../../models/course";
-import {CoursesService} from "../../services/CoursesService";
+import { Component, Input, OnInit } from '@angular/core';
+import { CourseFormControl, TCourse } from '../../models/course';
+import { CoursesService } from '../../services/CoursesService';
 
 export enum CourseEditorMode {
 	ADD = 'ADD',
@@ -15,7 +15,7 @@ export enum CourseEditorMode {
 export class CourseEditorComponent implements OnInit {
 	@Input() public mode: CourseEditorMode;
 	@Input() public courseId?: number;
-	@Input() public doAfterSave: (Course) => Promise<void> = Promise.resolve;
+	@Input() public doAfterSave: (Course) => Promise<void> = () => Promise.resolve();
 
 	public titleSubmit: string = 'Сохранить';
 	public titleEditor: string = 'Создание';
@@ -51,7 +51,7 @@ export class CourseEditorComponent implements OnInit {
 				});
 		}
 
-		this.doAfterSave(course)
+		this.doAfterSave(course);
 	}
 
 	private _isEditMode(): boolean {
