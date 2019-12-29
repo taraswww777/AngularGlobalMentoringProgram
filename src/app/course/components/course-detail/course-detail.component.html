@@ -1,4 +1,19 @@
-<div class="courses-detail" *ngIf="course">
-	<div class="h2 courses-detail__title">{{course.title}}</div>
-	<code class="courses-detail__json">{{course.toString()}}</code>
+<div class="row no-gutters courses-detail">
+	<div class="col-12 h2 card-title courses-detail__title">
+		<div class="row no-gutters">
+			<div class="col-12">{{course.title | uppercase}}</div>
+			<div class="col-sm-12 col-lg-3">
+				<app-rating [rating]="course.rating"></app-rating>
+			</div>
+			<div class="col-sm-12 col-lg-3">
+				<span class="p-1">
+					<i class="far fa-clock"></i> <span [duration]="course.duration"> </span>
+				</span>
+				<app-star
+					class="course-item__favorite" [active]="course.favorite"></app-star>
+			</div>
+		</div>
+	</div>
+
+	<div class="courses-detail__description">{{course.description}}</div>
 </div>

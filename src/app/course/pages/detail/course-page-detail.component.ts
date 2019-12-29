@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import _ from 'lodash';
@@ -17,6 +17,7 @@ type RouteData = { title: string };
 export class CoursePageDetailComponent implements OnInit {
 	private routeParams: RouteParams;
 	public course: Course;
+	public isShowCourse: boolean = false;
 
 	get courseId(): number {
 		return _.toNumber(this.routeParams.courseId);
@@ -26,7 +27,8 @@ export class CoursePageDetailComponent implements OnInit {
 		private route: ActivatedRoute,
 		private titleService: Title,
 		private coursesService: CoursesService,
-		private userService: UserService
+		private userService: UserService,
+		private cd: ChangeDetectorRef
 	) {
 		this.userService.requiredLogin().then((isLogin) => {
 			if (isLogin) {
@@ -42,7 +44,10 @@ export class CoursePageDetailComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.loadCourse().catch((e: Error) => {
+		this.loadCourse().then(() => {
+			this.isShowCourse = true;
+			this.cd.markForCheck();
+		}).catch((e: Error) => {
 			console.error('Ошибка получения информации о курсе:', e.message);
 		});
 	}
