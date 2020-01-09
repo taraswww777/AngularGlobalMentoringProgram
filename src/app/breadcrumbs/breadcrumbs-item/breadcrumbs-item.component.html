@@ -1,3 +1,4 @@
 <a class="breadcrumb-item-link" *ngIf="breadcrumb"
-	 href="{{breadcrumb.link}}"
+	 [routerLink]="breadcrumb.link"
+	 [routerLinkActive]="'breadcrumb-item-link--active'"
 	 target="{{breadcrumb.typeOpen}}">{{breadcrumb.title}}</a>

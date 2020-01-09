@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {User} from 'src/models/user';
-import * as _ from "lodash";
+import { Component, Input, OnInit } from '@angular/core';
+import * as _ from 'lodash';
+import { User } from 'src/models/user';
+import { UserService } from '../common/services/user.service';
 
 @Component({
 	selector: 'app-header',
@@ -11,16 +12,17 @@ import * as _ from "lodash";
 })
 export class HeaderComponent implements OnInit {
 	@Input() public title: string;
-	@Input() public setAuthStatus: (boolean) => void = _.noop;
-	@Input() public isAuth: boolean = false;
+	@Input() public logout: () => void = _.noop;
 	public user: User;
 
-	constructor() {
+	constructor(
+		private userService: UserService,
+	) {
 		this.user = new User({
 			id: 1,
 			firstName: 'demo FirstName',
 			lastName: 'demo LastName',
-		})
+		});
 	}
 
 	ngOnInit() {

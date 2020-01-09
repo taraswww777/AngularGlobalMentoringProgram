@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import * as _ from "lodash";
+import { Component, Input, OnInit } from '@angular/core';
+import * as _ from 'lodash';
 
 @Component({
 	selector: 'app-logout-link',
@@ -9,11 +9,10 @@ import * as _ from "lodash";
 	]
 })
 export class LogoutLinkComponent implements OnInit {
-	@Input() public setAuthStatus: (boolean) => void = _.noop;
+	@Input() public logout: () => void = _.noop;
 
 	public onClickLogout() {
-		console.log('onClickLogout:');
-		this.setAuthStatus(false);
+		this.logout();
 	}
 
 	ngOnInit() {

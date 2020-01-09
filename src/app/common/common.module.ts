@@ -1,11 +1,13 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {DurationDirective} from "./directives/duration";
-import {RatingComponent} from './rating/rating.component';
-import {StarComponent} from './star/star.component';
-import {SearchInputComponent} from './search-input/search-input.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {LoaderComponent} from "./loader/loader.component";
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { CookieService } from 'ngx-cookie-service';
+import { LoaderComponent } from './components/loader';
+import { RatingComponent } from './components/rating';
+import { SearchInputComponent } from './components/search-input';
+import { StarComponent } from './components/star';
+import { DurationDirective } from './directives/duration';
+import { UserService } from './services/user.service';
 
 const components = [
 	DurationDirective,
@@ -23,7 +25,10 @@ const components = [
 		ReactiveFormsModule,
 	],
 	exports: components,
-	providers: [],
+	providers: [
+		CookieService,
+		UserService
+	],
 })
 export class CommonModule {
 }

@@ -21,6 +21,7 @@
       "app",
       "kebab-case"
     ],
+    "ordered-imports": true,
     "import-blacklist": [
       true,
       "rxjs/Rx"
@@ -66,7 +67,6 @@
       "as-needed"
     ],
     "object-literal-sort-keys": false,
-    "ordered-imports": false,
     "quotemark": [
       true,
       "single"

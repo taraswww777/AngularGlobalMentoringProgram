@@ -1,11 +1,11 @@
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 
-import {CommonModule} from '../common/common.module';
-import {LogoutLinkComponent} from "./components/logout-link/logout-link.component";
-import {LoginLinkComponent} from './components/login-link/login-link.component';
-import {LoginFormComponent} from './components/login-form/login-form.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {BrowserModule} from "@angular/platform-browser";
+import { CommonModule } from '../common/common.module';
+import { LoginFormComponent } from './components/login-form';
+import { LoginLinkComponent } from './components/login-link';
+import { LogoutLinkComponent } from './components/logout-link';
 
 const components = [
 	LogoutLinkComponent,

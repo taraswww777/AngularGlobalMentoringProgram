@@ -2,14 +2,13 @@
 	<div class="container">
 		<div class="row app__row">
 			<header class="col-12 app__header">
-				<app-header [isAuth]="isAuth" [setAuthStatus]="setAuthStatus.bind(this)" [title]="title"></app-header>
+				<app-header [title]="title" [logout]="logout.bind(this)"></app-header>
 			</header>
 			<div class="col-12">
 				<app-breadcrumbs [items]="breadcrumbs.items"></app-breadcrumbs>
 			</div>
 			<div class="col-12 app__content">
-				<login-form [setAuthStatus]="setAuthStatus.bind(this)" *ngIf="!isAuth"></login-form>
-				<app-page-courses *ngIf="isAuth"></app-page-courses>
+				<router-outlet></router-outlet>
 			</div>
 		</div>
 	</div>

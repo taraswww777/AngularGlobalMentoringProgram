@@ -4,8 +4,8 @@
 	</div>
 	<div class="col-sm-4">
 		<div class="navbar justify-content-between">
-			<app-login-link *ngIf="!isAuth"></app-login-link>
-			<app-logout-link *ngIf="isAuth" [setAuthStatus]="setAuthStatus"></app-logout-link>
+			<app-login-link *ngIf="!userService.isLogin"></app-login-link>
+			<app-logout-link *ngIf="userService.isLogin" [logout]="logout"></app-logout-link>
 		</div>
 	</div>
 </div>

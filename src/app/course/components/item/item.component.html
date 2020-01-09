@@ -4,7 +4,7 @@
 			<div class="card-body">
 				<div class="row">
 					<div class="col-6">
-						<div class="card-title h3">{{course.title | uppercase}}
+						<div class="card-title h3"><a [routerLink]="['/courses',course.id]">{{course.title | uppercase}}</a>
 							<app-star
 								class="course-item__favorite"
 								(click)="onClickToggleFavorite()" [active]="course.favorite"></app-star>
@@ -30,6 +30,7 @@
 		<course-btn-delete
 			[courseId]="course.id"
 			[afterDelete]="afterDelete.bind(this)"></course-btn-delete>
-		<course-btn-edit [courseId]="course.id"></course-btn-edit>
+		<course-btn-edit
+			[courseId]="course.id"></course-btn-edit>
 	</div>
 </div>

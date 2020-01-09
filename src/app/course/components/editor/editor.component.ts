@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CourseFormControl, TCourse} from "../../models/course";
-import {CoursesService} from "../../services/CoursesService";
+import { Component, Input, OnInit } from '@angular/core';
+import { CourseFormControl, TCourse } from '../../models/course';
+import { CoursesService } from '../../services/CoursesService';
 
 export enum CourseEditorMode {
 	ADD = 'ADD',
@@ -15,6 +15,8 @@ export enum CourseEditorMode {
 export class CourseEditorComponent implements OnInit {
 	@Input() public mode: CourseEditorMode;
 	@Input() public courseId?: number;
+	@Input() public doAfterSave: (Course) => Promise<void> = () => Promise.resolve();
+
 	public titleSubmit: string = 'Сохранить';
 	public titleEditor: string = 'Создание';
 	public course: CourseFormControl = new CourseFormControl();
@@ -36,17 +38,20 @@ export class CourseEditorComponent implements OnInit {
 
 	public async onSubmit() {
 		// TODO: update list/item course (maybe good for this use events)
+		const course = this.course.toJsonObject();
 		if (this._isEditMode()) {
-			this._courseService.update(this.courseId, this.course.toJsonObject())
+			await this._courseService.update(this.courseId, course)
 				.then((course: TCourse) => {
 					console.log('CourseEditorComponent.onSubmit.course:', course);
 				});
 		} else {
-			this._courseService.add(this.course.toJsonObject())
+			await this._courseService.add(course)
 				.then((course: TCourse) => {
 					console.log('CourseEditorComponent.onSubmit.course:', course);
 				});
 		}
+
+		this.doAfterSave(course);
 	}
 
 	private _isEditMode(): boolean {
