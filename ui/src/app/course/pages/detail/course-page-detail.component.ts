@@ -8,7 +8,6 @@ import { UserService } from '../../../common/services/user.service';
 import { arrayUnsubscribe } from '../../../common/utils/array';
 import { getCourses, redirectToCourses } from '../../http/getCourses';
 import { TCourse } from '../../models/course';
-import { CoursesService } from '../../services/CoursesService';
 
 type RouteParams = { courseId: number };
 type RouteData = { title: string };
@@ -31,7 +30,6 @@ export class CoursePageDetailComponent implements OnInit, OnDestroy {
 	constructor(
 		private route: ActivatedRoute,
 		private titleService: Title,
-		private coursesService: CoursesService,
 		private userService: UserService,
 		private _cdRef: ChangeDetectorRef,
 		private _httpClient: HttpClient,

@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { UserService } from '../../../common/services/user.service';
 import { arrayUnsubscribe } from '../../../common/utils/array';
 import { TCourse } from '../../models/course';
-import { CoursesService } from '../../services/CoursesService';
 import { getCourses } from '../../http/getCourses';
 
 @Component({
@@ -17,7 +16,6 @@ export class CoursePageListComponent implements OnInit, OnDestroy {
 	private subs: Subscription[] = [];
 
 	constructor(
-		private _coursesService: CoursesService,
 		private _userService: UserService,
 		private _cdRef: ChangeDetectorRef,
 		private _httpClient: HttpClient

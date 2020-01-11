@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Course } from '../../models/course';
+import { TCourse } from '../../models/course';
 import { CourseItemComponent } from './item.component';
 
 
@@ -9,15 +9,15 @@ describe('CourseItemComponent', () => {
 	let component: CourseItemComponent;
 	let fixture: ComponentFixture<CourseItemComponent>;
 	const id = 1;
-	const course: Course = new Course({
+	const course: TCourse = {
 		id: id,
-		title: 'demo Title ' + id,
-		creationDate: '10-10-2019',
-		favorite: false,
-		rating: 5,
-		duration: 15,
+		name: 'demo Title ' + id,
+		date: '10-10-2019',
+		isTopRated: false,
+		length: 15,
 		description: 'demo Description ' + id,
-	});
+		authors: []
+	};
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
@@ -40,7 +40,7 @@ describe('CourseItemComponent', () => {
 
 	it('check item title', () => {
 		const title = fixture.debugElement.query(By.css('.card-title'));
-		expect(title.nativeElement.innerText).toBe(course.title);
+		expect(title.nativeElement.innerText).toBe(course.name);
 	});
 
 	it('check item description', () => {
