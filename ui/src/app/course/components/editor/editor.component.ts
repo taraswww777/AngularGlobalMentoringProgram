@@ -79,7 +79,6 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 	}
 
 	private _onSubmit() {
-		// TODO: update list/item course (maybe good for this use events)
 		const course = this.course.toJsonObject();
 		if (this._isEditMode()) {
 			this._startLoading();
