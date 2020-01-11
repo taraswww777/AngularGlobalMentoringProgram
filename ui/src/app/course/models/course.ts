@@ -1,14 +1,21 @@
 import { FormControl } from '@angular/forms';
 
+export type TAuthors = {
+	id: number;
+	name: string;
+	lastName: string;
+}
+
 export type TCourse = {
 	id: number;
-	title: string;
-	creationDate: string;
-	duration: number;
-	rating: number;
-	favorite: boolean;
+	name: string;
 	description: string;
+	isTopRated: boolean;
+	date: string;
+	authors: TAuthors[];
+	length: number;
 };
+
 
 export interface ICourse {
 	id: number;
@@ -32,7 +39,7 @@ export class Course implements ICourse {
 	rating: number = 0;
 	favorite: boolean = false;
 
-	constructor(props: Partial<TCourse> = {}) {
+	constructor(props: Partial<any> = {}) {
 		this.id = props.id || 0;
 		this.title = props.title || '';
 		this.creationDate = new Date(props.creationDate || '');
@@ -65,7 +72,7 @@ export class CourseFormControl {
 	public favorite: FormControl;
 	public description: FormControl;
 
-	constructor(props: Partial<TCourse> = {}) {
+	constructor(props: Partial<any> = {}) {
 		this.id = new FormControl(props.id || 0);
 		this.title = new FormControl(props.title || '');
 		this.creationDate = new FormControl(new Date(props.creationDate || '2019-01-01T00:00:00'));
@@ -75,7 +82,7 @@ export class CourseFormControl {
 		this.description = new FormControl(props.description || '');
 	}
 
-	public toJsonObject(): TCourse {
+	public toJsonObject(): any {
 		return {
 			id: this.id.value,
 			title: this.title.value,

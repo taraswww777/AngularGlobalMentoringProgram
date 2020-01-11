@@ -24,7 +24,9 @@ const components = [
 		FormsModule,
 		ReactiveFormsModule,
 	],
-	exports: components,
+	exports: [
+		components,
+	],
 	providers: [
 		CookieService,
 		UserService

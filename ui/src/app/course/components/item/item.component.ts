@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Course} from "../../models/course";
+import { Component, Input, OnInit } from '@angular/core';
+import { TCourse } from '../../models/course';
 
 @Component({
 	selector: 'courses-item',
@@ -9,15 +9,15 @@ import {Course} from "../../models/course";
 	]
 })
 export class CourseItemComponent implements OnInit {
-	@Input() public course: Course;
+	@Input() public course: TCourse;
 	@Input() public refreshListCourses: () => Promise<void> = Promise.resolve;
-	@Input() public updateCourse: (Course) => Promise<void> = Promise.resolve;
+	@Input() public updateCourse: (TCourse) => Promise<void> = Promise.resolve;
 
 	ngOnInit() {
 	}
 
 	public async onClickToggleFavorite() {
-		this.course.favorite = !this.course.favorite;
+		this.course.isTopRated = !this.course.isTopRated;
 		await this.updateCourse(this.course);
 	}
 

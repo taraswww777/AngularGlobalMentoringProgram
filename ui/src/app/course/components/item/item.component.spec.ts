@@ -17,8 +17,6 @@ describe('CourseItemComponent', () => {
 		rating: 5,
 		duration: 15,
 		description: 'demo Description ' + id,
-		favorite: true,
-		rating: 2
 	});
 
 	beforeEach(async(() => {

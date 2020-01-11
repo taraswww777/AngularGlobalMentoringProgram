@@ -1,11 +1,17 @@
-import {TCourse} from "../models/course";
+import { TCourse } from '../models/course';
 import CoursesList from './cources.json';
+
 
 export class CoursesService {
 	private _listCourses: TCourse[] = CoursesList;
 
+	constructor() {
+
+	}
+
 	public async getList(params?: { search: string }): Promise<TCourse[]> {
-		const arr: TCourse[] = this._listCourses;
+		const arr: TCourse[] = [];
+
 		if (params && params.search) {
 			const {search} = params;
 			return arr.filter((course: TCourse) => {
@@ -20,7 +26,7 @@ export class CoursesService {
 	}
 
 	public async getById(courseId: number): Promise<TCourse> {
-		return this._listCourses.find((item: TCourse) => item.id === courseId)
+		return this._listCourses.find((item: TCourse) => item.id === courseId);
 	}
 
 	public async add(course: TCourse): Promise<TCourse> {

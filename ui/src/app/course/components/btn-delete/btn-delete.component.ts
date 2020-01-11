@@ -21,7 +21,7 @@ export class CourseDeleteComponent implements OnInit {
 
 	public async onDelete() {
 		const course = await this._courseService.getById(this.courseId);
-		if (window.confirm(`You are sure delete course "${course.title}" ?`)) {
+		if (window.confirm(`You are sure delete course "${course.name}" ?`)) {
 			await this._courseService.delete(this.courseId);
 			this.afterDelete();
 		}

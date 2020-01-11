@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Course } from '../../models/course';
+import { TCourse } from '../../models/course';
 
 @Component({
 	selector: 'courses-list',
@@ -8,7 +8,7 @@ import { Course } from '../../models/course';
 })
 export class CourseListComponent implements OnInit {
 
-	@Input() public listCourses: Course[] = [];
+	@Input() public listCourses: TCourse[] = [];
 	@Input() public refreshListCourses: () => Promise<void> = Promise.resolve;
 	@Input() public updateCourse: (Course) => Promise<void> = Promise.resolve;
 

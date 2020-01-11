@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Course } from '../../models/course';
+import { TCourse } from '../../models/course';
 
 @Component({
 	selector: 'app-course-detail',
@@ -7,7 +7,7 @@ import { Course } from '../../models/course';
 	styleUrls: ['./course-detail.component.scss']
 })
 export class CourseDetailComponent implements OnInit {
-	@Input() public course: Course;
+	@Input() public course: TCourse;
 
 	constructor() {
 	}

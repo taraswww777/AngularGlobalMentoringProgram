@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Course, TCourse} from '../../models/course';
-import {CoursesService} from "../../services/CoursesService";
+import { Component, Input, OnInit } from '@angular/core';
+import { TCourse } from '../../models/course';
+import { CoursesService } from '../../services/CoursesService';
 
 @Component({
 	selector: 'courses-load-more',
@@ -10,7 +10,7 @@ import {CoursesService} from "../../services/CoursesService";
 export class CourseLoadMoreComponent implements OnInit {
 	public showLoader: boolean = false;
 	@Input()
-	public listCourses: Course[] = [];
+	public listCourses: TCourse[] = [];
 
 	private coursesService: CoursesService;
 
@@ -24,8 +24,8 @@ export class CourseLoadMoreComponent implements OnInit {
 	onLoadMore() {
 		this.showLoader = true;
 		this.coursesService.getList().then((items: TCourse[]) => {
-			items.forEach((item: TCourse) => this.listCourses.push(new Course(item)));
+			items.forEach((item: TCourse) => this.listCourses.push(item));
 		});
-		this.showLoader = false
+		this.showLoader = false;
 	}
 }
