@@ -1,5 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CoursesService} from "../../services/CoursesService";
+import { HttpClient } from '@angular/common/http';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { arrayUnsubscribe } from '../../../common/utils/array';
+import { getCourses, deleteCourse } from '../../http/getCourses';
+import { TCourse } from '../../models/course';
+import { CoursesService } from '../../services/CoursesService';
 import _ from 'lodash';
 
 @Component({
@@ -9,22 +14,45 @@ import _ from 'lodash';
 		'./btn-delete.component.css',
 	]
 })
-export class CourseDeleteComponent implements OnInit {
+export class CourseDeleteComponent implements OnInit, OnDestroy {
 	@Input() courseId: number;
 	@Input() afterDelete: () => void = _.noop;
+	private subs: Subscription[] = [];
+	public course: TCourse;
 
-	constructor(private _courseService: CoursesService) {
+	constructor(
+		private _courseService: CoursesService,
+		private _cdRef: ChangeDetectorRef,
+		private _httpClient: HttpClient
+	) {
 	}
 
 	ngOnInit() {
 	}
 
 	public async onDelete() {
-		const course = await this._courseService.getById(this.courseId);
-		if (window.confirm(`You are sure delete course "${course.name}" ?`)) {
-			await this._courseService.delete(this.courseId);
-			this.afterDelete();
-		}
+		this.subs.push(this.getCourse().subscribe((course: TCourse) => {
+			this.setCourse(course);
+
+			if (window.confirm(`You are sure delete course "${course.name}" ?`)) {
+				this.subs.push(deleteCourse(this._httpClient, this.courseId).subscribe(() => {
+					this.afterDelete();
+				}));
+			}
+		}));
+	}
+
+	protected getCourse() {
+		return getCourses(this._httpClient, this.courseId);
+	}
+
+	protected setCourse(course: TCourse) {
+		this.course = course;
+		this._cdRef.markForCheck();
+	}
+
+	ngOnDestroy(): void {
+		arrayUnsubscribe(this.subs);
 	}
 
 }

@@ -24,7 +24,7 @@ export class CoursePageListComponent implements OnInit, OnDestroy {
 	) {
 		this._userService.requiredLogin().then((isAuth: boolean) => {
 			if (isAuth) {
-				this.subs.push(this.getList().subscribe(this.setListCourses.bind(this)));
+				this.refreshListCourses();
 			}
 		});
 	}
@@ -52,8 +52,7 @@ export class CoursePageListComponent implements OnInit, OnDestroy {
 	// }
 
 	public refreshListCourses() {
-		// 	console.log('refreshListCourses');
-		// 	// 	this._coursesService.getList().then(this._mapCourses.bind(this));
+		this.subs.push(this.getList().subscribe(this.setListCourses.bind(this)));
 	}
 
 	public async updateCourse(course: TCourse) {

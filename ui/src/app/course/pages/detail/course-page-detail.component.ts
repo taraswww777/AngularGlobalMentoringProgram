@@ -1,14 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import _ from 'lodash';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { BASE_URL } from '../../../common/consts';
 import { UserService } from '../../../common/services/user.service';
 import { arrayUnsubscribe } from '../../../common/utils/array';
-import { joinUrl } from '../../../common/utils/string';
-import { getCourses } from '../../http/getCourses';
+import { getCourses, redirectToCourses } from '../../http/getCourses';
 import { TCourse } from '../../models/course';
 import { CoursesService } from '../../services/CoursesService';
 
@@ -36,7 +34,8 @@ export class CoursePageDetailComponent implements OnInit, OnDestroy {
 		private coursesService: CoursesService,
 		private userService: UserService,
 		private _cdRef: ChangeDetectorRef,
-		private _httpClient: HttpClient
+		private _httpClient: HttpClient,
+		private _router: Router,
 	) {
 		this.userService.requiredLogin().then((isLogin) => {
 			if (isLogin) {
@@ -52,16 +51,14 @@ export class CoursePageDetailComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit() {
-		this.loadCourse().then(() => {
-			this.isShowCourse = true;
-			this._cdRef.markForCheck();
-		}).catch((e: Error) => {
-			console.error('Ошибка получения информации о курсе:', e.message);
-		});
+		this.subs.push(
+			this.getCourse()
+				.subscribe(this.setCourse.bind(this), this._handleNotFound.bind(this))
+		);
 	}
 
-	private async loadCourse() {
-		this.subs.push(this.getCourse().subscribe(this.setCourse.bind(this)));
+	private _handleNotFound() {
+		redirectToCourses(this._router);
 	}
 
 	protected getCourse() {
@@ -70,6 +67,7 @@ export class CoursePageDetailComponent implements OnInit, OnDestroy {
 
 	private setCourse(course: TCourse) {
 		this.course = course;
+		this.isShowCourse = true;
 		this._cdRef.markForCheck();
 	}
 
