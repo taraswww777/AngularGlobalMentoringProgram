@@ -1,7 +1,7 @@
 import { TCourse } from '../models/course';
 import CoursesList from './cources.json';
 
-
+// TODO: Избавиться от CoursesService или сделать красиво
 export class CoursesService {
 	private _listCourses: TCourse[] = CoursesList;
 

@@ -1,9 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import _ from 'lodash';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { UserService } from '../../../common/services/user.service';
+import { arrayUnsubscribe } from '../../../common/utils/array';
 import { CourseEditorMode } from '../../components/editor/editor.component';
+import { getCourses, redirectToCourses } from '../../http/getCourses';
+import { TCourse } from '../../models/course';
 
 type RouteParams = { courseId?: number };
 type RouteData = { title: string };
@@ -13,27 +18,33 @@ type RouteData = { title: string };
 	templateUrl: './course-page-editor.component.html',
 	styleUrls: ['./course-page-editor.component.scss']
 })
-export class CoursePageEditorComponent implements OnInit {
-	public mode: string = CourseEditorMode.ADD;
+export class CoursePageEditorComponent implements OnInit, OnDestroy {
+	public mode: CourseEditorMode = CourseEditorMode.ADD;
 	private routeParams: RouteParams;
+	private subs: Subscription[] = [];
+	public course: TCourse;
+
 
 	get courseId(): number {
 		return _.toNumber(this.routeParams.courseId);
 	}
 
 	constructor(
-		private route: ActivatedRoute,
-		private titleService: Title,
-		private userService: UserService
+		private _route: ActivatedRoute,
+		private _titleService: Title,
+		private _userService: UserService,
+		private _cdRef: ChangeDetectorRef,
+		private _httpClient: HttpClient,
+		private _router: Router,
 	) {
-		this.userService.requiredLogin().then((isLogin) => {
+		this._userService.requiredLogin().then((isLogin) => {
 			if (isLogin) {
-				this.route.params.subscribe((routeParams: RouteParams) => {
+				this._route.params.subscribe((routeParams: RouteParams) => {
 					this.routeParams = routeParams;
 				});
 
-				this.route.data.subscribe((routeData: RouteData) => {
-					this.titleService.setTitle(routeData.title || 'CoursePageEditor');
+				this._route.data.subscribe((routeData: RouteData) => {
+					this._titleService.setTitle(routeData.title || 'CoursePageEditor');
 				});
 			}
 		});
@@ -41,7 +52,34 @@ export class CoursePageEditorComponent implements OnInit {
 
 	ngOnInit() {
 		this.mode = this.courseId > 0 ? CourseEditorMode.EDIT : CourseEditorMode.ADD;
-		// if (this.mode === CourseEditorMode.EDIT) {}
+		if (this.mode === CourseEditorMode.EDIT) {
+			this.subs.push(
+				this.getCourse()
+					.subscribe(this.setCourse.bind(this), this._handleNotFound.bind(this))
+			);
+		}
 	}
 
+	public doAfterSave(course: TCourse) {
+		if (this.mode === CourseEditorMode.ADD) {
+			redirectToCourses(this._router, course.id);
+		}
+	}
+
+	private setCourse(course: TCourse) {
+		this.course = course;
+		this._cdRef.markForCheck();
+	}
+
+	protected getCourse() {
+		return getCourses(this._httpClient, this.courseId);
+	}
+
+	private _handleNotFound() {
+		redirectToCourses(this._router);
+	}
+
+	ngOnDestroy(): void {
+		arrayUnsubscribe(this.subs);
+	}
 }
