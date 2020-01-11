@@ -39,28 +39,12 @@ export class CoursePageListComponent implements OnInit, OnDestroy {
 		return getCourses(this._httpClient);
 	}
 
-
 	// public onSubmitSearch(search: string) {
 	// this._coursesService.getList({search}).then(this._mapCourses.bind(this));
 	// }
 
-
-	// private _mapCourses(items: Partial<ICourse>[]) {
-	// 	this.listCourses = _.map(items, (item: ICourse) => new ICourse(item));
-	// }
-
 	public refreshListCourses() {
 		this.subs.push(this.getList().subscribe(this.setListCourses.bind(this)));
-	}
-
-	public async updateCourse(course: TCourse) {
-		console.log('updateCourse.course');
-		// 	// TODO: implement normal logic
-		// 	this.listCourses.forEach((courseItem: Course, i: number) => {
-		// 		if (courseItem.id === course.id) {
-		// 			this.listCourses[i] = course;
-		// 		}
-		// 	});
 	}
 
 

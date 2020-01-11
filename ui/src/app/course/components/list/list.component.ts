@@ -10,7 +10,6 @@ export class CourseListComponent implements OnInit {
 
 	@Input() public listCourses: TCourse[] = [];
 	@Input() public refreshListCourses: () => Promise<void> = Promise.resolve;
-	@Input() public updateCourse: (Course) => Promise<void> = Promise.resolve;
 
 	ngOnInit() {
 	}
