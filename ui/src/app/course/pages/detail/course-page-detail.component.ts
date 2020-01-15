@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { UserService } from '../../../common/services/user.service';
 import { arrayUnsubscribe } from '../../../common/utils/array';
-import { getCourses, redirectToCourses } from '../../http/getCourses';
+import { redirectToCourses, getCourse } from '../../http/courses';
 import { TCourse } from '../../models/course';
 
 type RouteParams = { courseId: number };
@@ -50,8 +50,8 @@ export class CoursePageDetailComponent implements OnInit, OnDestroy {
 
 	ngOnInit() {
 		this.subs.push(
-			this.getCourse()
-				.subscribe(this.setCourse.bind(this), this._handleNotFound.bind(this))
+			getCourse(this._httpClient, this.courseId)
+				.subscribe((course: TCourse) => this._setCourse(course), this._handleNotFound.bind(this))
 		);
 	}
 
@@ -59,11 +59,7 @@ export class CoursePageDetailComponent implements OnInit, OnDestroy {
 		redirectToCourses(this._router);
 	}
 
-	protected getCourse() {
-		return getCourses(this._httpClient, this.courseId);
-	}
-
-	private setCourse(course: TCourse) {
+	private _setCourse(course: TCourse) {
 		this.course = course;
 		this.isShowCourse = true;
 		this._cdRef.markForCheck();

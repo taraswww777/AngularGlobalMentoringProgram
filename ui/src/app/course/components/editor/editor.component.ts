@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { arrayUnsubscribe } from '../../../common/utils/array';
-import { getCourses, updateCourse, addCourse } from '../../http/getCourses';
+import { updateCourse, addCourse, getCourse } from '../../http/courses';
 import { CourseFormControl, TCourse } from '../../models/course';
 import _ from 'lodash';
 
@@ -43,13 +43,33 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 			this._startLoading();
 
 			this.subs.push(
-				this._getCourse()
-					.subscribe(this.setCourse.bind(this), this._handleNotFound.bind(this))
+				getCourse(this._httpClient, this.courseId)
+					.subscribe((course: TCourse) => this._setCourse(course), this._handleNotFound.bind(this))
 			);
 		}
 	}
 
-	private setCourse(course: TCourse) {
+	public onSubmit() {
+		if (confirm('U`re sure?')) {
+			this._onSubmit();
+		}
+	}
+
+	private _onSubmit() {
+		const course = this.course.toJsonObject();
+		if (this._isEditMode()) {
+			this._startLoading();
+			this.subs.push(updateCourse(this._httpClient, this.courseId, course)
+				.subscribe((course: TCourse) => this._onSubscribeUpdate(course), this._handleNotFound.bind(this))
+			);
+		} else {
+			this.subs.push(addCourse(this._httpClient, course)
+				.subscribe((course: TCourse) => this._onSubscribeAdd(course), this._handleNotFound.bind(this))
+			);
+		}
+	}
+
+	private _setCourse(course: TCourse) {
 		this.course = new CourseFormControl(course);
 		this._stopLoading();
 		this._cdRef.markForCheck();
@@ -66,31 +86,6 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 
 	private _stopLoading() {
 		this.isLoading = false;
-	}
-
-	private _getCourse() {
-		return getCourses(this._httpClient, this.courseId);
-	}
-
-	public onSubmit() {
-		if (confirm('U`re sure?')) {
-			this._onSubmit();
-		}
-	}
-
-	private _onSubmit() {
-		const course = this.course.toJsonObject();
-		if (this._isEditMode()) {
-			this._startLoading();
-			this.subs.push(updateCourse(this._httpClient, this.courseId, course)
-				.subscribe(this._onSubscribeUpdate.bind(this), this._handleNotFound.bind(this))
-			);
-		} else {
-			this.subs.push(addCourse(this._httpClient, course)
-				.subscribe(this._onSubscribeAdd.bind(this), this._handleNotFound.bind(this))
-			);
-		}
-
 	}
 
 	private _onSubscribeAdd(course: TCourse) {
@@ -110,7 +105,6 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 	private _isEditMode(): boolean {
 		return this.mode === CourseEditorMode.EDIT;
 	}
-
 
 	ngOnDestroy(): void {
 		arrayUnsubscribe(this.subs);

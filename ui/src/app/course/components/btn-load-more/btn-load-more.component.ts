@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TCourse } from '../../models/course';
+import _ from 'lodash';
 
 @Component({
 	selector: 'courses-load-more',
@@ -8,8 +9,8 @@ import { TCourse } from '../../models/course';
 })
 export class CourseLoadMoreComponent implements OnInit {
 	public showLoader: boolean = false;
-	@Input()
-	public listCourses: TCourse[] = [];
+	@Input() public listCourses: TCourse[] = [];
+	@Input() public loadMore: () => void = _.noop;
 
 	ngOnInit() {
 	}
@@ -17,6 +18,7 @@ export class CourseLoadMoreComponent implements OnInit {
 	onLoadMore() {
 		this.showLoader = true;
 		//TODO: need support pagination in BE
+		this.loadMore();
 		this.showLoader = false;
 	}
 }

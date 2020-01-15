@@ -1,6 +1,6 @@
 <div class="row no-gutters">
 	<div class="col-xs-12 col-sm-6 col-lg-4">
-<!--		<app-search-input [onSubmitSearch]="onSubmitSearch.bind(this)"></app-search-input>-->
+		<!--		<app-search-input [onSubmitSearch]="onSubmitSearch.bind(this)"></app-search-input>-->
 	</div>
 	<div class="col-12">
 		<course-btn-add></course-btn-add>
@@ -11,6 +11,8 @@
 			[refreshListCourses]="refreshListCourses.bind(this)"></courses-list>
 	</div>
 	<div class="col-12 text-center">
-		<courses-load-more [listCourses]="listCourses"></courses-load-more>
+		<courses-load-more
+			[loadMore]="loadMore.bind(this)"
+			[listCourses]="listCourses"></courses-load-more>
 	</div>
 </div>

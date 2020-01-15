@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { arrayUnsubscribe } from '../../../common/utils/array';
-import { getCourses, deleteCourse } from '../../http/getCourses';
+import { deleteCourse, getCourse } from '../../http/courses';
 import { TCourse } from '../../models/course';
 import _ from 'lodash';
 
@@ -29,7 +29,7 @@ export class CourseDeleteComponent implements OnInit, OnDestroy {
 	}
 
 	public async onDelete() {
-		this.subs.push(this.getCourse().subscribe((course: TCourse) => {
+		this.subs.push(getCourse(this._httpClient, this.courseId).subscribe((course: TCourse) => {
 			this.setCourse(course);
 
 			if (window.confirm(`You are sure delete course "${course.name}" ?`)) {
@@ -38,10 +38,6 @@ export class CourseDeleteComponent implements OnInit, OnDestroy {
 				}));
 			}
 		}));
-	}
-
-	protected getCourse() {
-		return getCourses(this._httpClient, this.courseId);
 	}
 
 	protected setCourse(course: TCourse) {

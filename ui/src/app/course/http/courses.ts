@@ -1,15 +1,28 @@
+import _ from 'lodash';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BASE_URL } from '../../common/consts';
 import { joinUrl } from '../../common/utils/string';
-import _ from 'lodash';
 import { TCourse } from '../models/course';
 
-export function getCourses(httpClient: HttpClient, courseId?: number) {
-	return httpClient.get(joinUrl([
+export function getCourses(httpClient: HttpClient, start: number = 0, count: number = 5): Observable<TCourse[]> {
+	return httpClient.get<TCourse[]>(joinUrl([
 		BASE_URL,
 		'courses',
-		courseId && _.toString(courseId)
+	]), {
+		params: {
+			start: _.toString(start),
+			count: _.toString(count)
+		}
+	});
+}
+
+export function getCourse(httpClient: HttpClient, courseId: number): Observable<TCourse> {
+	return httpClient.get<TCourse>(joinUrl([
+		BASE_URL,
+		'courses',
+		_.toString(courseId)
 	]));
 }
 

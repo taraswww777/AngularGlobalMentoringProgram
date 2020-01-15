@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { UserService } from '../../../common/services/user.service';
 import { arrayUnsubscribe } from '../../../common/utils/array';
 import { CourseEditorMode } from '../../components/editor/editor.component';
-import { getCourses, redirectToCourses } from '../../http/getCourses';
+import { redirectToCourses, getCourse } from '../../http/courses';
 import { TCourse } from '../../models/course';
 
 type RouteParams = { courseId?: number };
@@ -54,8 +54,8 @@ export class CoursePageEditorComponent implements OnInit, OnDestroy {
 		this.mode = this.courseId > 0 ? CourseEditorMode.EDIT : CourseEditorMode.ADD;
 		if (this.mode === CourseEditorMode.EDIT) {
 			this.subs.push(
-				this.getCourse()
-					.subscribe(this.setCourse.bind(this), this._handleNotFound.bind(this))
+				getCourse(this._httpClient, this.courseId)
+					.subscribe((course: TCourse) => this._setCourse(course), this._handleNotFound.bind(this))
 			);
 		}
 	}
@@ -66,13 +66,9 @@ export class CoursePageEditorComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	private setCourse(course: TCourse) {
+	private _setCourse(course: TCourse) {
 		this.course = course;
 		this._cdRef.markForCheck();
-	}
-
-	protected getCourse() {
-		return getCourses(this._httpClient, this.courseId);
 	}
 
 	private _handleNotFound() {
