@@ -48,9 +48,6 @@ export class AppComponent {
 		});
 	}
 
-	public async login(login: string, password: string): Promise<boolean> {
-		return await this.userService.login(login, password);
-	}
 
 	public logout() {
 		this.userService.logout();

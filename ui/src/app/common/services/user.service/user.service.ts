@@ -1,93 +1,97 @@
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { httpLogin, TLoginResponse } from '../../../http/login';
+import { arrayUnsubscribe } from '../../utils/array';
 
 
-const USER_COOKIE_LOGIN = 'user.login';
-const USER_COOKIE_SESSION = 'user.session';
-
-type TUser = { login: string, id: number };
-
-const tempUser: TUser = {
-	id: 123,
-	login: 'admin',
-};
+const USER_COOKIE_TOKEN = 'user.token';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class UserService {
-	public user: TUser;
 	public isLogin: boolean = false;
+	public token: string = '';
 
 	constructor(
 		private cookieService: CookieService,
-		private router: Router
+		private router: Router,
 	) {
 	}
 
-	public async requiredLogin(): Promise<boolean> {
-		this.isLogin = await this.isAuth();
-		// TODO: add check about current page === login page
-		if (!this.isLogin) {
-			await this.router.navigate(['/login']);
-			return this.isLogin;
-		}
-		return this.isLogin;
+	public unRequiredLogin() {
+		this.isAuth().then(async (isAuth) => {
+			if (isAuth) {
+				await this.router.navigate(['/']);
+			}
+		});
+	}
+
+	public requiredLogin(): Promise<boolean> {
+		return this.isAuth().then(async (isAuth) => {
+			if (!isAuth) {
+				await this.router.navigate(['/login']);
+			}
+			return isAuth;
+		});
+
 	}
 
 	public async isAuth(): Promise<boolean> {
-		let isAuth: boolean = Boolean(this.user) ? Boolean(this.user.id) : false;
-		if (!isAuth) {
-			isAuth = Boolean(await this._loadCurrentUser());
+		const token = this._getTokenCookie();
+		// TODO: Think how do better
+		if (token) {
+			this.isLogin = true;
 		}
-		return isAuth;
+		if (!this.token) {
+			this.token = token;
+		}
+		// TODO: maybe need add check actual token
+		return Boolean(token);
 	}
 
-	public async login(login: string, password: string): Promise<boolean> {
-		console.log('login:user', login);
-		// TODO: unMock
-		if (login === tempUser.login && password === 'admin') {
-			this.user = tempUser;
-			this._setLoginCookie(this.user);
-			this.isLogin = true;
-		} else {
-			this.isLogin = false;
-		}
-		return this.isLogin;
+	public login(httpClient: HttpClient, login: string, password: string) {
+		const sub = httpLogin(httpClient, login, password).subscribe(async (resp: TLoginResponse) => {
+			this._loginSuccess(resp.token);
+			arrayUnsubscribe([sub]);
+			await this.redirectToMain();
+		}, (error: HttpErrorResponse) => {
+			alert('Error: ' + error.error);
+			this._loginFailed();
+		});
+	}
+
+	private _loginSuccess(token: string) {
+		this._setTokenCookie(token);
+		this.isLogin = true;
+	}
+
+	private _loginFailed() {
+		this.isLogin = false;
+		this.token = undefined;
 	}
 
 	public logout() {
-		this._deleteLoginCookie();
 		this.isLogin = false;
-	}
-
-	private async _loadCurrentUser(): Promise<TUser | boolean> {
-		const session: string = this._getSessionCookie();
-		const login: string = this._getLoginCookie();
-		console.log('_loadCurrentUser.session:', session, 'login:', login);
-		// TODO: get from BE
-		return login === tempUser.login;
-	}
-
-	private _setLoginCookie(user: TUser) {
-		this.cookieService.set(USER_COOKIE_LOGIN, user.login);
+		this._deleteTokenCookie();
 	}
 
 
-	private _getLoginCookie(): string {
-		return this.cookieService.get(USER_COOKIE_LOGIN);
+	private _setTokenCookie(token: string) {
+		this.cookieService.set(USER_COOKIE_TOKEN, token);
 	}
 
-	private _deleteLoginCookie() {
-		this.cookieService.delete(USER_COOKIE_LOGIN);
+	private _getTokenCookie(): string {
+		return this.cookieService.get(USER_COOKIE_TOKEN);
 	}
 
-	private _setSessionCookie(session: string) {
-		this.cookieService.set(USER_COOKIE_SESSION, session);
+	private _deleteTokenCookie() {
+		this.cookieService.delete(USER_COOKIE_TOKEN);
 	}
 
-	private _getSessionCookie(): string {
-		return this.cookieService.get(USER_COOKIE_SESSION);
+	private async redirectToMain() {
+		await this.router.navigateByUrl('/');
 	}
 }

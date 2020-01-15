@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../common/services/user.service';
+
 
 @Component({
 	selector: 'app-login-page',
@@ -11,25 +13,17 @@ export class LoginPageComponent implements OnInit {
 
 	constructor(
 		private userService: UserService,
-		private router: Router
+		private router: Router,
+		private _httpClient: HttpClient
 	) {
 	}
 
 	ngOnInit() {
-		this.userService.isAuth().then(isAuth => isAuth && this.redirectToMain());
+		this.userService.unRequiredLogin();
 	}
 
 
 	public async tryLogin(login: string, password: string): Promise<void> {
-		const isLogin: boolean = await this.userService.login(login, password);
-		if (isLogin) {
-			await this.redirectToMain();
-		} else {
-			console.error('error login');
-		}
-	}
-
-	private async redirectToMain() {
-		await this.router.navigateByUrl('/');
+		this.userService.login(this._httpClient, login, password);
 	}
 }

@@ -8,8 +8,9 @@ import { FormControl } from '@angular/forms';
 })
 export class LoginFormComponent implements OnInit {
 	@Input() public tryLogin: (login: string, password: string) => Promise<void> = Promise.resolve;
-	public login: FormControl = new FormControl('admin');
-	public password: FormControl = new FormControl('admin');
+	// TODO: delete demo login/password
+	public login: FormControl = new FormControl('Morales');
+	public password: FormControl = new FormControl('id');
 
 	ngOnInit() {
 	}
