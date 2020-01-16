@@ -1,6 +1,4 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { UserService } from '../../common/services/user.service';
 
 
@@ -13,8 +11,6 @@ export class LoginPageComponent implements OnInit {
 
 	constructor(
 		private userService: UserService,
-		private router: Router,
-		private _httpClient: HttpClient
 	) {
 	}
 
@@ -24,6 +20,6 @@ export class LoginPageComponent implements OnInit {
 
 
 	public async tryLogin(login: string, password: string): Promise<void> {
-		this.userService.login(this._httpClient, login, password);
+		this.userService.login(login, password);
 	}
 }
