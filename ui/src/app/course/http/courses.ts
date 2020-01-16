@@ -6,15 +6,38 @@ import { BASE_URL } from '../../common/consts';
 import { joinUrl } from '../../common/utils/string';
 import { TCourse } from '../models/course';
 
-export function getCourses(httpClient: HttpClient, start: number = 0, count: number = 5): Observable<TCourse[]> {
+enum CoursesSort {
+	id = 'id',
+	name = 'name',
+	description = 'description',
+}
+
+export function getCourses(httpClient: HttpClient, params: {
+	start?: number,
+	count?: number,
+	sort?: CoursesSort,
+	textFragment?: string,
+} = {}): Observable<TCourse[]> {
+	let prepareParams = {};
+
+	prepareParams['sort'] = params.sort ? params.sort : CoursesSort.id;
+
+	if (params.start) {
+		prepareParams['start'] = _.toString(params.start);
+	}
+	if (params.count) {
+		prepareParams['count'] = _.toString(params.count);
+	}
+	if (params.textFragment) {
+		prepareParams['textFragment'] = params.textFragment;
+	}
+
+
 	return httpClient.get<TCourse[]>(joinUrl([
 		BASE_URL,
 		'courses',
 	]), {
-		params: {
-			start: _.toString(start),
-			count: _.toString(count)
-		}
+		params: prepareParams
 	});
 }
 

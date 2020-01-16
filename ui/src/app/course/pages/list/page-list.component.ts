@@ -16,6 +16,7 @@ export class CoursePageListComponent implements OnInit, OnDestroy {
 	private subs: Subscription[] = [];
 	public paginationPage: number = 0;
 	public paginationPageSize: number = 2;
+	public searchString?: string = undefined;
 
 	constructor(
 		private _userService: UserService,
@@ -33,9 +34,11 @@ export class CoursePageListComponent implements OnInit, OnDestroy {
 	}
 
 
-	// public onSubmitSearch(search: string) {
-	// this._coursesService.getList({search}).then(this._mapCourses.bind(this));
-	// }
+	public onSubmitSearch(search: string) {
+		this.paginationPage = 0;
+		this.searchString = search;
+		this.subs.push(this._loadMore().subscribe(this._setListCourses.bind(this)));
+	}
 
 	public refreshListCourses() {
 		this.paginationPage = 0;
@@ -49,7 +52,11 @@ export class CoursePageListComponent implements OnInit, OnDestroy {
 	private _loadMore() {
 		const start = this.paginationPage * this.paginationPageSize;
 		this.paginationPage++;
-		return getCourses(this._httpClient, start, this.paginationPageSize);
+		return getCourses(this._httpClient, {
+			start,
+			count: this.paginationPageSize,
+			textFragment: this.searchString
+		});
 	}
 
 	private _setListCourses(courses: TCourse[]) {
