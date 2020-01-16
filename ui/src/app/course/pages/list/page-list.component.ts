@@ -1,10 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { UserService } from '../../../common/services/user.service';
 import { arrayUnsubscribe } from '../../../common/utils/array';
 import { TCourse } from '../../models/course';
-import { getCourses } from '../../http/courses';
+import { CourseService } from '../../services/course.service';
 
 @Component({
 	selector: 'app-page-courses',
@@ -21,7 +20,7 @@ export class CoursePageListComponent implements OnInit, OnDestroy {
 	constructor(
 		private _userService: UserService,
 		private _cdRef: ChangeDetectorRef,
-		private _httpClient: HttpClient
+		private _courseService: CourseService
 	) {
 		this._userService.requiredLogin().then((isAuth: boolean) => {
 			if (isAuth) {
@@ -52,7 +51,7 @@ export class CoursePageListComponent implements OnInit, OnDestroy {
 	private _loadMore() {
 		const start = this.paginationPage * this.paginationPageSize;
 		this.paginationPage++;
-		return getCourses(this._httpClient, {
+		return this._courseService.getCourses( {
 			start,
 			count: this.paginationPageSize,
 			textFragment: this.searchString

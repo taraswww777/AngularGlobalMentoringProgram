@@ -16,6 +16,7 @@ import { CourseItemComponent } from './components/item/item.component';
 import { CourseListComponent } from './components/list/list.component';
 import { CoursePageDetailComponent, CoursePageEditorComponent, CoursePageListComponent } from './pages';
 import { COURSE_ROUTES } from './routes';
+import { CourseService } from './services/course.service';
 
 @NgModule({
 	declarations: [
@@ -48,6 +49,9 @@ import { COURSE_ROUTES } from './routes';
 		CoursePageDetailComponent,
 		CoursePageEditorComponent,
 	],
+	providers: [
+		CourseService
+	]
 })
 export class CourseModule {
 }

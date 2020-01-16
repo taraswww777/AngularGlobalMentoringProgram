@@ -1,11 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { arrayUnsubscribe } from '../../../common/utils/array';
-import { updateCourse, addCourse, getCourse } from '../../http/courses';
 import { CourseFormControl, TCourse } from '../../models/course';
 import _ from 'lodash';
+import { CourseService } from '../../services/course.service';
 
 export enum CourseEditorMode {
 	ADD = 'ADD',
@@ -30,8 +28,7 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private _cdRef: ChangeDetectorRef,
-		private _httpClient: HttpClient,
-		private _router: Router,
+		private _courseService: CourseService,
 	) {
 	}
 
@@ -43,7 +40,7 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 			this._startLoading();
 
 			this.subs.push(
-				getCourse(this._httpClient, this.courseId)
+				this._courseService.getCourse(this.courseId)
 					.subscribe((course: TCourse) => this._setCourse(course), this._handleNotFound.bind(this))
 			);
 		}
@@ -59,11 +56,11 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 		const course = this.course.toJsonObject();
 		if (this._isEditMode()) {
 			this._startLoading();
-			this.subs.push(updateCourse(this._httpClient, this.courseId, course)
+			this.subs.push(this._courseService.updateCourse(this.courseId, course)
 				.subscribe((course: TCourse) => this._onSubscribeUpdate(course), this._handleNotFound.bind(this))
 			);
 		} else {
-			this.subs.push(addCourse(this._httpClient, course)
+			this.subs.push(this._courseService.addCourse(course)
 				.subscribe((course: TCourse) => this._onSubscribeAdd(course), this._handleNotFound.bind(this))
 			);
 		}

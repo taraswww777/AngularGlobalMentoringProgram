@@ -1,14 +1,13 @@
-import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import _ from 'lodash';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { UserService } from '../../../common/services/user.service';
 import { arrayUnsubscribe } from '../../../common/utils/array';
 import { CourseEditorMode } from '../../components/editor/editor.component';
-import { redirectToCourses, getCourse } from '../../http/courses';
 import { TCourse } from '../../models/course';
+import { CourseService } from '../../services/course.service';
 
 type RouteParams = { courseId?: number };
 type RouteData = { title: string };
@@ -34,8 +33,7 @@ export class CoursePageEditorComponent implements OnInit, OnDestroy {
 		private _titleService: Title,
 		private _userService: UserService,
 		private _cdRef: ChangeDetectorRef,
-		private _httpClient: HttpClient,
-		private _router: Router,
+		private _courseService: CourseService,
 	) {
 		this._userService.requiredLogin().then((isLogin) => {
 			if (isLogin) {
@@ -54,7 +52,7 @@ export class CoursePageEditorComponent implements OnInit, OnDestroy {
 		this.mode = this.courseId > 0 ? CourseEditorMode.EDIT : CourseEditorMode.ADD;
 		if (this.mode === CourseEditorMode.EDIT) {
 			this.subs.push(
-				getCourse(this._httpClient, this.courseId)
+				this._courseService.getCourse(this.courseId)
 					.subscribe((course: TCourse) => this._setCourse(course), this._handleNotFound.bind(this))
 			);
 		}
@@ -62,7 +60,7 @@ export class CoursePageEditorComponent implements OnInit, OnDestroy {
 
 	public doAfterSave(course: TCourse) {
 		if (this.mode === CourseEditorMode.ADD) {
-			redirectToCourses(this._router, course.id);
+			this._courseService.redirectToCourses(course.id);
 		}
 	}
 
@@ -72,7 +70,7 @@ export class CoursePageEditorComponent implements OnInit, OnDestroy {
 	}
 
 	private _handleNotFound() {
-		redirectToCourses(this._router);
+		this._courseService.redirectToCourses();
 	}
 
 	ngOnDestroy(): void {

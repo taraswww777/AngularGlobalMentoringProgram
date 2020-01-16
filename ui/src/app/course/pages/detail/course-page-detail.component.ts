@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -6,8 +5,8 @@ import _ from 'lodash';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { UserService } from '../../../common/services/user.service';
 import { arrayUnsubscribe } from '../../../common/utils/array';
-import { redirectToCourses, getCourse } from '../../http/courses';
 import { TCourse } from '../../models/course';
+import { CourseService } from '../../services/course.service';
 
 type RouteParams = { courseId: number };
 type RouteData = { title: string };
@@ -32,8 +31,7 @@ export class CoursePageDetailComponent implements OnInit, OnDestroy {
 		private titleService: Title,
 		private userService: UserService,
 		private _cdRef: ChangeDetectorRef,
-		private _httpClient: HttpClient,
-		private _router: Router,
+		private _courseService: CourseService,
 	) {
 		this.userService.requiredLogin().then((isLogin) => {
 			if (isLogin) {
@@ -50,13 +48,13 @@ export class CoursePageDetailComponent implements OnInit, OnDestroy {
 
 	ngOnInit() {
 		this.subs.push(
-			getCourse(this._httpClient, this.courseId)
+			this._courseService.getCourse(this.courseId)
 				.subscribe((course: TCourse) => this._setCourse(course), this._handleNotFound.bind(this))
 		);
 	}
 
 	private _handleNotFound() {
-		redirectToCourses(this._router);
+		this._courseService.redirectToCourses();
 	}
 
 	private _setCourse(course: TCourse) {

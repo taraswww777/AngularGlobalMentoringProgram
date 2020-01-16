@@ -1,10 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { arrayUnsubscribe } from '../../../common/utils/array';
-import { deleteCourse, getCourse } from '../../http/courses';
 import { TCourse } from '../../models/course';
 import _ from 'lodash';
+import { CourseService } from '../../services/course.service';
 
 @Component({
 	selector: 'course-btn-delete',
@@ -21,7 +20,7 @@ export class CourseDeleteComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private _cdRef: ChangeDetectorRef,
-		private _httpClient: HttpClient
+		private _courseService: CourseService,
 	) {
 	}
 
@@ -29,11 +28,11 @@ export class CourseDeleteComponent implements OnInit, OnDestroy {
 	}
 
 	public async onDelete() {
-		this.subs.push(getCourse(this._httpClient, this.courseId).subscribe((course: TCourse) => {
+		this.subs.push(this._courseService.getCourse(this.courseId).subscribe((course: TCourse) => {
 			this.setCourse(course);
 
 			if (window.confirm(`You are sure delete course "${course.name}" ?`)) {
-				this.subs.push(deleteCourse(this._httpClient, this.courseId).subscribe(() => {
+				this.subs.push(this._courseService.deleteCourse(this.courseId).subscribe(() => {
 					this.afterDelete();
 				}));
 			}
