@@ -1,3 +1,4 @@
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -8,6 +9,7 @@ import { SearchInputComponent } from './components/search-input';
 import { StarComponent } from './components/star';
 import { DurationDirective } from './directives/duration';
 import { UserService } from './services/user.service';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 const components = [
 	DurationDirective,
@@ -29,7 +31,12 @@ const components = [
 	],
 	providers: [
 		CookieService,
-		UserService
+		UserService,
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: AuthInterceptor,
+			multi: true
+		}
 	],
 })
 export class CommonModule {
