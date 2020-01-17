@@ -1,0 +1,16 @@
+<div *ngIf="course" class="row no-gutters courses-detail">
+	<div class="col-12 h2 card-title courses-detail__title">
+		<div class="row no-gutters">
+			<div class="col-12">{{course.name | uppercase}}</div>
+			<div class="col-sm-12 col-lg-3">
+				<span class="p-1">
+					<i class="far fa-clock"></i> <span [duration]="course.length"> </span>
+				</span>
+				<app-star
+					class="course-item__favorite" [active]="course.isTopRated"></app-star>
+			</div>
+		</div>
+	</div>
+
+	<div class="courses-detail__description">{{course.description}}</div>
+</div>
