@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormControl} from "@angular/forms";
+import { Component, Input, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import _ from 'lodash';
 
 @Component({
@@ -21,8 +21,14 @@ export class SearchInputComponent implements OnInit {
 	}
 
 	public onInputChange() {
-		this.searchString = this.inputValue.value;
-		this.onChangeSearch(this.inputValue.value);
+		const value: string = _.toString(this.inputValue.value);
+
+		if (value.length >= 3) {
+			this.searchString = this.inputValue.value;
+
+			this.onChangeSearch(this.inputValue.value);
+			this.onSubmitSearch(this.inputValue.value);
+		}
 	}
 
 	ngOnInit() {
