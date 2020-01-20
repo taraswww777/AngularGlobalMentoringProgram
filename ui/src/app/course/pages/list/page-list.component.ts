@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { arrayUnsubscribe } from '../../../common/utils/array';
 import { TCourse } from '../../models/course';
 import { CourseService } from '../../services/course.service';
+import { LoadingService } from 'src/app/common/services';
 
 @Component({
 	selector: 'app-page-courses',
@@ -14,14 +15,19 @@ export class CoursePageListComponent implements OnInit, OnDestroy {
 	public listCourses: TCourse[] = [];
 	private subs: Subscription[] = [];
 	public paginationPage: number = 0;
-	public paginationPageSize: number = 2;
+	public paginationPageSize: number = 25;
 	public searchString?: string = undefined;
 
 	constructor(
 		private _cdRef: ChangeDetectorRef,
-		private _courseService: CourseService
+		private _courseService: CourseService,
+		private _loadingService: LoadingService,
 	) {
 		this.refreshListCourses();
+	}
+
+	public get isLoading(){
+		return this._loadingService.isLoading;
 	}
 
 	ngOnInit() {
@@ -43,6 +49,7 @@ export class CoursePageListComponent implements OnInit, OnDestroy {
 	}
 
 	private _loadMore() {
+		this._loadingService.startRequest();
 		const start = this.paginationPage * this.paginationPageSize;
 		this.paginationPage++;
 		return this._courseService.getCourses({
@@ -54,6 +61,7 @@ export class CoursePageListComponent implements OnInit, OnDestroy {
 
 	private _setListCourses(courses: TCourse[]) {
 		this.listCourses = courses;
+		this._loadingService.finishRequest();
 		this._cdRef.markForCheck();
 	}
 

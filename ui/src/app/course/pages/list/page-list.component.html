@@ -1,4 +1,10 @@
-<div class="row no-gutters">
+<div class="row no-gutters" *ngIf="isLoading">
+	<div class="col-xs-12">
+		<app-loader></app-loader>
+	</div>
+</div>
+
+<div class="row no-gutters" *ngIf="!isLoading">
 	<div class="col-xs-12 col-sm-6 col-lg-4">
 		<app-search-input
 			(startSearch)="onStartSearch($event)"></app-search-input>

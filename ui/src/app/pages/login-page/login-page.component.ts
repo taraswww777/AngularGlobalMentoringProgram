@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from '../../common/services/user.service';
+import { UserService } from '../../common/services';
 import { Title } from '@angular/platform-browser';
 
 type RouteData = { title: string };

@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, Subscriber } from 'rxjs';
-import { BASE_URL } from '../../consts';
-import { arrayUnsubscribe } from '../../utils/array';
-import { joinUrl } from '../../utils/string';
+import { BASE_URL } from '../consts';
+import { arrayUnsubscribe } from '../utils/array';
+import { joinUrl } from '../utils/string';
 
 
 const USER_COOKIE_TOKEN = 'user.token';

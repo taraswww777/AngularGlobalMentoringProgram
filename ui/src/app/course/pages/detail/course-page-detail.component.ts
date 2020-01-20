@@ -1,8 +1,9 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import _ from 'lodash';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { LoadingService } from '../../../common/services';
 import { arrayUnsubscribe } from '../../../common/utils/array';
 import { TCourse } from '../../models/course';
 import { CourseService } from '../../services/course.service';
@@ -18,7 +19,6 @@ type RouteData = { title: string };
 export class CoursePageDetailComponent implements OnInit, OnDestroy {
 	private routeParams: RouteParams;
 	public course: TCourse;
-	public isShowCourse: boolean = false;
 	private subs: Subscription[] = [];
 
 	get courseId(): number {
@@ -30,6 +30,7 @@ export class CoursePageDetailComponent implements OnInit, OnDestroy {
 		private titleService: Title,
 		private _cdRef: ChangeDetectorRef,
 		private _courseService: CourseService,
+		private _loadingService: LoadingService,
 	) {
 		this.route.params.subscribe((routeParams: RouteParams) => {
 			this.routeParams = routeParams;
@@ -40,7 +41,12 @@ export class CoursePageDetailComponent implements OnInit, OnDestroy {
 		});
 	}
 
+	public get isLoading(){
+		return this._loadingService.isLoading;
+	}
+
 	ngOnInit() {
+		this._loadingService.startRequest();
 		this.subs.push(
 			this._courseService.getCourse(this.courseId)
 				.subscribe((course: TCourse) => this._setCourse(course), this._handleNotFound.bind(this))
@@ -53,7 +59,7 @@ export class CoursePageDetailComponent implements OnInit, OnDestroy {
 
 	private _setCourse(course: TCourse) {
 		this.course = course;
-		this.isShowCourse = true;
+		this._loadingService.finishRequest();
 		this._cdRef.markForCheck();
 	}
 

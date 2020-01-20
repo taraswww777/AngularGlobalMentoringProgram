@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs';
-import { UserService } from '../common/services/user.service';
+import { UserService } from '../common/services';
 
 @Component({
 	selector: 'app-header',

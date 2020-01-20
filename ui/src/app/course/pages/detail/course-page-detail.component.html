@@ -1,1 +1,7 @@
-<app-course-detail [course]="course" *ngIf="isShowCourse"></app-course-detail>
+<div class="row no-gutters" *ngIf="isLoading">
+	<div class="col-xs-12">
+		<app-loader></app-loader>
+	</div>
+</div>
+
+<app-course-detail *ngIf="!isLoading" [course]="course"></app-course-detail>

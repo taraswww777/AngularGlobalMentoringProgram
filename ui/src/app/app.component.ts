@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 
 import { LinkTypes } from './breadcrumbs/breadcrumbs-item/breadcrumbs-item.component';
 import { BreadcrumbsComponentProps } from './breadcrumbs/breadcrumbs.component';
-import { UserService } from './common/services/user.service';
+import { UserService } from './common/services';
 
 @Component({
 	selector: '' +
