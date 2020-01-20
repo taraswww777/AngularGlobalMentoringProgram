@@ -18,44 +18,12 @@ export type TLoginResponse = { token: string }
 export class UserService {
 	public isLogin: boolean = false;
 	public token: string = '';
-	public tokenObs: Observable<string> = new Observable();
 
 	constructor(
 		private _cookieService: CookieService,
 		private _router: Router,
 		private _httpClient: HttpClient
 	) {
-	}
-
-	public unRequiredLogin() {
-		this.isAuth().then(async (isAuth) => {
-			if (isAuth) {
-				await this._router.navigate(['/']);
-			}
-		});
-	}
-
-	public requiredLogin(): Promise<boolean> {
-		return this.isAuth().then(async (isAuth) => {
-			if (!isAuth) {
-				// await this._router.navigate(['/login']);
-			}
-			return isAuth;
-		});
-
-	}
-
-	public async isAuth(): Promise<boolean> {
-		const token = this._getTokenCookie();
-		// TODO: Think how do better
-		if (token) {
-			this.isLogin = true;
-		}
-		if (!this.token) {
-			this.token = token;
-		}
-		// TODO: maybe need add check actual token
-		return Boolean(token);
 	}
 
 	public isAuthenticated(): Observable<boolean> {
@@ -106,7 +74,6 @@ export class UserService {
 	private async _redirectToMain() {
 		await this._router.navigateByUrl('/');
 	}
-
 
 	private _httpLogin(login: string, password: string): Observable<TLoginResponse> {
 		return this._httpClient.post<TLoginResponse>(joinUrl([BASE_URL, '/auth/login']), {
