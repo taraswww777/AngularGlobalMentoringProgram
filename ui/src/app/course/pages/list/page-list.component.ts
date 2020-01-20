@@ -1,5 +1,4 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscriber } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { UserService } from '../../../common/services/user.service';
 import { arrayUnsubscribe } from '../../../common/utils/array';
@@ -17,7 +16,6 @@ export class CoursePageListComponent implements OnInit, OnDestroy {
 	public paginationPage: number = 0;
 	public paginationPageSize: number = 2;
 	public searchString?: string = undefined;
-	public search: Observable<string>;
 
 	constructor(
 		private _userService: UserService,
@@ -29,16 +27,6 @@ export class CoursePageListComponent implements OnInit, OnDestroy {
 				this.refreshListCourses();
 			}
 		});
-
-		// @ts-ignore
-		this.search = new Observable<string>((subscriber: Subscriber<string>) => {
-			console.log('subscriber:', subscriber);
-			// subscriber.complete();
-			// subscriber.next (search: string) => {
-			// 	console.log('1Observable:search:', search);
-			// };
-		});
-
 	}
 
 	ngOnInit() {
@@ -63,7 +51,7 @@ export class CoursePageListComponent implements OnInit, OnDestroy {
 	private _loadMore() {
 		const start = this.paginationPage * this.paginationPageSize;
 		this.paginationPage++;
-		return this._courseService.getCourses({
+		return this._courseService.getCourses( {
 			start,
 			count: this.paginationPageSize,
 			textFragment: this.searchString
