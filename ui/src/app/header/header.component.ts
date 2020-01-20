@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as _ from 'lodash';
-import { User } from 'src/models/user';
+import { Observable } from 'rxjs';
 import { UserService } from '../common/services/user.service';
 
 @Component({
@@ -13,19 +13,15 @@ import { UserService } from '../common/services/user.service';
 export class HeaderComponent implements OnInit {
 	@Input() public title: string;
 	@Input() public logout: () => void = _.noop;
-	public user: User;
+
+	public isAuthenticated: Observable<boolean>;
 
 	constructor(
-		private userService: UserService,
+		private _userService: UserService,
 	) {
-		this.user = new User({
-			id: 1,
-			firstName: 'demo FirstName',
-			lastName: 'demo LastName',
-		});
+		this.isAuthenticated = this._userService.isAuthenticated();
 	}
 
 	ngOnInit() {
 	}
-
 }

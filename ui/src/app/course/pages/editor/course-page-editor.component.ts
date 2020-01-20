@@ -3,7 +3,6 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import _ from 'lodash';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { UserService } from '../../../common/services/user.service';
 import { arrayUnsubscribe } from '../../../common/utils/array';
 import { CourseEditorMode } from '../../components/editor/editor.component';
 import { TCourse } from '../../models/course';
@@ -31,20 +30,15 @@ export class CoursePageEditorComponent implements OnInit, OnDestroy {
 	constructor(
 		private _route: ActivatedRoute,
 		private _titleService: Title,
-		private _userService: UserService,
 		private _cdRef: ChangeDetectorRef,
 		private _courseService: CourseService,
 	) {
-		this._userService.requiredLogin().then((isLogin) => {
-			if (isLogin) {
-				this._route.params.subscribe((routeParams: RouteParams) => {
-					this.routeParams = routeParams;
-				});
+		this._route.params.subscribe((routeParams: RouteParams) => {
+			this.routeParams = routeParams;
+		});
 
-				this._route.data.subscribe((routeData: RouteData) => {
-					this._titleService.setTitle(routeData.title || 'CoursePageEditor');
-				});
-			}
+		this._route.data.subscribe((routeData: RouteData) => {
+			this._titleService.setTitle(routeData.title || 'CoursePageEditor');
 		});
 	}
 

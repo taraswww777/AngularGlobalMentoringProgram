@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { UserService } from '../../../common/services/user.service';
 import { arrayUnsubscribe } from '../../../common/utils/array';
 import { TCourse } from '../../models/course';
 import { CourseService } from '../../services/course.service';
@@ -18,24 +17,14 @@ export class CoursePageListComponent implements OnInit, OnDestroy {
 	public paginationPageSize: number = 2;
 	public searchString?: string = undefined;
 
-	public searchString2: Observable<string> = new Observable();
-
 	constructor(
-		private _userService: UserService,
 		private _cdRef: ChangeDetectorRef,
 		private _courseService: CourseService
 	) {
-		this._userService.requiredLogin().then((isAuth: boolean) => {
-			if (isAuth) {
-				this.refreshListCourses();
-			}
-		});
+		this.refreshListCourses();
 	}
 
 	ngOnInit() {
-		this.searchString2.subscribe((...val: any) => {
-			console.log('val:', val);
-		});
 	}
 
 	public onStartSearch(search: string) {

@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { LinkTypes } from './breadcrumbs/breadcrumbs-item/breadcrumbs-item.component';
 import { BreadcrumbsComponentProps } from './breadcrumbs/breadcrumbs.component';
@@ -18,7 +17,6 @@ import { UserService } from './common/services/user.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-	public isLogin: boolean = false;
 	public title: string = 'mentoring';
 	// TODO: правильно продросить breadcrumbs
 	public breadcrumbs: BreadcrumbsComponentProps = {
@@ -33,19 +31,8 @@ export class AppComponent {
 
 	constructor(
 		private userService: UserService,
-		private router: Router,
 	) {
 		this.title = 'mentoring';
-		this.isLogin = this.userService.isLogin;
-		this.userService.isAuth().then((isAuth: boolean) => {
-			if (!isAuth) {
-				this.router.navigate(['/login']).catch((e: Error) => {
-					console.log('e:', e);
-				});
-			} else {
-				window.location.href = window.location.href;
-			}
-		});
 	}
 
 

@@ -3,7 +3,6 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import _ from 'lodash';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { UserService } from '../../../common/services/user.service';
 import { arrayUnsubscribe } from '../../../common/utils/array';
 import { TCourse } from '../../models/course';
 import { CourseService } from '../../services/course.service';
@@ -29,20 +28,15 @@ export class CoursePageDetailComponent implements OnInit, OnDestroy {
 	constructor(
 		private route: ActivatedRoute,
 		private titleService: Title,
-		private userService: UserService,
 		private _cdRef: ChangeDetectorRef,
 		private _courseService: CourseService,
 	) {
-		this.userService.requiredLogin().then((isLogin) => {
-			if (isLogin) {
-				this.route.params.subscribe((routeParams: RouteParams) => {
-					this.routeParams = routeParams;
-				});
+		this.route.params.subscribe((routeParams: RouteParams) => {
+			this.routeParams = routeParams;
+		});
 
-				this.route.data.subscribe((routeData: RouteData) => {
-					this.titleService.setTitle(routeData.title || 'CoursePageDetail');
-				});
-			}
+		this.route.data.subscribe((routeData: RouteData) => {
+			this.titleService.setTitle(routeData.title || 'CoursePageDetail');
 		});
 	}
 
