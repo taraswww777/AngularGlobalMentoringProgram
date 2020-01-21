@@ -1,11 +1,15 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 import _ from 'lodash';
+import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { LoadingService } from '../../../common/services';
 import { arrayUnsubscribe } from '../../../common/utils/array';
 import { CourseEditorMode } from '../../components/editor/editor.component';
+import { TStoreCoursesModule } from '../../store/index.types';
+import { setCourseDetail } from '../../store/reducers/courses.reducer';
 import { TCourse } from '../../types';
 import { CourseService } from '../../services/course.service';
 
@@ -21,7 +25,7 @@ export class CoursePageEditorComponent implements OnInit, OnDestroy {
 	public mode: CourseEditorMode = CourseEditorMode.ADD;
 	private routeParams: RouteParams;
 	private subs: Subscription[] = [];
-	public course: TCourse;
+	public course: Observable<TCourse>;
 
 
 	get courseId(): number {
@@ -34,6 +38,7 @@ export class CoursePageEditorComponent implements OnInit, OnDestroy {
 		private _cdRef: ChangeDetectorRef,
 		private _courseService: CourseService,
 		private _loadingService: LoadingService,
+		private _store: Store<TStoreCoursesModule>,
 	) {
 		this._route.params.subscribe((routeParams: RouteParams) => {
 			this.routeParams = routeParams;
@@ -66,7 +71,7 @@ export class CoursePageEditorComponent implements OnInit, OnDestroy {
 	}
 
 	private _setCourse(course: TCourse) {
-		this.course = course;
+		this._store.dispatch(setCourseDetail({ payload: course }));
 		this._loadingService.finishRequest();
 		this._cdRef.markForCheck();
 	}

@@ -1,9 +1,13 @@
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { arrayUnsubscribe } from '../../../common/utils/array';
 import { CourseFormControl } from '../../models/course';
 import _ from 'lodash';
 import { CourseService } from '../../services/course.service';
+import { TStoreCoursesModule } from '../../store/index.types';
+import { setCourseDetail } from '../../store/reducers/courses.reducer';
+import { getCourseDetail } from '../../store/selectors';
 import { TCourse } from '../../types';
 
 export enum CourseEditorMode {
@@ -30,6 +34,7 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 	constructor(
 		private _cdRef: ChangeDetectorRef,
 		private _courseService: CourseService,
+		private _store: Store<TStoreCoursesModule>,
 	) {
 	}
 
@@ -40,11 +45,21 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 		if (this._isEditMode()) {
 			this._startLoading();
 
-			this.subs.push(
-				this._courseService.getCourse(this.courseId)
-					.subscribe((course: TCourse) => this._setCourse(course), this._handleNotFound.bind(this))
-			);
+			this._store.pipe(select(getCourseDetail)).subscribe((course: TCourse) => {
+				this._setCourse(course);
+			});
+			this._loadCourse();
 		}
+	}
+
+	private _loadCourse() {
+		this.subs.push(
+			this._courseService.getCourse(this.courseId)
+				.subscribe((course: TCourse) => {
+					this._store.dispatch(setCourseDetail({ payload: course }));
+					this._stopLoading();
+				}, this._handleNotFound.bind(this))
+		);
 	}
 
 	public onSubmit() {
@@ -69,7 +84,6 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 
 	private _setCourse(course: TCourse) {
 		this.course = new CourseFormControl(course);
-		this._stopLoading();
 		this._cdRef.markForCheck();
 	}
 
