@@ -1,10 +1,15 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { select, Store } from '@ngrx/store';
 import _ from 'lodash';
+import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { LoadingService } from '../../../common/services';
 import { arrayUnsubscribe } from '../../../common/utils/array';
+import { TStoreCoursesModule } from '../../store/index.types';
+import { setCourseDetail } from '../../store/reducers/courses.reducer';
+import { getCourseDetail } from '../../store/selectors';
 import { TCourse } from '../../types';
 import { CourseService } from '../../services/course.service';
 
@@ -18,7 +23,7 @@ type RouteData = { title: string };
 })
 export class CoursePageDetailComponent implements OnInit, OnDestroy {
 	private routeParams: RouteParams;
-	public course: TCourse;
+	public course: Observable<TCourse>;
 	private subs: Subscription[] = [];
 
 	get courseId(): number {
@@ -31,6 +36,7 @@ export class CoursePageDetailComponent implements OnInit, OnDestroy {
 		private _cdRef: ChangeDetectorRef,
 		private _courseService: CourseService,
 		private _loadingService: LoadingService,
+		private _store: Store<TStoreCoursesModule>,
 	) {
 		this.route.params.subscribe((routeParams: RouteParams) => {
 			this.routeParams = routeParams;
@@ -41,11 +47,18 @@ export class CoursePageDetailComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	public get isLoading(){
+	public get isLoading() {
 		return this._loadingService.isLoading;
 	}
 
 	ngOnInit() {
+
+		this.course = this._store.pipe(select(getCourseDetail));
+
+		this._loadCourse();
+	}
+
+	private _loadCourse() {
 		this._loadingService.startRequest();
 		this.subs.push(
 			this._courseService.getCourse(this.courseId)
@@ -58,7 +71,7 @@ export class CoursePageDetailComponent implements OnInit, OnDestroy {
 	}
 
 	private _setCourse(course: TCourse) {
-		this.course = course;
+		this._store.dispatch(setCourseDetail({ payload: course }));
 		this._loadingService.finishRequest();
 		this._cdRef.markForCheck();
 	}

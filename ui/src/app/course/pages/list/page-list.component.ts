@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { createSelector } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { arrayUnsubscribe } from '../../../common/utils/array';
@@ -68,8 +67,6 @@ export class CoursePageListComponent implements OnInit, OnDestroy {
 	}
 
 	private _setListCourses(courses: TCourse[]) {
-		// this.listCourses = courses;
-		// console.log('courses:', courses);
 		this._store.dispatch(setCoursesList({ payload: courses }));
 		this._loadingService.finishRequest();
 		this._cdRef.markForCheck();
