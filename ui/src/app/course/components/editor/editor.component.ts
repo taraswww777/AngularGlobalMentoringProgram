@@ -1,9 +1,10 @@
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { arrayUnsubscribe } from '../../../common/utils/array';
-import { CourseFormControl, TCourse } from '../../models/course';
+import { CourseFormControl } from '../../models/course';
 import _ from 'lodash';
 import { CourseService } from '../../services/course.service';
+import { TCourse } from '../../types';
 
 export enum CourseEditorMode {
 	ADD = 'ADD',

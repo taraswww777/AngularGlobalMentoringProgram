@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { LoadingService } from '../../../common/services';
 import { arrayUnsubscribe } from '../../../common/utils/array';
-import { TCourse } from '../../models/course';
+import { TCourse } from '../../types';
 import { CourseService } from '../../services/course.service';
 
 type RouteParams = { courseId: number };
