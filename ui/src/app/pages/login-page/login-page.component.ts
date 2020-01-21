@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { UserService } from '../../common/services';
 import { Title } from '@angular/platform-browser';
+import { TStore } from '../../common/store';
+import { loadUserInfo } from 'src/app/common/store/actions/user.actions';
 
 type RouteData = { title: string };
 
@@ -16,6 +19,8 @@ export class LoginPageComponent implements OnInit {
 		private _userService: UserService,
 		private _titleService: Title,
 		private _route: ActivatedRoute,
+		private _router: Router,
+		private _store: Store<TStore>,
 	) {
 		this._route.data.subscribe((routeData: RouteData) => {
 			this._titleService.setTitle(routeData.title || 'CoursePageDetail');
@@ -25,8 +30,13 @@ export class LoginPageComponent implements OnInit {
 	ngOnInit() {
 	}
 
-
 	public async tryLogin(login: string, password: string): Promise<void> {
-		this._userService.login(login, password);
+		await this._userService.login(login, password, () => {
+			loadUserInfo(this._userService, this._store, this._redirectToMain.bind(this));
+		});
+	}
+
+	private async _redirectToMain() {
+		await this._router.navigateByUrl('/');
 	}
 }

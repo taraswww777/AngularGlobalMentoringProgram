@@ -6,6 +6,7 @@ import { Observable, Subscriber } from 'rxjs';
 import { BASE_URL } from '../consts';
 import { arrayUnsubscribe } from '../utils/array';
 import { joinUrl } from '../utils/string';
+import _ from 'lodash';
 
 
 const USER_COOKIE_TOKEN = 'user.token';
@@ -33,11 +34,11 @@ export class UserService {
 		});
 	}
 
-	public login(login: string, password: string) {
+	public login(login: string, password: string, loginSuccess: () => void = _.noop) {
 		const sub = this._httpLogin(login, password).subscribe(async (resp: TLoginResponse) => {
 			this._loginSuccess(resp.token);
+			loginSuccess();
 			arrayUnsubscribe([sub]);
-			await this._redirectToMain();
 		}, (error: HttpErrorResponse) => {
 			alert('Error: ' + error.error);
 			this._loginFailed();
@@ -71,14 +72,16 @@ export class UserService {
 		this._cookieService.delete(USER_COOKIE_TOKEN);
 	}
 
-	private async _redirectToMain() {
-		await this._router.navigateByUrl('/');
-	}
-
 	private _httpLogin(login: string, password: string): Observable<TLoginResponse> {
 		return this._httpClient.post<TLoginResponse>(joinUrl([BASE_URL, '/auth/login']), {
 			login,
 			password
+		});
+	}
+
+	public getUserInfo(): Observable<any> {
+		return this._httpClient.post(joinUrl([BASE_URL, '/auth/userInfo']), {
+			token: this._getTokenCookie()
 		});
 	}
 }

@@ -1,8 +1,11 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 import { LinkTypes } from './breadcrumbs/breadcrumbs-item/breadcrumbs-item.component';
 import { BreadcrumbsComponentProps } from './breadcrumbs/breadcrumbs.component';
 import { UserService } from './common/services';
+import { TStore } from './common/store';
+import { loadUserInfo } from './common/store/actions/user.actions';
 
 @Component({
 	selector: '' +
@@ -29,15 +32,18 @@ export class AppComponent {
 		]
 	};
 
+
 	constructor(
-		private userService: UserService,
+		private _userService: UserService,
+		private _store: Store<TStore>,
 	) {
 		this.title = 'mentoring';
+
+		loadUserInfo(_userService, _store);
 	}
 
-
 	public logout() {
-		this.userService.logout();
+		this._userService.logout();
 		// TODO: I Know about this is bad practise,
 		//  but it's fast resolve issue
 		window.location.href = '/';
