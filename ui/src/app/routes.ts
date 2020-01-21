@@ -10,6 +10,6 @@ export const APP_ROUTES: Routes = [
 	},
 	{
 		path: 'login',
-		component: LoginPageComponent
+		component: LoginPageComponent, data: { title: 'Авторизация' }
 	}
 ];

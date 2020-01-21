@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormControl} from "@angular/forms";
-import _ from 'lodash';
+import { fromEvent } from 'rxjs';
+import { Component, Output, EventEmitter, ElementRef } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { debounceTime, filter } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-search-input',
@@ -9,23 +10,22 @@ import _ from 'lodash';
 		'./search-input.component.css',
 	]
 })
-export class SearchInputComponent implements OnInit {
+export class SearchInputComponent {
 	public inputValue: FormControl = new FormControl('');
-	@Input() public searchString: string = '';
-	@Input() public onChangeSearch: (string) => void = _.noop;
-	@Input() public onSubmitSearch: (string) => void = _.noop;
+	private nativeInput: ElementRef['nativeElement'];
+	@Output() private startSearch: EventEmitter<string> = new EventEmitter();
 
-	public onSubmit() {
-		this.searchString = this.inputValue.value;
-		this.onSubmitSearch(this.inputValue.value);
+	constructor(ref: ElementRef) {
+		this.nativeInput = ref.nativeElement;
 	}
 
-	public onInputChange() {
-		this.searchString = this.inputValue.value;
-		this.onChangeSearch(this.inputValue.value);
+	public onInputChange(value: string) {
+		fromEvent(this.nativeInput.querySelector('input'), 'keyup')
+			.pipe(filter(({target: {value}}) => value.length >= 3), debounceTime(1000))
+			.subscribe(() => this._onSearch(value));
 	}
 
-	ngOnInit() {
+	private _onSearch(value: string) {
+		this.startSearch.emit(value);
 	}
-
 }

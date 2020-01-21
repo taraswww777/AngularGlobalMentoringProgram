@@ -2,10 +2,10 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable } from 'rxjs';
-import { BASE_URL } from '../../consts';
-import { arrayUnsubscribe } from '../../utils/array';
-import { joinUrl } from '../../utils/string';
+import { Observable, Subscriber } from 'rxjs';
+import { BASE_URL } from '../consts';
+import { arrayUnsubscribe } from '../utils/array';
+import { joinUrl } from '../utils/string';
 
 
 const USER_COOKIE_TOKEN = 'user.token';
@@ -26,35 +26,11 @@ export class UserService {
 	) {
 	}
 
-	public unRequiredLogin() {
-		this.isAuth().then(async (isAuth) => {
-			if (isAuth) {
-				await this._router.navigate(['/']);
-			}
+	public isAuthenticated(): Observable<boolean> {
+		return new Observable((subscriber: Subscriber<boolean>) => {
+			subscriber.next(Boolean(this._getTokenCookie()));
+			subscriber.complete();
 		});
-	}
-
-	public requiredLogin(): Promise<boolean> {
-		return this.isAuth().then(async (isAuth) => {
-			if (!isAuth) {
-				await this._router.navigate(['/login']);
-			}
-			return isAuth;
-		});
-
-	}
-
-	public async isAuth(): Promise<boolean> {
-		const token = this._getTokenCookie();
-		// TODO: Think how do better
-		if (token) {
-			this.isLogin = true;
-		}
-		if (!this.token) {
-			this.token = token;
-		}
-		// TODO: maybe need add check actual token
-		return Boolean(token);
 	}
 
 	public login(login: string, password: string) {

@@ -8,7 +8,7 @@ import { RatingComponent } from './components/rating';
 import { SearchInputComponent } from './components/search-input';
 import { StarComponent } from './components/star';
 import { DurationDirective } from './directives/duration';
-import { UserService } from './services/user.service';
+import { UserService, LoadingService } from './services';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 const components = [
@@ -32,6 +32,7 @@ const components = [
 	providers: [
 		CookieService,
 		UserService,
+		LoadingService,
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: AuthInterceptor,

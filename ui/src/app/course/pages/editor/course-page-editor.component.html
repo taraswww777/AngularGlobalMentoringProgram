@@ -1,4 +1,10 @@
-<div class="courses-page-editor">
+<div class="row no-gutters" *ngIf="isLoading">
+	<div class="col-xs-12">
+		<app-loader></app-loader>
+	</div>
+</div>
+
+<div class="courses-page-editor" *ngIf="!isLoading" >
 	<course-editor
 			[mode]="mode"
 			[courseId]="courseId"

@@ -1,8 +1,13 @@
-<div class="row no-gutters">
+<div class="row no-gutters" *ngIf="isLoading">
+	<div class="col-xs-12">
+		<app-loader></app-loader>
+	</div>
+</div>
+
+<div class="row no-gutters" *ngIf="!isLoading">
 	<div class="col-xs-12 col-sm-6 col-lg-4">
 		<app-search-input
-			[searchString]="searchString"
-			[onSubmitSearch]="onSubmitSearch.bind(this)"></app-search-input>
+			(startSearch)="onStartSearch($event)"></app-search-input>
 	</div>
 	<div class="col-12">
 		<course-btn-add></course-btn-add>
