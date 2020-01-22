@@ -11,8 +11,9 @@ import { StarComponent } from './components/star';
 import { DurationDirective } from './directives/duration';
 import { UserService, LoadingService } from './services';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { getReducers } from './store';
 import { ShortUserInfoComponent } from './components/short-user-info/short-user-info.component';
+import { COMMON_MODULE_NAME } from './config';
+import { commonReducers } from './store/reducers/user.reducer';
 
 const components = [
 	DurationDirective,
@@ -29,7 +30,7 @@ const components = [
 		BrowserModule,
 		FormsModule,
 		ReactiveFormsModule,
-		StoreModule.forRoot(getReducers()),
+		StoreModule.forFeature(COMMON_MODULE_NAME, commonReducers),
 	],
 	exports: [
 		components,

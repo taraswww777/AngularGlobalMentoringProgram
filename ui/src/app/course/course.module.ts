@@ -18,7 +18,8 @@ import { CourseListComponent } from './components/list/list.component';
 import { CoursePageDetailComponent, CoursePageEditorComponent, CoursePageListComponent } from './pages';
 import { COURSE_ROUTES } from './routes';
 import { CourseService } from './services/course.service';
-import { getCoursesReducers } from './store';
+import { myCoursesReducers } from './store/reducers/courses.reducer';
+import { COURSES_MODULE_NAME } from './config';
 
 @NgModule({
 	declarations: [
@@ -41,7 +42,7 @@ import { getCoursesReducers } from './store';
 		FormsModule,
 		ReactiveFormsModule,
 		RouterModule.forChild(COURSE_ROUTES),
-		StoreModule.forRoot(getCoursesReducers()),
+		StoreModule.forFeature(COURSES_MODULE_NAME, myCoursesReducers),
 		HttpClientModule
 	],
 	exports: [

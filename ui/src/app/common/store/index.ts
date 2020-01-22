@@ -1,10 +1,11 @@
-import { myUserReducer, TStoreUserInfo } from './reducers/user.reducer';
+import { COMMON_MODULE_NAME } from '../config';
+import { TStoreUserInfo } from './reducers/user.reducer';
 
-export type TStore = {
+export type TStoreCommon = {
 	userInfo: TStoreUserInfo
 }
 
-export const getReducers = () => ({
-	userInfo: myUserReducer,
-});
+export type TStoreCommonModule = {
+	[COMMON_MODULE_NAME]: TStoreCommon
+}
 

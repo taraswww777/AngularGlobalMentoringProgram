@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { UserService } from '../../common/services';
 import { Title } from '@angular/platform-browser';
-import { TStore } from '../../common/store';
+import { TStoreCommonModule } from '../../common/store';
 import { loadUserInfo } from 'src/app/common/store/actions/user.actions';
 
 type RouteData = { title: string };
@@ -20,7 +20,7 @@ export class LoginPageComponent implements OnInit {
 		private _titleService: Title,
 		private _route: ActivatedRoute,
 		private _router: Router,
-		private _store: Store<TStore>,
+		private _store: Store<TStoreCommonModule>,
 	) {
 		this._route.data.subscribe((routeData: RouteData) => {
 			this._titleService.setTitle(routeData.title || 'CoursePageDetail');

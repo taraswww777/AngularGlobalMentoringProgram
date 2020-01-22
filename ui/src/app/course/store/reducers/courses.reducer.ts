@@ -14,6 +14,8 @@ const _reducer = createReducer({},
 	})
 );
 
+export const myCoursesReducers = _reducer;
+
 export function myCoursesListReducer(state, action) {
 	return _reducer(state, action);
 }

@@ -1,4 +1,5 @@
 import { TCourse } from '../types';
+import { COURSES_MODULE_NAME } from '../config';
 
 export type TStoreCourses = {
 	courses: TCourse[],
@@ -6,5 +7,5 @@ export type TStoreCourses = {
 }
 
 export type TStoreCoursesModule = {
-	coursesStore: TStoreCourses
+	[COURSES_MODULE_NAME]: TStoreCourses
 }

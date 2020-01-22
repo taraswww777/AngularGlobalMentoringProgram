@@ -4,8 +4,9 @@ import { Store } from '@ngrx/store';
 import { LinkTypes } from './breadcrumbs/breadcrumbs-item/breadcrumbs-item.component';
 import { BreadcrumbsComponentProps } from './breadcrumbs/breadcrumbs.component';
 import { UserService } from './common/services';
-import { TStore } from './common/store';
+import { TStoreCommonModule } from './common/store';
 import { loadUserInfo } from './common/store/actions/user.actions';
+import { TStoreCoursesModule } from './course/store/index.types';
 
 @Component({
 	selector: '' +
@@ -35,7 +36,7 @@ export class AppComponent {
 
 	constructor(
 		private _userService: UserService,
-		private _store: Store<TStore>,
+		private _store: Store<TStoreCommonModule & TStoreCoursesModule>,
 	) {
 		this.title = 'mentoring';
 
