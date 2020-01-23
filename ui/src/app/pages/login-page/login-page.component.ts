@@ -31,7 +31,7 @@ export class LoginPageComponent implements OnInit {
 	}
 
 	public async tryLogin(login: string, password: string): Promise<void> {
-		await this._userService.login(login, password, () => {
+		await this._userService.login(login, password, async () => {
 			loadUserInfo(this._userService, this._store, this._redirectToMain.bind(this));
 		});
 	}

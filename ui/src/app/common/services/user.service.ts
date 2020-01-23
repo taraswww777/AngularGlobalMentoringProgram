@@ -34,10 +34,12 @@ export class UserService {
 		});
 	}
 
-	public login(login: string, password: string, loginSuccess: () => void = _.noop) {
+	public login(login: string, password: string, callback?: () => Promise<void>) {
 		const sub = this._httpLogin(login, password).subscribe(async (resp: TLoginResponse) => {
 			this._loginSuccess(resp.token);
-			loginSuccess();
+			if (callback) {
+				await callback();
+			}
 			arrayUnsubscribe([sub]);
 		}, (error: HttpErrorResponse) => {
 			alert('Error: ' + error.error);
