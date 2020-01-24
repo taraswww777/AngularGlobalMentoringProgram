@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -54,6 +55,7 @@ import { COURSES_MODULE_NAME } from './config';
 		CoursePageEditorComponent,
 	],
 	providers: [
+		DatePipe,
 		CourseService
 	]
 })

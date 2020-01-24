@@ -1,44 +1,56 @@
 <div class="course-editor row">
 	<div class="col-12">{{titleEditor}}</div>
-	<form class="col-12" (submit)="onSubmit()">
+	<form class="col-12" (submit)="onSubmit()" [formGroup]="formGroup">
 		<app-loader *ngIf="isLoading"></app-loader>
 		<div class="row" *ngIf="!isLoading">
-			<div class="col-xs-12 col-sm-6">
+			<div class="col-12">
 				<div class="form-group">
 					<label class="" for="name">title</label>
-					<input class="form-control" [formControl]="course.name" type="text" id="name" name="name">
-				</div>
-			</div>
-			<div class="col-xs-12 col-sm-6">
-				<div class="form-group">
-					<label class="" for="date">date</label>
-					<input class="form-control" [formControl]="course.date" type="text" id="date" name="date">
-				</div>
-			</div>
-			<div class="col-12 col-sm-6">
-				<div class="form-group">
-					<label class="" for="length">length</label>
-					<input class="form-control" [formControl]="course.length" type="text" id="length" name="length">
-				</div>
-			</div>
-			<div class="col-12 col-sm-6">
-				<div class="form-check">
-					<input class="form-check-input" [formControl]="course.isTopRated" type="checkbox" id="isTopRated"
-					       name="isTopRated">
-					<label class="form-check-label" for="isTopRated">
-						isTopRated
-					</label>
+					<input
+						class="form-control"
+						[formControlName]="formFields.name"
+						type="text"
+						id="name"
+						name="name">
 				</div>
 			</div>
 			<div class="col-12">
 				<div class="form-group">
 					<label class="" for="description">description</label>
-					<textarea class="form-control form-text" [formControl]="course.description" type="text" id="description"
-					          name="description"></textarea>
+					<textarea
+						class="form-control form-text"
+						[formControlName]="formFields.description"
+						id="description"
+						name="description"></textarea>
 				</div>
 			</div>
 			<div class="col-12">
-				<button class="btn btn-primary" type="submit">{{titleSubmit}}</button>
+				<div class="form-group">
+					<label class="" for="date">date</label>
+					<input
+						class="form-control"
+						[formControlName]="formFields.date"
+						type="text"
+						id="date" name="date">
+				</div>
+			</div>
+			<div class="col-12">
+				<div class="form-group">
+					<label class="" for="length">Duration</label>
+					<input
+						class="form-control"
+						[formControlName]="formFields.duration"
+						type="text"
+						id="length"
+						name="length">
+				</div>
+			</div>
+			<!-- TODO: add field authors -->
+			<div class="col-12">
+				<button
+					class="btn btn-primary"
+					[disabled]="!this.formGroup.valid"
+					type="submit">{{titleSubmit}}</button>
 			</div>
 		</div>
 	</form>
