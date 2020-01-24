@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~8.2.11",
     "@angular/router": "~8.2.11",
     "@ngrx/core": "1.2.0",
+    "@ngrx/effects": "github:ngrx/effects",
     "@ngrx/store": "8.6.0",
     "@ngrx/store-devtools": "8.6.0",
     "@ngxs/schematics": "0.0.1-alpha.5",
