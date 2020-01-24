@@ -3,13 +3,16 @@ import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTr
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { UserService } from '../services';
+import { RedirectService } from '../services/redirect';
 
 
 @Injectable({ providedIn: 'root' })
 export class LoginGuard implements CanActivate {
 	constructor(
 		private _userService: UserService,
-		private _router: Router) {
+		private _redirectService: RedirectService,
+		private _router: Router,
+	) {
 	}
 
 	canActivate(
@@ -24,7 +27,7 @@ export class LoginGuard implements CanActivate {
 
 				if (isLoginPage) {
 					if (isAuth) {
-						this._redirectToHome();
+						this._redirectService.toMain();
 						return false;
 					} else {
 						return true;
@@ -32,23 +35,15 @@ export class LoginGuard implements CanActivate {
 				}
 
 				if (!isAuth) {
-					this._redirectToLogin();
+					this._redirectService.toLogin();
 				}
 				return isAuth;
 			}), catchError(this._catchError));
 	}
 
 	private _catchError = () => {
-		this._redirectToLogin();
+		this._redirectService.toLogin();
 		return of(false);
-	};
-
-	private _redirectToHome = () => {
-		this._router.navigate(['/']);
-	};
-
-	private _redirectToLogin = () => {
-		this._router.navigate(['/login']);
 	};
 
 	private static _isLoginPage(next: ActivatedRouteSnapshot): boolean {

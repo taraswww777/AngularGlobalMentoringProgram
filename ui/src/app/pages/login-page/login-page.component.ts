@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { UserService } from '../../common/services';
 import { Title } from '@angular/platform-browser';
 import { TStoreCommonModule } from '../../common/store';
-import { loadUserInfo } from 'src/app/common/store/actions/user.actions';
+import { RedirectService } from 'src/app/common/services/redirect';
 
 type RouteData = { title: string };
 
@@ -17,9 +17,9 @@ export class LoginPageComponent implements OnInit {
 
 	constructor(
 		private _userService: UserService,
+		private _redirectService: RedirectService,
 		private _titleService: Title,
 		private _route: ActivatedRoute,
-		private _router: Router,
 		private _store: Store<TStoreCommonModule>,
 	) {
 		this._route.data.subscribe((routeData: RouteData) => {
@@ -32,11 +32,9 @@ export class LoginPageComponent implements OnInit {
 
 	public async tryLogin(login: string, password: string): Promise<void> {
 		await this._userService.login(login, password, async () => {
-			loadUserInfo(this._userService, this._store, this._redirectToMain.bind(this));
+			this._userService.loadUserInfo().subscribe(() => {
+				this._redirectService.toMain();
+			});
 		});
-	}
-
-	private async _redirectToMain() {
-		await this._router.navigateByUrl('/');
 	}
 }

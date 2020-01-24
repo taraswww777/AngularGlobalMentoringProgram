@@ -5,7 +5,6 @@ import { LinkTypes } from './breadcrumbs/breadcrumbs-item/breadcrumbs-item.compo
 import { BreadcrumbsComponentProps } from './breadcrumbs/breadcrumbs.component';
 import { UserService } from './common/services';
 import { TStoreCommonModule } from './common/store';
-import { loadUserInfo } from './common/store/actions/user.actions';
 import { TStoreCoursesModule } from './course/store/index.types';
 
 @Component({
@@ -22,7 +21,7 @@ import { TStoreCoursesModule } from './course/store/index.types';
 })
 export class AppComponent {
 	public title: string = 'mentoring';
-	// TODO: правильно продросить breadcrumbs
+	// TODO: правильно пробросить breadcrumbs
 	public breadcrumbs: BreadcrumbsComponentProps = {
 		items: [
 			{
@@ -39,8 +38,7 @@ export class AppComponent {
 		private _store: Store<TStoreCommonModule & TStoreCoursesModule>,
 	) {
 		this.title = 'mentoring';
-
-		loadUserInfo(_userService, _store);
+		this._userService.loadUserInfo();
 	}
 
 	public logout() {

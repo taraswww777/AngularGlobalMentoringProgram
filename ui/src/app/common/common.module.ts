@@ -14,6 +14,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ShortUserInfoComponent } from './components/short-user-info/short-user-info.component';
 import { COMMON_MODULE_NAME } from './config';
 import { commonReducers } from './store/reducers/user.reducer';
+import { RedirectService } from './services/redirect';
 
 const components = [
 	DurationDirective,
@@ -38,6 +39,7 @@ const components = [
 	providers: [
 		CookieService,
 		UserService,
+		RedirectService,
 		LoadingService,
 		{
 			provide: HTTP_INTERCEPTORS,
