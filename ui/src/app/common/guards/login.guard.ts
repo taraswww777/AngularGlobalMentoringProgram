@@ -6,7 +6,7 @@ import { UserService } from '../services';
 
 
 @Injectable({ providedIn: 'root' })
-export class MainGuard implements CanActivate {
+export class LoginGuard implements CanActivate {
 	constructor(
 		private _userService: UserService,
 		private _router: Router) {
@@ -16,8 +16,21 @@ export class MainGuard implements CanActivate {
 		next: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot
 	): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+
+		const isLoginPage: boolean = LoginGuard._isLoginPage(next);
+
 		return this._userService.isAuthenticated()
 			.pipe(map((isAuth: boolean) => {
+
+				if (isLoginPage) {
+					if (isAuth) {
+						this._redirectToHome();
+						return false;
+					} else {
+						return true;
+					}
+				}
+
 				if (!isAuth) {
 					this._redirectToLogin();
 				}
@@ -30,7 +43,15 @@ export class MainGuard implements CanActivate {
 		return of(false);
 	};
 
+	private _redirectToHome = () => {
+		this._router.navigate(['/']);
+	};
+
 	private _redirectToLogin = () => {
 		this._router.navigate(['/login']);
 	};
+
+	private static _isLoginPage(next: ActivatedRouteSnapshot): boolean {
+		return next.routeConfig.path === 'login';
+	}
 }
