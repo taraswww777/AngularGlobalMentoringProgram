@@ -1,11 +1,17 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, Subscriber } from 'rxjs';
 import { BASE_URL } from '../consts';
+import { TStoreCommonModule } from '../store';
+import { setUserInfo } from '../store/reducers/user.reducer';
+import { TFullUserInfo } from '../types';
 import { arrayUnsubscribe } from '../utils/array';
 import { joinUrl } from '../utils/string';
+import _ from 'lodash';
+import { RedirectService } from './redirect';
 
 
 const USER_COOKIE_TOKEN = 'user.token';
@@ -21,8 +27,9 @@ export class UserService {
 
 	constructor(
 		private _cookieService: CookieService,
-		private _router: Router,
-		private _httpClient: HttpClient
+		private _httpClient: HttpClient,
+		private _store: Store<TStoreCommonModule>,
+		private _redirectService: RedirectService,
 	) {
 	}
 
@@ -33,11 +40,13 @@ export class UserService {
 		});
 	}
 
-	public login(login: string, password: string) {
+	public login(login: string, password: string, callback?: () => Promise<void>) {
 		const sub = this._httpLogin(login, password).subscribe(async (resp: TLoginResponse) => {
 			this._loginSuccess(resp.token);
+			if (callback) {
+				await callback();
+			}
 			arrayUnsubscribe([sub]);
-			await this._redirectToMain();
 		}, (error: HttpErrorResponse) => {
 			alert('Error: ' + error.error);
 			this._loginFailed();
@@ -71,14 +80,28 @@ export class UserService {
 		this._cookieService.delete(USER_COOKIE_TOKEN);
 	}
 
-	private async _redirectToMain() {
-		await this._router.navigateByUrl('/');
-	}
-
 	private _httpLogin(login: string, password: string): Observable<TLoginResponse> {
 		return this._httpClient.post<TLoginResponse>(joinUrl([BASE_URL, '/auth/login']), {
 			login,
 			password
 		});
+	}
+
+	public getUserInfo(): Observable<TFullUserInfo> {
+		return this._httpClient.post<TFullUserInfo>(joinUrl([BASE_URL, '/auth/userInfo']), {
+			token: this._getTokenCookie()
+		});
+	}
+
+	public loadUserInfo(): Observable<TFullUserInfo> {
+		const obsUserInfo = this.getUserInfo();
+
+		const sub = obsUserInfo.subscribe((userInfo: TFullUserInfo) => {
+			// I think this some better between previous implementation, but to not good
+			this._store.dispatch(setUserInfo({ payload: userInfo }));
+			arrayUnsubscribe([sub]);
+		});
+
+		return obsUserInfo;
 	}
 }

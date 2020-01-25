@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import _ from 'lodash';
-import { TCourse } from '../models/course';
+import { TCourse } from '../types';
 import { joinUrl } from 'src/app/common/utils/string';
 import { BASE_URL } from 'src/app/common/consts';
 import { Observable } from 'rxjs';

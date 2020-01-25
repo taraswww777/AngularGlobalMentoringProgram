@@ -4,6 +4,7 @@
 	</div>
 	<div class="col-sm-4">
 		<div class="navbar justify-content-between">
+			<app-short-user-info class="flex-grow-1" [userInfo]="userInfo$|async"></app-short-user-info>
 			<app-login-link *ngIf="!(isAuthenticated|async)"></app-login-link>
 			<app-logout-link *ngIf="isAuthenticated|async" [logout]="logout"></app-logout-link>
 		</div>

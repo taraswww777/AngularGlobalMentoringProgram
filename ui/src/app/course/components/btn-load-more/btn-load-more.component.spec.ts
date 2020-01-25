@@ -23,13 +23,4 @@ describe('CourseLoadMoreComponent', () => {
 	it('should create', () => {
 		expect(component).toBeTruthy();
 	});
-
-	it('should work load more', () => {
-		const targetLength = 10;
-
-		for (let i = 0; i < targetLength; i++) {
-			component.onLoadMore();
-		}
-		expect(component.listCourses.length).toBe(targetLength);
-	});
 });
