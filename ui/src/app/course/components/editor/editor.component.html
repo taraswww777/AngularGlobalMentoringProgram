@@ -43,6 +43,18 @@
 						type="text"
 						id="length"
 						name="length">
+					<div
+						class="alert alert-danger"
+						*ngIf="formGroup.controls.duration.errors">
+						<ol class="m-0">
+							<li *ngIf="formGroup.controls.duration.errors.required">
+								Field duration required
+							</li>
+							<li *ngIf="formGroup.controls.duration.errors.max">
+								Max: {{formGroup.controls.duration.errors.max.max}}
+							</li>
+						</ol>
+					</div>
 				</div>
 			</div>
 			<!-- TODO: add field authors -->
