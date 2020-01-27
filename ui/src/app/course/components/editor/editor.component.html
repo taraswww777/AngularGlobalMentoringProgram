@@ -22,11 +22,6 @@
 						[formControlName]="formFields.description"
 						id="description"
 						name="description"></textarea>
-					<div
-						class="alert alert-danger"
-						*ngIf="getError(formFields.description,'required')">
-						Field description required
-					</div>
 				</div>
 			</div>
 			<div class="col-12">
@@ -42,18 +37,12 @@
 			<div class="col-12">
 				<div class="form-group">
 					<label class="" for="length">Duration</label>
-					<!--					<input-->
-					<!--						class="form-control"-->
-					<!--						[formControlName]="formFields.duration"-->
-					<!--						type="text"-->
-					<!--						id="length"-->
-					<!--						name="length">-->
-					<div>{{formControlDuration.value}}</div>
-					<app-input-duration
-						[formControl]="formControlDuration"
-					></app-input-duration>
-					<!--						[formControlName]="formFields.duration"-->
-					<!--						[formControl]="this.formGroup.get(formFields.duration)"-->
+					<input
+						class="form-control"
+						[formControlName]="formFields.duration"
+						type="text"
+						id="length"
+						name="length">
 				</div>
 			</div>
 			<!-- TODO: add field authors -->

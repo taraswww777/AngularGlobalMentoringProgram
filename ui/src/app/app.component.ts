@@ -14,7 +14,7 @@ import { TStoreCoursesModule } from './course/store/index.types';
 	styleUrls: [
 		'../../node_modules/bootstrap/dist/css/bootstrap.min.css',
 		'../../node_modules/font-awesome5/css/fontawesome-all.min.css',
-		'./app.component.scss',
+		'./app.component.css',
 	],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
