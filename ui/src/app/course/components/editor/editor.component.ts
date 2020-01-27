@@ -12,6 +12,7 @@ import { setCourseDetail } from '../../store/reducers/courses.reducer';
 import { getCourseDetail } from '../../store/selectors';
 import { TAuthors, TCourse } from '../../types';
 import { COURSES_MODULE_DATE_REGEXP } from '../../config';
+import { normaliserDateDDMMYYYY } from 'src/app/common/utils/string';
 
 export enum CourseEditorMode {
 	ADD = 'ADD',
@@ -93,7 +94,7 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 		this.subs.push(
 			this._courseService.getCourse(this.courseId)
 				.subscribe((course: TCourse) => {
-					this._store.dispatch(setCourseDetail({ payload: course }));
+					this._store.dispatch(setCourseDetail({payload: course}));
 					this._stopLoading();
 				}, this._handleNotFound.bind(this))
 		);
@@ -106,19 +107,20 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 	}
 
 	private _onSubmit() {
-		console.log('_onSubmit:', this.formGroup, 'this.course:', this._getCourse());
 		const course = this._getCourse();
+		console.log('_onSubmit:this.course:', course);
 		if (this._isEditMode()) {
-			// this._startLoading();
-		this._courseService.updateCourse(this.courseId, this.course)
-				.subscribe((course: TCourse) => this._onSubscribeUpdate(course), this._handleNotFound.bind(this))
-
+			this._startLoading();
+			this.subs.push(
+				this._courseService.updateCourse(this.courseId, course)
+					.subscribe((course: TCourse) => this._onSubscribeUpdate(course), this._handleNotFound.bind(this))
+			);
+		} else {
+			this.subs.push(
+				this._courseService.addCourse(course)
+					.subscribe((course: TCourse) => this._onSubscribeAdd(course), this._handleNotFound.bind(this))
+			);
 		}
-		// else {
-		// 	this.subs.push(this._courseService.addCourse(course)
-		// 		.subscribe((course: TCourse) => this._onSubscribeAdd(course), this._handleNotFound.bind(this))
-		// 	);
-		// }
 	}
 
 	// region setters
@@ -179,7 +181,7 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 			id: this.courseId,
 			name: this.name,
 			description: this.description,
-			date: this.date,
+			date: normaliserDateDDMMYYYY(this.date),
 			length: this.duration,
 			authors: this.authors || [],
 			isTopRated: this.isTopRated || false,
