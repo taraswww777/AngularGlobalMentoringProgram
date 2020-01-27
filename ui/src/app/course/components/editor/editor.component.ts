@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, ValidationErrors } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { arrayUnsubscribe } from '../../../common/utils/array';
@@ -42,9 +42,13 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 	public titleEditor: string = 'Создание';
 	public course: TCourse;
 	public isLoading = false;
+
 	public formGroup: FormGroup;
 	public formFields = formFields;
+
 	private subs: Subscription[] = [];
+
+	private formControlDuration: FormControl = new FormControl();
 
 	private authors: TAuthors[];
 	private isTopRated: boolean;
@@ -75,7 +79,10 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 	private _createFormGroup() {
 		this.formGroup = this._formBuilder.group({
 			[formFields.name]: ['name...', [Validators.maxLength(50), Validators.required]],
-			[formFields.description]: ['description...', [Validators.maxLength(500), Validators.required]],
+			[formFields.description]: ['', [
+				Validators.maxLength(500),
+				Validators.required]
+			],
 			[formFields.date]: ['13/05/2019', [
 				Validators.pattern(COURSES_MODULE_DATE_REGEXP),
 				Validators.maxLength(10),
@@ -94,7 +101,7 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 		this.subs.push(
 			this._courseService.getCourse(this.courseId)
 				.subscribe((course: TCourse) => {
-					this._store.dispatch(setCourseDetail({payload: course}));
+					this._store.dispatch(setCourseDetail({ payload: course }));
 					this._stopLoading();
 				}, this._handleNotFound.bind(this))
 		);
@@ -109,18 +116,23 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 	private _onSubmit() {
 		const course = this._getCourse();
 		console.log('_onSubmit:this.course:', course);
-		if (this._isEditMode()) {
-			this._startLoading();
-			this.subs.push(
-				this._courseService.updateCourse(this.courseId, course)
-					.subscribe((course: TCourse) => this._onSubscribeUpdate(course), this._handleNotFound.bind(this))
-			);
-		} else {
-			this.subs.push(
-				this._courseService.addCourse(course)
-					.subscribe((course: TCourse) => this._onSubscribeAdd(course), this._handleNotFound.bind(this))
-			);
-		}
+		// if (this._isEditMode()) {
+		// 	this._startLoading();
+		// 	this.subs.push(
+		// 		this._courseService.updateCourse(this.courseId, course)
+		// 			.subscribe((course: TCourse) => this._onSubscribeUpdate(course), this._handleNotFound.bind(this))
+		// 	);
+		// } else {
+		// 	this.subs.push(
+		// 		this._courseService.addCourse(course)
+		// 			.subscribe((course: TCourse) => this._onSubscribeAdd(course), this._handleNotFound.bind(this))
+		// 	);
+		// }
+	}
+
+	public getError(path: Array<string | number> | string, keyError: string): boolean {
+		const control = this.formGroup.get(path);
+		return Boolean(control && control.errors && control.errors[keyError]);
 	}
 
 	// region setters
@@ -130,6 +142,7 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 
 	set duration(duration: number) {
 		this.formGroup.get(formFields.duration).setValue(duration);
+		this.formControlDuration.setValue(duration);
 	}
 
 	set date(date: string) {
@@ -150,7 +163,8 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 	}
 
 	get duration(): number {
-		return this.formGroup.get(formFields.duration).value;
+		return this.formControlDuration.value;
+		// return this.formGroup.get(formFields.duration).value;
 	}
 
 	get date(): string {
@@ -187,6 +201,7 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 			isTopRated: this.isTopRated || false,
 		};
 	}
+
 
 	private _handleNotFound() {
 		this._stopLoading();

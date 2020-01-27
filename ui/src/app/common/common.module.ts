@@ -15,6 +15,7 @@ import { ShortUserInfoComponent } from './components/short-user-info/short-user-
 import { COMMON_MODULE_NAME } from './config';
 import { commonReducers } from './store/reducers/user.reducer';
 import { RedirectService } from './services/redirect';
+import { InputDurationComponent } from './components/form-elements';
 
 const components = [
 	DurationDirective,
@@ -22,7 +23,8 @@ const components = [
 	StarComponent,
 	SearchInputComponent,
 	LoaderComponent,
-	ShortUserInfoComponent
+	ShortUserInfoComponent,
+	InputDurationComponent
 ];
 
 @NgModule({
