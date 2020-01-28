@@ -81,7 +81,7 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 				Validators.maxLength(10),
 				Validators.required,
 			]],
-			[formFields.duration]: [60, [
+			[formFields.duration]: [null, [
 				Validators.min(0),
 				Validators.max(999999),
 				Validators.pattern(/^\d+$/),

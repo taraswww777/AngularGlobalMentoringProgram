@@ -45,7 +45,7 @@
 						name="length">
 					<div
 						class="alert alert-danger"
-						*ngIf="formGroup.controls.duration.errors">
+						*ngIf="formGroup.controls.duration.touched && formGroup.controls.duration.errors">
 						<ol class="m-0">
 							<li *ngIf="formGroup.controls.duration.errors.required">
 								Field duration required

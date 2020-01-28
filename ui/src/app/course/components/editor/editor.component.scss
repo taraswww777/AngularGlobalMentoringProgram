@@ -1,6 +1,6 @@
 .course-editor {
 	.form-group {
-		.ng-invalid {
+		.ng-touched.ng-invalid {
 			border-color: red;
 
 			&:focus {
