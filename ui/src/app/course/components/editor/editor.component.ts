@@ -84,10 +84,7 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 				Validators.maxLength(10),
 				Validators.required,
 			]],
-			[formFields.duration]: [null, [
-				...DurationValidators,
-				Validators.required
-			]]
+			[formFields.duration]: [null]
 		});
 	}
 
@@ -102,26 +99,26 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 	}
 
 	public onSubmit() {
-		// if (confirm('U`re sure?')) {
+		if (confirm('U`re sure?')) {
 		this._onSubmit();
-		// }
+		}
 	}
 
 	private _onSubmit() {
 		const course = this._getCourse();
-		console.log('_onSubmit:this.course:', course);
-		// if (this._isEditMode()) {
-		// 	this._startLoading();
-		// 	this.subs.push(
-		// 		this._courseService.updateCourse(this.courseId, course)
-		// 			.subscribe((course: TCourse) => this._onSubscribeUpdate(course), this._handleNotFound.bind(this))
-		// 	);
-		// } else {
-		// 	this.subs.push(
-		// 		this._courseService.addCourse(course)
-		// 			.subscribe((course: TCourse) => this._onSubscribeAdd(course), this._handleNotFound.bind(this))
-		// 	);
-		// }
+
+		if (this._isEditMode()) {
+			this._startLoading();
+			this.subs.push(
+				this._courseService.updateCourse(this.courseId, course)
+					.subscribe((course: TCourse) => this._onSubscribeUpdate(course), this._handleNotFound.bind(this))
+			);
+		} else {
+			this.subs.push(
+				this._courseService.addCourse(course)
+					.subscribe((course: TCourse) => this._onSubscribeAdd(course), this._handleNotFound.bind(this))
+			);
+		}
 	}
 
 	// region setters

@@ -22,6 +22,7 @@ import { CourseService } from './services/course.service';
 import { myCoursesReducers } from './store/reducers/courses.reducer';
 import { COURSES_MODULE_NAME } from './config';
 import { InputDurationComponent } from './components/form-elements';
+import { DurationValidatorDirective } from './components/form-falidators/duration-validator.directive';
 
 @NgModule({
 	declarations: [
@@ -37,7 +38,8 @@ import { InputDurationComponent } from './components/form-elements';
 		CoursePageDetailComponent,
 		CoursePageEditorComponent,
 		CourseDetailComponent,
-		InputDurationComponent
+		InputDurationComponent,
+		DurationValidatorDirective,
 	],
 	imports: [
 		CommonModule,
