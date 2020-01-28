@@ -21,6 +21,7 @@ import { COURSE_ROUTES } from './routes';
 import { CourseService } from './services/course.service';
 import { myCoursesReducers } from './store/reducers/courses.reducer';
 import { COURSES_MODULE_NAME } from './config';
+import { InputDurationComponent } from './components/form-elements';
 
 @NgModule({
 	declarations: [
@@ -36,6 +37,7 @@ import { COURSES_MODULE_NAME } from './config';
 		CoursePageDetailComponent,
 		CoursePageEditorComponent,
 		CourseDetailComponent,
+		InputDurationComponent
 	],
 	imports: [
 		CommonModule,

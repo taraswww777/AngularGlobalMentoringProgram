@@ -1,20 +1,19 @@
+import _ from 'lodash';
 import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { loadConfigurationFromPath } from 'tslint/lib/configuration';
-import { DurationValidators } from '../../../common/components/form-elements';
+
 import { arrayUnsubscribe } from '../../../common/utils/array';
-import { CourseFormControl } from '../../models/course';
-import _ from 'lodash';
 import { CourseService } from '../../services/course.service';
 import { TStoreCoursesModule } from '../../store/index.types';
 import { setCourseDetail } from '../../store/reducers/courses.reducer';
 import { getCourseDetail } from '../../store/selectors';
 import { TAuthors, TCourse } from '../../types';
 import { COURSES_MODULE_DATE_REGEXP } from '../../config';
-import { normaliserDateDDMMYYYY } from 'src/app/common/utils/string';
+import { normaliserDateDDMMYYYY } from '../../../common/utils/string';
+import { DurationValidators } from '../form-elements';
 
 export enum CourseEditorMode {
 	ADD = 'ADD',
