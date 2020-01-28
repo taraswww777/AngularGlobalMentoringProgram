@@ -1,0 +1,6 @@
+<div *ngIf="errors" class="alert alert-danger">
+	<ol class="m-0">
+		<li *ngIf="errors.required">Field {{fieldName && '"' + fieldName + '"'}} required</li>
+		<li *ngIf="errors.max">Max: {{errors.max.max}}</li>
+	</ol>
+</div>

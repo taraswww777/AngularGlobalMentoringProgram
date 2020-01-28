@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { StoreModule } from '@ngrx/store';
 import { CookieService } from 'ngx-cookie-service';
+import { InputDurationComponent, ErrorsInputComponent } from './components/form-elements';
 import { LoaderComponent } from './components/loader';
 import { RatingComponent } from './components/rating';
 import { SearchInputComponent } from './components/search-input';
@@ -22,7 +23,9 @@ const components = [
 	StarComponent,
 	SearchInputComponent,
 	LoaderComponent,
-	ShortUserInfoComponent
+	ShortUserInfoComponent,
+	InputDurationComponent,
+	ErrorsInputComponent,
 ];
 
 @NgModule({

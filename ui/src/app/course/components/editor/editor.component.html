@@ -37,24 +37,12 @@
 			<div class="col-12">
 				<div class="form-group">
 					<label class="" for="length">Duration</label>
-					<input
-						class="form-control"
-						[formControlName]="formFields.duration"
-						type="text"
+					<app-input-duration
+						name="length"
 						id="length"
-						name="length">
-					<div
-						class="alert alert-danger"
-						*ngIf="formGroup.controls.duration.touched && formGroup.controls.duration.errors">
-						<ol class="m-0">
-							<li *ngIf="formGroup.controls.duration.errors.required">
-								Field duration required
-							</li>
-							<li *ngIf="formGroup.controls.duration.errors.max">
-								Max: {{formGroup.controls.duration.errors.max.max}}
-							</li>
-						</ol>
-					</div>
+						[formControl]="formGroup.controls.duration"
+						[fieldName]="'Duration'"
+					></app-input-duration>
 				</div>
 			</div>
 			<!-- TODO: add field authors -->
