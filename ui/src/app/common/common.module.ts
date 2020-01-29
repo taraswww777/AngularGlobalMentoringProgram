@@ -10,6 +10,7 @@ import { RatingComponent } from './components/rating';
 import { SearchInputComponent } from './components/search-input';
 import { StarComponent } from './components/star';
 import { DurationDirective } from './directives/duration';
+import { UpperFirstCasePipe } from './pipes/first-case.pipe';
 import { UserService, LoadingService } from './services';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ShortUserInfoComponent } from './components/short-user-info/short-user-info.component';
@@ -25,6 +26,7 @@ const components = [
 	LoaderComponent,
 	ShortUserInfoComponent,
 	ErrorsInputComponent,
+	UpperFirstCasePipe,
 ];
 
 @NgModule({

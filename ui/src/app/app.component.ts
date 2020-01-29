@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 
 import { LinkTypes } from './breadcrumbs/breadcrumbs-item/breadcrumbs-item.component';
 import { BreadcrumbsComponentProps } from './breadcrumbs/breadcrumbs.component';
@@ -36,9 +37,11 @@ export class AppComponent {
 	constructor(
 		private _userService: UserService,
 		private _store: Store<TStoreCommonModule & TStoreCoursesModule>,
+		private _translate: TranslateService,
 	) {
 		this.title = 'mentoring';
 		this._userService.loadUserInfo();
+		this._translate.setDefaultLang('en');
 	}
 
 	public logout() {
