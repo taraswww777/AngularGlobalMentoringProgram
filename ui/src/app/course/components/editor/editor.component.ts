@@ -1,4 +1,3 @@
-import { TranslateService } from '@ngx-translate/core';
 import _ from 'lodash';
 import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
@@ -57,9 +56,7 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 		private _store: Store<TStoreCoursesModule>,
 		private _formBuilder: FormBuilder,
 		private _datePipe: DatePipe,
-		private _translate: TranslateService,
 	) {
-		this._translate.setDefaultLang('en');
 		this._createFormGroup();
 	}
 
@@ -103,7 +100,7 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 
 	public onSubmit() {
 		if (confirm('U`re sure?')) {
-			this._onSubmit();
+		this._onSubmit();
 		}
 	}
 
