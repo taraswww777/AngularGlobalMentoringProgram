@@ -1,0 +1,13 @@
+{
+  "FORMS": {
+    "LOGIN_FORM": {
+      "LOGIN": "login",
+      "PASSWORD": "password",
+      "FORGOT_PASSWORD": "forgot password",
+      "SUBMIT": "login"
+    }
+  },
+  "SHARED": {
+    "PALACE_FOR_LOGO": "place for logo"
+  }
+}

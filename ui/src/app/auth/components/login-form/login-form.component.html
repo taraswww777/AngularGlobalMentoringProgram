@@ -3,19 +3,21 @@
 		<form class="col-12" (submit)="onSubmitLogin()">
 			<div class="row">
 				<div class="form-group col-12">
-					<label for="login">login</label>
-					<input type="text" class="form-control"  required="required" [formControl]="login" name="login" id="login">
+					<label for="login">{{'FORMS.LOGIN_FORM.LOGIN'|translate|UpperFirstCase}}</label>
+					<input type="text" class="form-control" required="required" [formControl]="login" name="login" id="login">
 				</div>
 				<div class="form-group col-12">
-					<label for="password">password</label>
+					<label for="password">{{'FORMS.LOGIN_FORM.PASSWORD'|translate|UpperFirstCase}}</label>
 					<input type="password" class="form-control" required="required" [formControl]="password" name="password"
 								 id="password">
 				</div>
 				<div class="col-6">
-					<a href="#">Forgot password</a>
+					<a href="#">{{'FORMS.LOGIN_FORM.FORGOT_PASSWORD'|translate|UpperFirstCase}}</a>
 				</div>
 				<div class="col-6">
-					<button type="submit" (click)="onSubmitLogin()" class="btn btn-primary">login</button>
+					<button type="submit" (click)="onSubmitLogin()" class="btn btn-primary">
+						{{'FORMS.LOGIN_FORM.SUBMIT'|translate|UpperFirstCase}}
+					</button>
 				</div>
 			</div>
 		</form>
