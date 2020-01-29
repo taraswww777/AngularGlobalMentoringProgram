@@ -1,12 +1,14 @@
 import { DatePipe } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { CommonModule } from '../common/common.module';
+import { httpLoaderFactory } from '../common/utils/loaders';
 import { CourseAddComponent } from './components/btn-add/btn-add.component';
 import { CourseDeleteComponent } from './components/btn-delete/btn-delete.component';
 import { CourseBtnEditComponent } from './components/btn-edit/btn-edit.component';
@@ -22,7 +24,7 @@ import { CourseService } from './services/course.service';
 import { myCoursesReducers } from './store/reducers/courses.reducer';
 import { COURSES_MODULE_NAME } from './config';
 import { InputDurationComponent } from './components/form-elements';
-import { DurationValidatorDirective } from './components/form-falidators/duration-validator.directive';
+import { DurationValidatorDirective } from './components/form-falidators';
 
 @NgModule({
 	declarations: [
@@ -48,7 +50,15 @@ import { DurationValidatorDirective } from './components/form-falidators/duratio
 		ReactiveFormsModule,
 		RouterModule.forChild(COURSE_ROUTES),
 		StoreModule.forFeature(COURSES_MODULE_NAME, myCoursesReducers),
-		HttpClientModule
+		HttpClientModule,
+		TranslateModule.forChild({
+			loader: {
+				provide: TranslateLoader,
+				useFactory: httpLoaderFactory,
+				deps: [HttpClient]
+			},
+			isolate: true
+		})
 	],
 	exports: [
 		CoursePageListComponent,
@@ -64,4 +74,7 @@ import { DurationValidatorDirective } from './components/form-falidators/duratio
 	]
 })
 export class CourseModule {
+	constructor(private _translate: TranslateService) {
+		this._translate.setDefaultLang('en');
+	}
 }

@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import _ from 'lodash';
 import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
@@ -49,7 +50,7 @@ export class CoursePageEditorComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	public get isLoading(){
+	public get isLoading() {
 		return this._loadingService.isLoading;
 	}
 

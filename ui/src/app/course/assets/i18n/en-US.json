@@ -1,0 +1,16 @@
+{
+  "PAGES": {
+  },
+  "FORMS": {
+    "COURSE_EDITOR": {
+      "NAME": "title",
+      "DESCRIPTION": "description",
+      "DATE": "date",
+      "DURATION": "duration",
+      "SUBMIT_SAVE": "save",
+      "SUBMIT_CREATE": "create"
+    }
+  },
+  "SHARED": {
+  }
+}
