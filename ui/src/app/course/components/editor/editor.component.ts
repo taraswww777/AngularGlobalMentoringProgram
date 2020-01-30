@@ -10,7 +10,7 @@ import { CourseService } from '../../services/course.service';
 import { TStoreCoursesModule } from '../../store/index.types';
 import { setCourseDetail } from '../../store/reducers/courses.reducer';
 import { getCourseDetail } from '../../store/selectors';
-import { TAuthor, TCourse } from '../../types';
+import { TAuthors, TCourse } from '../../types';
 import { COURSES_MODULE_DATE_REGEXP } from '../../config';
 import { normaliserDateDDMMYYYY } from '../../../common/utils/string';
 
@@ -46,7 +46,7 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 	public formFields = formFields;
 	private subs: Subscription[] = [];
 
-	private authors: TAuthor[];
+	private authors: TAuthors[];
 	private isTopRated: boolean;
 
 	constructor(
@@ -165,12 +165,15 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 	}
 
 	private _getCourse(): TCourse {
+		const course = this.formGroup.value;
+
+		// id, authors, isTopRated not touched because not implemented
 		return {
 			id: this.courseId,
-			name: this.name,
-			description: this.description,
-			date: normaliserDateDDMMYYYY(this.date),
-			length: this.duration,
+			name: course.name,
+			description: course.description,
+			date: normaliserDateDDMMYYYY(course.date),
+			length: course.duration,
 			authors: this.authors || [],
 			isTopRated: this.isTopRated || false,
 		};
