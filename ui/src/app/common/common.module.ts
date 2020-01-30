@@ -9,7 +9,7 @@ import { LoaderComponent } from './components/loader';
 import { RatingComponent } from './components/rating';
 import { SearchInputComponent } from './components/search-input';
 import { StarComponent } from './components/star';
-import { DurationDirective } from './directives/duration';
+import { DurationDirective, DurationObservable } from './directives/duration';
 import { UserService, LoadingService } from './services';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ShortUserInfoComponent } from './components/short-user-info/short-user-info.component';
@@ -19,6 +19,7 @@ import { RedirectService } from './services/redirect';
 
 const components = [
 	DurationDirective,
+	DurationObservable,
 	RatingComponent,
 	StarComponent,
 	SearchInputComponent,

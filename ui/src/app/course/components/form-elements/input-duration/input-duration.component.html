@@ -1,5 +1,12 @@
 <div class="d-block">
-	<span class="badge badge-info" [duration]="formControl.value"></span>
+	<span class="badge badge-info">
+		<span
+			*ngIf="formControl.valueChanges|async"
+			[durationObservable]="formControl.valueChanges"></span>
+		<span
+			*ngIf="!(formControl.valueChanges|async)&&formControl.value"
+			[duration]="formControl.value"></span>
+	</span>
 	<input
 		[formControl]="formControl"
 		[name]="name"
