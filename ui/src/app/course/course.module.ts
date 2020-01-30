@@ -23,7 +23,6 @@ import { myCoursesReducers } from './store/reducers/courses.reducer';
 import { COURSES_MODULE_NAME } from './config';
 import { InputDurationComponent } from './components/form-elements';
 import { DurationValidatorDirective } from './components/form-falidators/duration-validator.directive';
-import { AuthorService } from './services/author.service';
 
 @NgModule({
 	declarations: [
@@ -61,8 +60,7 @@ import { AuthorService } from './services/author.service';
 	],
 	providers: [
 		DatePipe,
-		CourseService,
-		AuthorService,
+		CourseService
 	]
 })
 export class CourseModule {
