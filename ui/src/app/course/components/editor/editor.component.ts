@@ -10,10 +10,9 @@ import { CourseService } from '../../services/course.service';
 import { TStoreCoursesModule } from '../../store/index.types';
 import { setCourseDetail } from '../../store/reducers/courses.reducer';
 import { getCourseDetail } from '../../store/selectors';
-import { TAuthors, TCourse } from '../../types';
+import { TAuthor, TCourse } from '../../types';
 import { COURSES_MODULE_DATE_REGEXP } from '../../config';
 import { normaliserDateDDMMYYYY } from '../../../common/utils/string';
-import { DurationValidators } from '../form-elements';
 
 export enum CourseEditorMode {
 	ADD = 'ADD',
@@ -47,7 +46,7 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 	public formFields = formFields;
 	private subs: Subscription[] = [];
 
-	private authors: TAuthors[];
+	private authors: TAuthor[];
 	private isTopRated: boolean;
 
 	constructor(
@@ -100,7 +99,7 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 
 	public onSubmit() {
 		if (confirm('U`re sure?')) {
-		this._onSubmit();
+			this._onSubmit();
 		}
 	}
 
@@ -130,25 +129,17 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 		this.formGroup.get(formFields.duration).setValue(duration);
 	}
 
-	set date(date: string) {
+	private _prepareDate(date: string): string {
 		const dateTime = new Date(date || new Date().getFullYear() + '-01-01T00:00:00');
-		const prepareDate = this._datePipe.transform(dateTime, 'dd/MM/yyyy');
-		this.formGroup.get(formFields.date).setValue(prepareDate);
+		return this._datePipe.transform(dateTime, 'dd/MM/yyyy');
 	}
 
-	set description(description: string) {
-		this.formGroup.get(formFields.description).setValue(description);
-	}
 
 	// endregion
 
 	// region getters
 	get name(): string {
 		return this.formGroup.get(formFields.name).value;
-	}
-
-	get duration(): number {
-		return this.formGroup.get(formFields.duration).value;
 	}
 
 	get date(): string {
@@ -162,15 +153,14 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 	// endregion
 
 	private _setCourse(course: TCourse) {
-		this.name = course.name;
-		this.description = course.description;
-		this.date = course.date;
-		this.duration = course.length;
-		this.authors = course.authors;
-		this.isTopRated = course.isTopRated;
-
-		// console.log('course:', course);
-		// this.course = new CourseFormControl(course);
+		this.formGroup.patchValue({
+			name: course.name,
+			description: course.description,
+			date: this._prepareDate(course.date),
+			duration: course.length,
+			authors: course.authors,
+			isTopRated: course.isTopRated,
+		});
 		this._cdRef.markForCheck();
 	}
 
@@ -200,14 +190,12 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 	}
 
 	private _onSubscribeAdd(course: TCourse) {
-		alert(`Success updated course "${course.name}"`);
 		this._stopLoading();
 		this.doAfterSave(course);
 		this._cdRef.markForCheck();
 	}
 
 	private _onSubscribeUpdate(course: TCourse) {
-		alert(`Success updated course "${course.name}"`);
 		this._stopLoading();
 		this.doAfterSave(course);
 		this._cdRef.markForCheck();
