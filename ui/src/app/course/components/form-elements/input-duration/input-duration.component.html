@@ -1,16 +1,19 @@
-<input
-	[formControl]="formControl"
-	[name]="name"
-	[id]="id"
-	(blur)="onTouched()"
-	[disabled]="disabled"
-	[placeholder]="placeholder"
-	type="number"
-	class="form-control"
-/>
+<div class="d-block">
+	<span class="badge badge-info" [duration]="formControl.value"></span>
+	<input
+		[formControl]="formControl"
+		[name]="name"
+		[id]="id"
+		(blur)="onTouched()"
+		[disabled]="disabled"
+		[placeholder]="placeholder"
+		type="number"
+		class="form-control"
+	/>
 
-<app-errors-input
-	*ngIf="formControl.touched"
-	[errors]="formControl.errors"
-	[fieldName]="fieldName"
-></app-errors-input>
+	<app-errors-input
+		*ngIf="formControl.touched"
+		[errors]="formControl.errors"
+		[fieldName]="fieldName"
+	></app-errors-input>
+</div>

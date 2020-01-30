@@ -1,11 +1,5 @@
 import { Component, forwardRef, Input } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ValidatorFn, Validators } from '@angular/forms';
-
-export const DurationValidators: ValidatorFn[] = [
-	Validators.min(0),
-	Validators.max(999999),
-	Validators.pattern(/^\d+$/),
-];
+import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
 	selector: 'app-input-duration',
@@ -39,7 +33,6 @@ export class InputDurationComponent implements ControlValueAccessor {
 	}
 
 	registerOnChange(fn: (value: any) => void): void {
-		console.log('----');
 		this._onChange = fn;
 	}
 
@@ -48,12 +41,10 @@ export class InputDurationComponent implements ControlValueAccessor {
 	}
 
 	setDisabledState(isDisabled: boolean): void {
-		console.log('setDisabledState:isDisabled:', isDisabled);
 		this.disabled = isDisabled;
 	}
 
 	writeValue(obj: any): void {
-		console.log('writeValue:obj:', obj);
 		this.value = obj;
 	}
 }

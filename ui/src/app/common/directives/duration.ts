@@ -35,9 +35,9 @@ export class DurationDirective {
 		const minutes = _.toInteger(duration / secondsInMinutes);
 		const seconds = duration - minutes * secondsInMinutes;
 
-		text += hours > 0 ? `${hours}h:` : '';
-		text += minutes > 0 ? `${minutes}min:` : '';
+		text += hours > 0 ? `${hours}h : ` : '';
+		text += minutes > 0 ? `${minutes}min : ` : '';
 		text += seconds > 0 ? `${seconds}s` : '';
-		return _.trim(text, ':');
+		return _.trim(_.trim(text), ':');
 	}
 }
