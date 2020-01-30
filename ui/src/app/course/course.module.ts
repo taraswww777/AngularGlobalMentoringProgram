@@ -24,7 +24,6 @@ import { COURSES_MODULE_NAME } from './config';
 import { InputDurationComponent } from './components/form-elements';
 import { DurationValidatorDirective } from './components/form-falidators/duration-validator.directive';
 import { AuthorService } from './services/author.service';
-import { AuthorMultiChoiceComponent } from './components/author-multi-choice/author-multi-choice.component';
 
 @NgModule({
 	declarations: [
@@ -42,7 +41,6 @@ import { AuthorMultiChoiceComponent } from './components/author-multi-choice/aut
 		CourseDetailComponent,
 		InputDurationComponent,
 		DurationValidatorDirective,
-		AuthorMultiChoiceComponent,
 	],
 	imports: [
 		CommonModule,
