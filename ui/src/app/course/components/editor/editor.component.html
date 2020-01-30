@@ -12,6 +12,12 @@
 						type="text"
 						id="name"
 						name="name">
+
+					<app-errors-input
+						*ngIf="formGroup.controls.name.touched"
+						[errors]="formGroup.controls.name.errors"
+						[fieldName]="'name'"
+					></app-errors-input>
 				</div>
 			</div>
 			<div class="col-12">
@@ -22,6 +28,12 @@
 						[formControlName]="formFields.description"
 						id="description"
 						name="description"></textarea>
+
+					<app-errors-input
+						*ngIf="formGroup.controls.description.touched"
+						[errors]="formGroup.controls.description.errors"
+						[fieldName]="'description'"
+					></app-errors-input>
 				</div>
 			</div>
 			<div class="col-12">
@@ -32,6 +44,12 @@
 						[formControlName]="formFields.date"
 						type="text"
 						id="date" name="date">
+
+					<app-errors-input
+						*ngIf="formGroup.controls.date.touched"
+						[errors]="formGroup.controls.date.errors"
+						[fieldName]="'date'"
+					></app-errors-input>
 				</div>
 			</div>
 			<div class="col-12">

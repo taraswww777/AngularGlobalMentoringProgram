@@ -74,11 +74,11 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 
 	private _createFormGroup() {
 		this.formGroup = this._formBuilder.group({
-			[formFields.name]: ['name...', [Validators.maxLength(50), Validators.required]],
-			[formFields.description]: ['description...', [
+			[formFields.name]: ['', [Validators.maxLength(50), Validators.required]],
+			[formFields.description]: ['', [
 				Validators.maxLength(500), Validators.required]
 			],
-			[formFields.date]: ['13/05/2019', [
+			[formFields.date]: [this._dateFormat(new Date()), [
 				Validators.pattern(COURSES_MODULE_DATE_REGEXP),
 				Validators.maxLength(10),
 				Validators.required,
@@ -131,7 +131,11 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 
 	private _prepareDate(date: string): string {
 		const dateTime = new Date(date || new Date().getFullYear() + '-01-01T00:00:00');
-		return this._datePipe.transform(dateTime, 'dd/MM/yyyy');
+		return this._dateFormat(dateTime);
+	}
+
+	private _dateFormat(date: Date): string {
+		return this._datePipe.transform(date, 'dd/MM/yyyy');
 	}
 
 
