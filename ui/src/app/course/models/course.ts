@@ -1,5 +1,5 @@
 import { FormControl, Validators } from '@angular/forms';
-import { TCourse, TAuthors } from '../types';
+import { TCourse, TAuthor } from '../types';
 import validate = WebAssembly.validate;
 
 export interface ICourse {
@@ -54,7 +54,7 @@ export class CourseFormControl {
 	public length: FormControl;
 	public isTopRated: FormControl;
 	public description: FormControl;
-	public authors: TAuthors[];
+	public authors: TAuthor[];
 
 	constructor(course: Partial<TCourse> = {}) {
 		this.id = new FormControl(course.id || 0);

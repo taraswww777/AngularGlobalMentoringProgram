@@ -10,7 +10,7 @@ import { CourseService } from '../../services/course.service';
 import { TStoreCoursesModule } from '../../store/index.types';
 import { setCourseDetail } from '../../store/reducers/courses.reducer';
 import { getCourseDetail } from '../../store/selectors';
-import { TAuthors, TCourse } from '../../types';
+import { TAuthor, TCourse } from '../../types';
 import { COURSES_MODULE_DATE_REGEXP } from '../../config';
 import { normaliserDateDDMMYYYY } from '../../../common/utils/string';
 import { DurationValidators } from '../form-elements';
@@ -47,7 +47,7 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 	public formFields = formFields;
 	private subs: Subscription[] = [];
 
-	private authors: TAuthors[];
+	private authors: TAuthor[];
 	private isTopRated: boolean;
 
 	constructor(

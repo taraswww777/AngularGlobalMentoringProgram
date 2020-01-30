@@ -1,5 +1,5 @@
 
-export type TAuthors = {
+export type TAuthor = {
 	id: number;
 	name: string;
 	lastName: string;
@@ -11,6 +11,6 @@ export type TCourse = {
 	description: string;
 	isTopRated: boolean;
 	date: string;
-	authors: TAuthors[];
+	authors: TAuthor[];
 	length: number;
 };

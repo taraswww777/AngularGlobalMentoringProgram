@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { TAuthors, TCourse } from '../types';
+import { TAuthor, TCourse } from '../types';
 import { joinUrl } from '../../common/utils/string';
 import { BASE_URL } from '../../common/consts';
 
@@ -16,10 +16,10 @@ export class AuthorService {
 	constructor(private _httpClient: HttpClient) {
 	}
 
-	public getAuthors(): Observable<TAuthors[]> {
+	public getAuthors(): Observable<TAuthor[]> {
 		let prepareParams = {};
 
-		return this._httpClient.get<TAuthors[]>(this._baseUrl, {
+		return this._httpClient.get<TAuthor[]>(this._baseUrl, {
 			params: prepareParams
 		});
 	}
