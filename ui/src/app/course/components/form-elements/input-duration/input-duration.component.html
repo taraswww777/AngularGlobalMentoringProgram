@@ -1,0 +1,26 @@
+<div class="d-block">
+	<span class="badge badge-info">
+		<span
+			*ngIf="formControl.valueChanges|async"
+			[durationObservable]="formControl.valueChanges"></span>
+		<span
+			*ngIf="!(formControl.valueChanges|async)&&formControl.value"
+			[duration]="formControl.value"></span>
+	</span>
+	<input
+		[formControl]="formControl"
+		[name]="name"
+		[id]="id"
+		(blur)="onTouched()"
+		[disabled]="disabled"
+		[placeholder]="placeholder"
+		type="number"
+		class="form-control"
+	/>
+
+	<app-errors-input
+		*ngIf="formControl.touched"
+		[errors]="formControl.errors"
+		[fieldName]="fieldName"
+	></app-errors-input>
+</div>

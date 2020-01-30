@@ -1,21 +1,6 @@
-import { FormControl } from '@angular/forms';
-
-export type TAuthors = {
-	id: number;
-	name: string;
-	lastName: string;
-}
-
-export type TCourse = {
-	id: number;
-	name: string;
-	description: string;
-	isTopRated: boolean;
-	date: string;
-	authors: TAuthors[];
-	length: number;
-};
-
+import { FormControl, Validators } from '@angular/forms';
+import { TCourse, TAuthors } from '../types';
+import validate = WebAssembly.validate;
 
 export interface ICourse {
 	id: number;
@@ -73,11 +58,17 @@ export class CourseFormControl {
 
 	constructor(course: Partial<TCourse> = {}) {
 		this.id = new FormControl(course.id || 0);
-		this.name = new FormControl(course.name || '');
-		this.date = new FormControl(new Date(course.date || '2019-01-01T00:00:00'));
-		this.length = new FormControl(course.length || 0);
+		this.name = new FormControl(course.name || '',[
+			Validators.max(50)
+		]);
+		this.date = new FormControl(course.date || '2019-01-01T00:00:00');
+		this.length = new FormControl(course.length || 0,[
+			Validators.pattern(/d$/)
+		]);
 		this.isTopRated = new FormControl(course.isTopRated || false);
-		this.description = new FormControl(course.description || '');
+		this.description = new FormControl(course.description || '',[
+			Validators.max(500)
+		]);
 		this.authors = course.authors || [];
 	}
 

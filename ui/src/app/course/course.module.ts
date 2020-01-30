@@ -1,8 +1,10 @@
+import { DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
 
 import { CommonModule } from '../common/common.module';
 import { CourseAddComponent } from './components/btn-add/btn-add.component';
@@ -17,6 +19,10 @@ import { CourseListComponent } from './components/list/list.component';
 import { CoursePageDetailComponent, CoursePageEditorComponent, CoursePageListComponent } from './pages';
 import { COURSE_ROUTES } from './routes';
 import { CourseService } from './services/course.service';
+import { myCoursesReducers } from './store/reducers/courses.reducer';
+import { COURSES_MODULE_NAME } from './config';
+import { InputDurationComponent } from './components/form-elements';
+import { DurationValidatorDirective } from './components/form-falidators/duration-validator.directive';
 
 @NgModule({
 	declarations: [
@@ -32,6 +38,8 @@ import { CourseService } from './services/course.service';
 		CoursePageDetailComponent,
 		CoursePageEditorComponent,
 		CourseDetailComponent,
+		InputDurationComponent,
+		DurationValidatorDirective,
 	],
 	imports: [
 		CommonModule,
@@ -39,6 +47,7 @@ import { CourseService } from './services/course.service';
 		FormsModule,
 		ReactiveFormsModule,
 		RouterModule.forChild(COURSE_ROUTES),
+		StoreModule.forFeature(COURSES_MODULE_NAME, myCoursesReducers),
 		HttpClientModule
 	],
 	exports: [
@@ -50,6 +59,7 @@ import { CourseService } from './services/course.service';
 		CoursePageEditorComponent,
 	],
 	providers: [
+		DatePipe,
 		CourseService
 	]
 })

@@ -1,0 +1,9 @@
+<div *ngIf="errors" class="alert alert-danger">
+	<ol class="m-0">
+		<li *ngIf="errors.required">Field {{fieldName && '"' + fieldName + '"'}} required</li>
+		<li *ngIf="errors.onlyNumbers">Field {{fieldName && '"' + fieldName + '"'}} must be clear number</li>
+		<li *ngIf="errors.max">Max: {{errors.max.max}}</li>
+		<li *ngIf="errors.min">Min: {{errors.min.min}}</li>
+		<li *ngIf="errors.pattern">Pattern: {{errors.pattern.requiredPattern}}</li>
+	</ol>
+</div>

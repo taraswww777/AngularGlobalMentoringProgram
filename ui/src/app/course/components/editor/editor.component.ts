@@ -1,13 +1,31 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs/internal/Subscription';
-import { arrayUnsubscribe } from '../../../common/utils/array';
-import { CourseFormControl, TCourse } from '../../models/course';
 import _ from 'lodash';
+import { DatePipe } from '@angular/common';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { select, Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/internal/Subscription';
+
+import { arrayUnsubscribe } from '../../../common/utils/array';
 import { CourseService } from '../../services/course.service';
+import { TStoreCoursesModule } from '../../store/index.types';
+import { setCourseDetail } from '../../store/reducers/courses.reducer';
+import { getCourseDetail } from '../../store/selectors';
+import { TAuthors, TCourse } from '../../types';
+import { COURSES_MODULE_DATE_REGEXP } from '../../config';
+import { normaliserDateDDMMYYYY } from '../../../common/utils/string';
 
 export enum CourseEditorMode {
 	ADD = 'ADD',
 	EDIT = 'EDIT',
+}
+
+enum formFields {
+	name = 'name',
+	description = 'description',
+	date = 'date',
+	duration = 'duration',
+	isTopRated = 'isTopRated',
+	authors = 'authors'
 }
 
 @Component({
@@ -22,14 +40,23 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 
 	public titleSubmit: string = 'Сохранить';
 	public titleEditor: string = 'Создание';
-	public course: CourseFormControl = new CourseFormControl();
+	public course: TCourse;
 	public isLoading = false;
+	public formGroup: FormGroup;
+	public formFields = formFields;
 	private subs: Subscription[] = [];
+
+	private authors: TAuthors[];
+	private isTopRated: boolean;
 
 	constructor(
 		private _cdRef: ChangeDetectorRef,
 		private _courseService: CourseService,
+		private _store: Store<TStoreCoursesModule>,
+		private _formBuilder: FormBuilder,
+		private _datePipe: DatePipe,
 	) {
+		this._createFormGroup();
 	}
 
 	ngOnInit() {
@@ -38,12 +65,36 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 
 		if (this._isEditMode()) {
 			this._startLoading();
-
-			this.subs.push(
-				this._courseService.getCourse(this.courseId)
-					.subscribe((course: TCourse) => this._setCourse(course), this._handleNotFound.bind(this))
-			);
+			this._store.pipe(select(getCourseDetail)).subscribe((course: TCourse) => {
+				this._setCourse(course);
+			});
+			this._loadCourse();
 		}
+	}
+
+	private _createFormGroup() {
+		this.formGroup = this._formBuilder.group({
+			[formFields.name]: ['', [Validators.maxLength(50), Validators.required]],
+			[formFields.description]: ['', [
+				Validators.maxLength(500), Validators.required]
+			],
+			[formFields.date]: [this._dateFormat(new Date()), [
+				Validators.pattern(COURSES_MODULE_DATE_REGEXP),
+				Validators.maxLength(10),
+				Validators.required,
+			]],
+			[formFields.duration]: [null]
+		});
+	}
+
+	private _loadCourse() {
+		this.subs.push(
+			this._courseService.getCourse(this.courseId)
+				.subscribe((course: TCourse) => {
+					this._store.dispatch(setCourseDetail({ payload: course }));
+					this._stopLoading();
+				}, this._handleNotFound.bind(this))
+		);
 	}
 
 	public onSubmit() {
@@ -53,23 +104,83 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 	}
 
 	private _onSubmit() {
-		const course = this.course.toJsonObject();
+		const course = this._getCourse();
+
 		if (this._isEditMode()) {
 			this._startLoading();
-			this.subs.push(this._courseService.updateCourse(this.courseId, course)
-				.subscribe((course: TCourse) => this._onSubscribeUpdate(course), this._handleNotFound.bind(this))
+			this.subs.push(
+				this._courseService.updateCourse(this.courseId, course)
+					.subscribe((course: TCourse) => this._onSubscribeUpdate(course), this._handleNotFound.bind(this))
 			);
 		} else {
-			this.subs.push(this._courseService.addCourse(course)
-				.subscribe((course: TCourse) => this._onSubscribeAdd(course), this._handleNotFound.bind(this))
+			this.subs.push(
+				this._courseService.addCourse(course)
+					.subscribe((course: TCourse) => this._onSubscribeAdd(course), this._handleNotFound.bind(this))
 			);
 		}
 	}
 
+	// region setters
+	set name(name: string) {
+		this.formGroup.get(formFields.name).setValue(name);
+	}
+
+	set duration(duration: number) {
+		this.formGroup.get(formFields.duration).setValue(duration);
+	}
+
+	private _prepareDate(date: string): string {
+		const dateTime = new Date(date || new Date().getFullYear() + '-01-01T00:00:00');
+		return this._dateFormat(dateTime);
+	}
+
+	private _dateFormat(date: Date): string {
+		return this._datePipe.transform(date, 'dd/MM/yyyy');
+	}
+
+
+	// endregion
+
+	// region getters
+	get name(): string {
+		return this.formGroup.get(formFields.name).value;
+	}
+
+	get date(): string {
+		return this.formGroup.get(formFields.date).value;
+	}
+
+	get description(): string {
+		return this.formGroup.get(formFields.description).value;
+	}
+
+	// endregion
+
 	private _setCourse(course: TCourse) {
-		this.course = new CourseFormControl(course);
-		this._stopLoading();
+		this.formGroup.patchValue({
+			name: course.name,
+			description: course.description,
+			date: this._prepareDate(course.date),
+			duration: course.length,
+			authors: course.authors,
+			isTopRated: course.isTopRated,
+		});
 		this._cdRef.markForCheck();
+	}
+
+	private _getCourse(): TCourse {
+		const course = this.formGroup.value;
+
+		// id, authors, isTopRated not touched because not implemented
+		return {
+			id: this.courseId,
+			name: course.name,
+			description: course.description,
+			date: normaliserDateDDMMYYYY(course.date),
+			length: course.duration,
+			authors: this.authors || [],
+			isTopRated: this.isTopRated || false,
+		};
 	}
 
 	private _handleNotFound() {
@@ -86,14 +197,12 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 	}
 
 	private _onSubscribeAdd(course: TCourse) {
-		alert(`Success updated course "${course.name}"`);
 		this._stopLoading();
 		this.doAfterSave(course);
 		this._cdRef.markForCheck();
 	}
 
 	private _onSubscribeUpdate(course: TCourse) {
-		alert(`Success updated course "${course.name}"`);
 		this._stopLoading();
 		this.doAfterSave(course);
 		this._cdRef.markForCheck();

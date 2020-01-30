@@ -4,4 +4,4 @@
 	</div>
 </div>
 
-<app-course-detail *ngIf="!isLoading" [course]="course"></app-course-detail>
+<app-course-detail *ngIf="!isLoading" [course]="course|async"></app-course-detail>

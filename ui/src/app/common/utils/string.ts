@@ -5,3 +5,11 @@ export function joinUrl(url: string | string[]) {
 		_.trim(urlPart, '/')
 	)), '/') : url;
 }
+
+
+export function normaliserDateDDMMYYYY(date: string): string {
+	const resultDate = 'T00:00:01+00:00';
+	const [day, month, year] = _.split(date, '/');
+
+	return `${year}-${month}-${day}${resultDate}`;
+}

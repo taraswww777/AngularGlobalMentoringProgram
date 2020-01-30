@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TCourse } from '../../models/course';
+import { TCourse } from '../../types';
 import { CourseItemComponent } from './item.component';
 
 

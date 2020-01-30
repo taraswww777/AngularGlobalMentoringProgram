@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TCourse } from '../../models/course';
+import { TCourse } from '../../types';
 
 @Component({
 	selector: 'app-course-detail',

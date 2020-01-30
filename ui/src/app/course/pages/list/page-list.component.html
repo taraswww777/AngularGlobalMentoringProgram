@@ -14,12 +14,10 @@
 	</div>
 	<div class="col-12">
 		<courses-list
-			[listCourses]="listCourses"
+			[listCourses]="listCourses|async"
 			[refreshListCourses]="refreshListCourses.bind(this)"></courses-list>
 	</div>
 	<div class="col-12 text-center">
-		<courses-load-more
-			[loadMore]="loadMore.bind(this)"
-			[listCourses]="listCourses"></courses-load-more>
+		<courses-load-more [loadMore]="loadMore.bind(this)"></courses-load-more>
 	</div>
 </div>

@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TCourse } from '../../models/course';
 import _ from 'lodash';
 
 @Component({
@@ -9,7 +8,6 @@ import _ from 'lodash';
 })
 export class CourseLoadMoreComponent implements OnInit {
 	public showLoader: boolean = false;
-	@Input() public listCourses: TCourse[] = [];
 	@Input() public loadMore: () => void = _.noop;
 
 	ngOnInit() {

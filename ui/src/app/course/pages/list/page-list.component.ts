@@ -1,10 +1,14 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { arrayUnsubscribe } from '../../../common/utils/array';
-import { TCourse } from '../../models/course';
+import { setCoursesList } from '../../store/reducers/courses.reducer';
+import { TCourse } from '../../types';
 import { CourseService } from '../../services/course.service';
 import { LoadingService } from 'src/app/common/services';
+import { TStoreCoursesModule } from '../../store/index.types';
+import { getCoursesList } from '../../store/selectors';
 
 @Component({
 	selector: 'app-page-courses',
@@ -12,25 +16,27 @@ import { LoadingService } from 'src/app/common/services';
 	styleUrls: ['./page-list.component.css',]
 })
 export class CoursePageListComponent implements OnInit, OnDestroy {
-	public listCourses: TCourse[] = [];
+	public listCourses: Observable<TCourse[]>;
 	private subs: Subscription[] = [];
 	public paginationPage: number = 0;
-	public paginationPageSize: number = 25;
+	public paginationPageSize: number = 5;
 	public searchString?: string = undefined;
 
 	constructor(
 		private _cdRef: ChangeDetectorRef,
 		private _courseService: CourseService,
 		private _loadingService: LoadingService,
+		private _store: Store<TStoreCoursesModule>,
 	) {
 		this.refreshListCourses();
 	}
 
-	public get isLoading(){
+	public get isLoading() {
 		return this._loadingService.isLoading;
 	}
 
 	ngOnInit() {
+		this.listCourses = this._store.pipe(select(getCoursesList));
 	}
 
 	public onStartSearch(search: string) {
@@ -41,6 +47,7 @@ export class CoursePageListComponent implements OnInit, OnDestroy {
 
 	public refreshListCourses() {
 		this.paginationPage = 0;
+
 		this.subs.push(this._loadMore().subscribe(this._setListCourses.bind(this)));
 	}
 
@@ -60,7 +67,7 @@ export class CoursePageListComponent implements OnInit, OnDestroy {
 	}
 
 	private _setListCourses(courses: TCourse[]) {
-		this.listCourses = courses;
+		this._store.dispatch(setCoursesList({ payload: courses }));
 		this._loadingService.finishRequest();
 		this._cdRef.markForCheck();
 	}
